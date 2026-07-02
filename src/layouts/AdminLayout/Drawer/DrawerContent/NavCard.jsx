@@ -1,67 +1,45 @@
-import PropTypes from 'prop-types';
-
 // @mui
-import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 // @project
-import LogoSection from '@/components/logo';
 import MainCard from '@/components/MainCard';
-import RouterLink from '@/components/Link';
-import { AvatarSize } from '@/enum';
+import { useNavigate } from 'react-router-dom';
+import useSubscription from '@/hooks/useSubscription';
+import { PLAN_ORDER, PLAN_META } from '@/config/entitlements';
 
-// @assets
-import { IconBolt } from '@tabler/icons-react';
-
-/***************************  NAVIGATION CARD - DATA  ***************************/
-
-const data = {
-  title: 'Upgrade Your Experience',
-  description: 'Take your experience to the next level with our premium offering. Buy now and enjoy more!',
-  icon: <IconBolt size={16} />
-};
-
-/***************************  NAVIGATION CARD - CONTENT  ***************************/
-
-function CardContent({ title, description, icon }) {
-  return (
-    <Stack sx={{ gap: 3 }}>
-      <Stack direction="row" sx={{ gap: 0.25, alignItems: 'center' }}>
-        <Avatar variant="rounded" size={AvatarSize.XS} sx={{ bgcolor: 'transparent' }}>
-          <LogoSection isIcon sx={{ '& .MuiBox-root': { width: 'auto', height: 'auto' } }} />
-        </Avatar>
-        <Typography variant="body2">{import.meta.env.VITE_APP_VERSION}</Typography>
-      </Stack>
-      <Stack sx={{ gap: 1, alignItems: 'flex-start', textWrap: 'wrap' }}>
-        <Typography variant="subtitle1">{title}</Typography>
-        <Typography variant="caption" color="text.secondary">
-          {description}
-        </Typography>
-        <Button
-          startIcon={icon}
-          variant="contained"
-          component={RouterLink}
-          to={import.meta.env.VITE_APP_BUY_URL}
-          target="_blank"
-          sx={{ mt: 0.5 }}
-        >
-          Buy Now
-        </Button>
-      </Stack>
-    </Stack>
-  );
-}
-
-/***************************  DRAWER CONTENT - NAVIGATION CARD  ***************************/
+/***************************  DRAWER CONTENT - UPGRADE CARD (plan-aware)  ***************************/
 
 export default function NavCard() {
+  const navigate = useNavigate();
+  const { plan, isLoading } = useSubscription();
+
+  // On the top plan (or still loading) → nothing to upsell.
+  if (isLoading || plan === PLAN_ORDER[PLAN_ORDER.length - 1]) return null;
+
+  const nextId = plan ? PLAN_ORDER[PLAN_ORDER.indexOf(plan) + 1] : PLAN_ORDER[0];
+  const next = PLAN_META[nextId];
+  const headline = plan ? `Upgrade to ${next.name}` : 'Activate your plan';
+  const copy = plan
+    ? `${next.name} adds automation, AI, and deeper support.`
+    : 'Unlock products, services, and the studio behind them.';
+
   return (
-    <MainCard sx={{ p: 1.5, bgcolor: 'grey.50', boxShadow: 'none', mb: 3 }}>
-      <CardContent title={data.title} description={data.description} icon={data.icon} />
+    <MainCard sx={{ p: 2, mb: 3, boxShadow: 'none', background: 'linear-gradient(135deg,#002244,#001B36)', border: 'none' }}>
+      <Stack sx={{ gap: 1.25, alignItems: 'flex-start' }}>
+        <Box sx={{ px: 1, py: 0.25, borderRadius: 1, bgcolor: 'secondary.main' }}>
+          <Typography variant="caption" sx={{ color: '#002244', fontWeight: 700, letterSpacing: '0.04em' }}>
+            {plan ? `${PLAN_META[plan]?.name} → ${next.name}` : 'GET STARTED'}
+          </Typography>
+        </Box>
+        <Typography variant="subtitle1" sx={{ color: '#fff' }}>{headline}</Typography>
+        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>{copy}</Typography>
+        <Button variant="contained" color="secondary" size="small" onClick={() => navigate('/billing')} sx={{ mt: 0.5, color: '#002244', fontWeight: 700 }}>
+          {plan ? `Upgrade — $${next.price.toLocaleString()}/mo` : 'See plans'}
+        </Button>
+      </Stack>
     </MainCard>
   );
 }
-
-CardContent.propTypes = { title: PropTypes.string, description: PropTypes.string, icon: PropTypes.any };

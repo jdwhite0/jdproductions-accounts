@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from '@mui/material/Container';
@@ -22,6 +22,9 @@ export default function DashboardLayout() {
   const { menuMasterLoading } = useGetMenuMaster();
 
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
+  // Full-bleed routes fill the content region edge-to-edge (no Container/padding gutter).
+  const { pathname } = useLocation();
+  const fullBleed = ['/jyson'].includes(pathname);
 
   useEffect(() => {
     handlerDrawerOpen(!downXL);
@@ -33,24 +36,30 @@ export default function DashboardLayout() {
     <Stack direction="row" sx={{ width: 1 }}>
       <Header />
       <Drawer />
-      <Box component="main" sx={{ width: `calc(100% - ${DRAWER_WIDTH}px)`, flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+      <Box component="main" sx={{ width: `calc(100% - ${DRAWER_WIDTH}px)`, flexGrow: 1, p: fullBleed ? 0 : { xs: 2, sm: 3 } }}>
         <Toolbar sx={{ minHeight: { xs: 54, sm: 46, md: 76 } }} />
-        <Box
-          sx={{
-            py: 0.4,
-            px: 1.5,
-            mx: { xs: -2, sm: -3 },
-            display: { xs: 'block', md: 'none' },
-            borderBottom: 1,
-            borderColor: 'divider',
-            mb: 2
-          }}
-        >
-          <Breadcrumbs />
-        </Box>
-        <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2 } }}>
+        {!fullBleed && (
+          <Box
+            sx={{
+              py: 0.4,
+              px: 1.5,
+              mx: { xs: -2, sm: -3 },
+              display: { xs: 'block', md: 'none' },
+              borderBottom: 1,
+              borderColor: 'divider',
+              mb: 2
+            }}
+          >
+            <Breadcrumbs />
+          </Box>
+        )}
+        {fullBleed ? (
           <Outlet />
-        </Container>
+        ) : (
+          <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2 } }}>
+            <Outlet />
+          </Container>
+        )}
       </Box>
     </Stack>
   );

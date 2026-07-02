@@ -1,82 +1,14 @@
-/***************************  MENU ITEMS - APPLICATIONS  ***************************/
+/***************************  MENU ITEMS - SUPPORT  ***************************/
 
 const other = {
-  id: 'group-other',
-  title: 'Other',
-  icon: 'IconDotsVertical',
+  id: 'group-support',
+  title: 'Support',
+  icon: 'IconLifebuoy',
   type: 'group',
   children: [
-    {
-      id: 'changelog',
-      title: 'Changelog',
-      type: 'item',
-      url: 'https://phoenixcoded.gitbook.io/saasable/changelog',
-      target: true,
-      icon: 'IconHistory'
-    },
-    {
-      id: 'documentation',
-      title: 'Documentation',
-      type: 'item',
-      url: 'https://phoenixcoded.gitbook.io/saasable/admin',
-      target: true,
-      icon: 'IconNotes'
-    },
-    {
-      id: 'support',
-      title: 'Support',
-      type: 'item',
-      url: 'https://codedthemes.support-hub.io/',
-      target: true,
-      icon: 'IconLifebuoy'
-    },
-
-    {
-      id: 'menu-levels',
-      title: 'Menu Levels',
-      type: 'collapse',
-      icon: 'IconMenu2',
-      children: [
-        {
-          id: 'menu-level-1.1',
-          title: 'Level 1',
-          type: 'item',
-          url: '#'
-        },
-        {
-          id: 'menu-level-1.2',
-          title: 'Level 1',
-          type: 'collapse',
-          children: [
-            {
-              id: 'menu-level-2.1',
-              title: 'Level 2',
-              type: 'item',
-              url: '#'
-            },
-            {
-              id: 'menu-level-2.2',
-              title: 'Level 2',
-              type: 'collapse',
-              children: [
-                {
-                  id: 'menu-level-3.1',
-                  title: 'Level 3',
-                  type: 'item',
-                  url: '#'
-                },
-                {
-                  id: 'menu-level-3.2',
-                  title: 'Level 3',
-                  type: 'item',
-                  url: '#'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+    { id: 'support', title: 'Help & Support', type: 'item', url: '/support', icon: 'IconLifebuoy' },
+    { id: 'changelog', title: "What's New", type: 'item', url: '/changelog', icon: 'IconHistory' },
+    { id: 'documentation', title: 'Documentation', type: 'item', url: 'https://jdproductions.io/capabilities.html', target: true, icon: 'IconNotes' }
   ]
 };
 

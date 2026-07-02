@@ -17,6 +17,8 @@ const Concierge = Loadable(lazy(() => import('@/views/member/concierge')));
 const Billing = Loadable(lazy(() => import('@/views/member/billing')));
 const EmailPreferences = Loadable(lazy(() => import('@/views/member/email-preferences')));
 const Account = Loadable(lazy(() => import('@/views/member/account')));
+const Support = Loadable(lazy(() => import('@/views/member/support')));
+const Changelog = Loadable(lazy(() => import('@/views/member/changelog')));
 
 // Founder / admin views
 const FounderOverview = Loadable(lazy(() => import('@/views/founder/overview')));
@@ -54,6 +56,8 @@ const MainRoutes = {
     { path: 'billing', element: <Billing /> },
     { path: 'email-preferences', element: <EmailPreferences /> },
     { path: 'account', element: <Account /> },
+    { path: 'support', element: <Support /> },
+    { path: 'changelog', element: <Changelog /> },
 
     // Founder / admin (role-gated)
     {

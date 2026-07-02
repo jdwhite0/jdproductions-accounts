@@ -56,10 +56,9 @@ export default function Jyson() {
 
   return (
     <Box sx={{
-      position: 'relative', borderRadius: 4, overflow: 'hidden',
-      minHeight: 'calc(100vh - 180px)', display: 'flex', flexDirection: 'column',
-      background: 'radial-gradient(110% 90% at 50% 0%, #0d1b2e 0%, #060d18 55%, #04070d 100%)',
-      border: '1px solid rgba(255,194,14,0.12)'
+      position: 'relative', overflow: 'hidden',
+      height: 'calc(100vh - 76px)', display: 'flex', flexDirection: 'column',
+      background: 'radial-gradient(110% 90% at 50% 0%, #0d1b2e 0%, #060d18 55%, #04070d 100%)'
     }}>
       {/* ambient glow */}
       <Box sx={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(40% 30% at 50% 105%, rgba(255,194,14,0.10), transparent 70%)' }} />
