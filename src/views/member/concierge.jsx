@@ -37,6 +37,23 @@ export default function Concierge() {
   return (
     <Box>
       <PageHead eyebrow="Concierge" title="Talk to the studio." subtitle="Your direct line to JD Productions — requests, changes, and support, handled by the team that builds." />
+      <Card variant="outlined" sx={{ borderRadius: 3, maxWidth: 680, mb: 3, background: 'linear-gradient(120deg,#002244,#001B36)' }}>
+        <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ alignItems: { sm: 'center' }, justifyContent: 'space-between', gap: 2 }}>
+            <Box>
+              <Typography variant="h4" sx={{ color: '#fff' }}>Reach HQ directly.</Typography>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.65)', mt: 0.5 }}>
+                The front desk answers members first. Call or text — a real line into the studio.
+              </Typography>
+            </Box>
+            <Stack direction="row" spacing={1.5}>
+              <Button variant="contained" color="secondary" href="tel:+16788463374" sx={{ color: '#002244', fontWeight: 700, whiteSpace: 'nowrap' }}>Call HQ</Button>
+              <Button variant="outlined" href="sms:+16788463374" sx={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)', whiteSpace: 'nowrap' }}>Text HQ</Button>
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
+
       <Card variant="outlined" sx={{ borderRadius: 3, maxWidth: 680 }}>
         <CardContent sx={{ p: { xs: 3, md: 4 } }}>
           {status === 'sent' && <Alert severity="success" sx={{ mb: 2 }}>Got it — the studio will follow up shortly.</Alert>}

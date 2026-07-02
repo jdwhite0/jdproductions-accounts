@@ -9,6 +9,7 @@ import RoleGuard from '@/routes/RoleGuard';
 
 // Member views
 const Overview = Loadable(lazy(() => import('@/views/member/overview')));
+const Jyson = Loadable(lazy(() => import('@/views/member/jyson')));
 const Products = Loadable(lazy(() => import('@/views/member/products')));
 const TheMode = Loadable(lazy(() => import('@/views/member/the-mode')));
 const Services = Loadable(lazy(() => import('@/views/member/services')));
@@ -45,6 +46,7 @@ const MainRoutes = {
 
     // Member
     { path: 'dashboard', element: <Overview /> },
+    { path: 'jyson', element: <Jyson /> },
     { path: 'products', element: <Products /> },
     { path: 'the-mode', element: <TheMode /> },
     { path: 'services', element: <Services /> },

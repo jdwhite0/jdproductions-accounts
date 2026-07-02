@@ -3,6 +3,7 @@ const workspace = {
   id: 'group-workspace', title: 'Workspace', icon: 'IconBrandAsana', type: 'group',
   children: [
     { id: 'overview', title: 'Overview', type: 'item', url: '/dashboard', icon: 'IconLayoutGrid' },
+    { id: 'jyson', title: 'JYSON', type: 'item', url: '/jyson', icon: 'IconSparkles' },
     { id: 'products', title: 'Products & Access', type: 'item', url: '/products', icon: 'IconApps' },
     { id: 'the-mode', title: 'The Mode', type: 'item', url: '/the-mode', icon: 'IconNews' },
     { id: 'services', title: 'My Services', type: 'item', url: '/services', icon: 'IconBolt' },

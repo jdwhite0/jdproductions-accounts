@@ -46,6 +46,21 @@ export default function Services() {
                     <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>{s.progress}% complete</Typography>
                   </>
                 )}
+                {Array.isArray(s.milestones) && s.milestones.length > 0 && (
+                  <Box sx={{ mt: 2.5, pl: 0.5 }}>
+                    {s.milestones.map((m, mi) => (
+                      <Stack key={mi} direction="row" spacing={1.5} sx={{ alignItems: 'flex-start', position: 'relative', pb: mi < s.milestones.length - 1 ? 2 : 0 }}>
+                        <Box sx={{ mt: '5px', width: 10, height: 10, borderRadius: '50%', flexShrink: 0,
+                          bgcolor: m.done ? 'success.main' : 'grey.400',
+                          boxShadow: m.done ? '0 0 0 3px rgba(34,137,47,0.15)' : 'none' }} />
+                        <Box>
+                          <Typography variant="body2" sx={{ fontWeight: 600, color: m.done ? 'text.primary' : 'text.secondary' }}>{m.title}</Typography>
+                          {m.date && <Typography variant="caption" color="text.secondary">{m.date}</Typography>}
+                        </Box>
+                      </Stack>
+                    ))}
+                  </Box>
+                )}
               </CardContent>
             </Card>
           ))}

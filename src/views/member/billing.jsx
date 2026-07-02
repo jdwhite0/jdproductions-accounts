@@ -94,6 +94,23 @@ export default function Billing() {
         </Card>
       )}
 
+      <Card variant="outlined" sx={{ borderRadius: 3, mb: 3, borderColor: 'secondary.main' }}>
+        <CardContent>
+          <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ alignItems: { sm: 'center' }, justifyContent: 'space-between', gap: 2 }}>
+            <Box>
+              <Typography variant="h4">Give a month, get a month.</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, maxWidth: 480 }}>
+                Know a founder who should be building with the studio? Send them your referral — when they subscribe, you both get a month free. Codes apply at checkout.
+              </Typography>
+            </Box>
+            <Button variant="outlined" color="primary" sx={{ whiteSpace: 'nowrap' }}
+              href={`mailto:?subject=${encodeURIComponent('You should see what JD Productions builds')}&body=${encodeURIComponent('I use JD Productions — an AI-native venture studio that builds and operates real systems. Start here: https://accounts.jdproductions.io/auth/register — mention my name at checkout and we both get a month free.')}`}>
+              Share your referral
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+
       <Card variant="outlined" sx={{ borderRadius: 3 }}>
         <CardContent>
           <Typography variant="h4" sx={{ mb: 1 }}>Invoices</Typography>
