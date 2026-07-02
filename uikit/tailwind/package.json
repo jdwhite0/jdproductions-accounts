@@ -17,12 +17,12 @@
     "graceful-fs": "^4.2.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.3",
+    "@babel/core": "^8.0.1",
     "@babel/helper-environment-visitor": "^7.22.20",
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
-    "gulp-babel": "^8.0.0",
+    "gulp-babel": "^8.1.0",
     "gulp-cssbeautify": "^3.0.1",
     "gulp-cssmin": "^0.2.0",
     "gulp-htmlmin": "^5.0.1",
@@ -44,7 +44,7 @@
     "gulp-postcss": "^9.0.1",
     "gulp-sourcemaps": "^3.0.0",
     "motion": "^12.4.10",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.10",
     "tailwindcss": "^4.1.2",
     "tiny-slider": "^2.9.4",
     "vanilla-marquee": "^1.1.2"
