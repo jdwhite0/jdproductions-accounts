@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useAuth } from '@clerk/clerk-react';
 
-const API = 'https://app-iota-inky-62.vercel.app/api/saas';
+const API = 'https://getaccess.world/api/saas';
 
 /** Live subscription state from Stripe (via access-app). */
 export default function useSubscription() {

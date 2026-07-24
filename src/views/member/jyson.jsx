@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 
-const API = 'https://app-iota-inky-62.vercel.app/api/saas/jyson';
+const API = 'https://getaccess.world/api/saas/jyson';
 
 const SUGGESTIONS = [
   'Map the system my business is missing',

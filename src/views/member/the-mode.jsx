@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PageHead } from './_ui';
 
-const FEED = 'https://app-iota-inky-62.vercel.app/api/public/brief';
+const FEED = 'https://getaccess.world/api/public/brief';
 
 export default function TheMode() {
   const [post, setPost] = useState(null);

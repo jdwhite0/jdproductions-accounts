@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '@clerk/clerk-react';
 
-const ACCESS = import.meta.env.VITE_ACCESS_URL || 'https://app-iota-inky-62.vercel.app';
+const ACCESS = import.meta.env.VITE_ACCESS_URL || 'https://getaccess.world';
 const SUCCESS = import.meta.env.VITE_STRIPE_SUCCESS_URL || 'https://accounts.jdproductions.io/billing';
 const CANCEL  = import.meta.env.VITE_STRIPE_CANCEL_URL  || 'https://accounts.jdproductions.io/billing';
 

@@ -12,7 +12,7 @@ import Alert from '@mui/material/Alert';
 import { PageHead } from './_ui';
 
 const TYPES = ['New project / venture', 'Change to an existing build', 'Technical support', 'Billing question', 'Something else'];
-const ENDPOINT = 'https://app-iota-inky-62.vercel.app/api/concierge/lead';
+const ENDPOINT = 'https://getaccess.world/api/concierge/lead';
 
 export default function Concierge() {
   const { user } = useUser();

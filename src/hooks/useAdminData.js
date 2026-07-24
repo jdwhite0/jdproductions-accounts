@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useAuth } from '@clerk/clerk-react';
 
-const API = 'https://app-iota-inky-62.vercel.app/api/saas/admin';
+const API = 'https://getaccess.world/api/saas/admin';
 
 /** Founder-only live data: accounts, plan counts, MRR. */
 export default function useAdminData() {

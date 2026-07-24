@@ -9,11 +9,11 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import { PageHead, Grid, StatCard } from '@/views/member/_ui';
 
-const ACCESS = import.meta.env.VITE_ACCESS_URL || 'https://app-iota-inky-62.vercel.app';
+const ACCESS = import.meta.env.VITE_ACCESS_URL || 'https://getaccess.world';
 
 const DEPLOYMENTS = [
   { name: 'accounts.jdproductions.io', repo: 'jdproductions-saas (Vite/React)', url: 'https://vercel.com/jd-white-s-projects' },
-  { name: 'app-iota-inky-62.vercel.app', repo: 'access-app (Next.js)', url: 'https://vercel.com/jd-white-s-projects/app' },
+  { name: 'getaccess.world', repo: 'access-app (Next.js)', url: 'https://vercel.com/jd-white-s-projects/app' },
   { name: 'jdproductions.io', repo: 'jdproductions-website (static)', url: 'https://vercel.com/jd-white-s-projects' },
   { name: 'jdwhite.world', repo: 'jdwhite-world (static)', url: 'https://vercel.com/jd-white-s-projects' },
   { name: 'jyson.vercel.app', repo: 'jyson (Vite/React)', url: 'https://vercel.com/jd-white-s-projects' },
