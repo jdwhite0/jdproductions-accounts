@@ -22,7 +22,7 @@ export default function AuthLayout() {
           <Stack sx={{ alignItems: 'center', gap: 2 }}>
             <LogoMain />
             <Typography variant="body2" color="grey.700" align="center" sx={{ maxWidth: 400 }}>
-              SaaS platform for seamless data management and user insights. Unlock growth with real-time analytics and flexible features.
+              JD Productions Accounts — your company login, membership, and Early Support home.
             </Typography>
           </Stack>
           <Box sx={{ width: 1, height: 200, bgcolor: 'grey.200', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

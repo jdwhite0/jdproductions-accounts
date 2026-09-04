@@ -20,7 +20,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["node_modules", "eslint.config.mjs"],
+  "exclude": ["node_modules", "eslint.config.mjs", "admin", "uikit", "dist"],
   "include": ["src", "**/*.js", "**/*.jsx", "src/**/*"],
   "references": [{ "path": "./jsconfig.node.json" }]
 }

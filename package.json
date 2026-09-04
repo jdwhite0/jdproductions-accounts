@@ -1,9 +1,10 @@
 {
-  "name": "saas-able-react-mui-admin-vite-free",
+  "name": "jdproductions-accounts",
   "version": "2.1.0",
+  "description": "JD Productions Accounts — company accounts gateway and early-support capital for JD Productions Inc. GitHub repo remains jdproductions-saas (Vercel).",
   "author": {
-    "email": "phoenixcoded@gmail.com",
-    "name": "phoenixcoded"
+    "email": "hello@jdproductions.io",
+    "name": "JD Productions Inc."
   },
   "type": "module",
   "scripts": {

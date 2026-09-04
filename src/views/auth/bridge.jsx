@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
 
+// Marketing iframe bridge — AGENTS.md §2.2. postMessage type `jdp_auth`.
+// Do not change payload shape, type, or ALLOWED_ORIGINS without updating
+// jdproductions-website (and AGENTS.md) in the same change.
+
 const ALLOWED_ORIGINS = [
   'https://jdproductions.io',
   'https://www.jdproductions.io',

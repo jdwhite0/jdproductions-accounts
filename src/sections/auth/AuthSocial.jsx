@@ -1,3 +1,4 @@
+// TEMPLATE LEGACY — unused. Live auth uses Clerk in src/views/auth/.
 import PropTypes from 'prop-types';
 
 // @mui
