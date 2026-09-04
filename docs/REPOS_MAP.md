@@ -33,5 +33,6 @@ to allowlisted parent origins. Contract: root `AGENTS.md`.
 ## Capital
 
 Early-support positions, Stripe webhooks, and the ledger schema live in
-**this** project (see `docs/EARLY_SUPPORT_PLAN.md`). Not ACCESS Supabase.
-Not a separate capital repo (deleted).
+**this** project (`api/` + own Postgres; see `docs/EARLY_SUPPORT_PLAN.md`).
+Not ACCESS Supabase. Not a separate capital repo (deleted). Positions UI
+is reserved for a founder design pass.

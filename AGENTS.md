@@ -44,7 +44,7 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 | 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY` | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
 | 3 | **Optional outbound links** | Plain URLs to `https://getaccess.world` and `https://jdproductions.io` | this app → those sites | No (public URLs) |
-| 4 | **Early-support ledger (future)** | Own DB + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret are server-only |
+| 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
 
 Anything outside these four is **not** an approved connection. Do not add new
 coupling without updating this contract in the same commit.
@@ -104,9 +104,10 @@ contract items. Do not add new ACCESS API dependencies. Do not import
   bundle. Never put a secret behind a `VITE_` prefix.
   - Public/OK: `VITE_CLERK_PUBLISHABLE_KEY`, `VITE_ACCESS_URL`,
     `VITE_STRIPE_PUBLISHABLE_KEY`, `VITE_APP_NAME`.
-  - **Secrets (server-only, NO `VITE_`, future `api/` only):**
+  - **Secrets (server-only, NO `VITE_`, `api/` + `db/` only):**
     `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `CLERK_SECRET_KEY`,
-    database URLs.
+    `DATABASE_URL`. Set them in the Vercel project env UI — do not bake
+    secrets into `vercel.json`.
 - Production uses Vercel-managed env vars. Do not bake local `.env` into a
   deploy.
 - Do not rotate, replace, or “upgrade” Clerk keys as part of a docs or
@@ -162,13 +163,34 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
 ## 7. Build & deploy
 
 - Stack: Vite + React 19 + MUI, Clerk for auth, Vercel static output
-  (`dist/`) plus future `api/` serverless routes.
+  (`dist/`) plus `api/` serverless routes (Early Support ledger).
 - Local: `npm install` → `npm run start` → http://localhost:5173
 - Live: `https://accounts.jdproductions.io` (GitHub repo `jdproductions-accounts`).
 - Do not rename the GitHub repository without a documented Vercel reconnect.
 - After changing auth or the bridge, verify `/auth/login`, `/auth/register`,
   and `/auth/bridge` still load, and that the marketing iframe still receives
   `jdp_auth`.
+
+---
+
+## 8. Early Support backend paths (UI reserved)
+
+Backend is implemented in this repo. **Do not invent polished Positions /
+Early Support page design** — founder directs visual design in a later pass.
+`/positions` and `/admin/positions` are temporary stubs (`UI TBD — backend ready`).
+
+| Path | Role |
+|---|---|
+| `db/schema.js` + `db/migrations/` | Own Postgres schema (`early_support` only) |
+| `db/migrate.js` / `db/seed.js` | `npm run db:migrate` · `npm run db:seed` |
+| `api/stripe/checkout.js` | POST Checkout Session (Clerk Bearer required) |
+| `api/stripe/webhook.js` | POST Stripe webhook (signature required; fail closed) |
+| `api/positions.js` | GET current user's positions (Clerk Bearer required) |
+| `lib/early-support/` | Shared ledger + webhook logic (unit-tested) |
+
+Money truth = verified Stripe webhook + this project's DB. Checkout may
+write `pending` + `intent_created` only. **Never** mark a position `active`
+without a verified webhook.
 
 ---
 

@@ -19,6 +19,8 @@ const EmailPreferences = Loadable(lazy(() => import('@/views/member/email-prefer
 const Account = Loadable(lazy(() => import('@/views/member/account')));
 const Support = Loadable(lazy(() => import('@/views/member/support')));
 const Changelog = Loadable(lazy(() => import('@/views/member/changelog')));
+const PositionsStub = Loadable(lazy(() => import('@/views/stubs/positions')));
+const AdminPositionsStub = Loadable(lazy(() => import('@/views/stubs/admin-positions')));
 
 // Founder / admin views
 const FounderOverview = Loadable(lazy(() => import('@/views/founder/overview')));
@@ -56,6 +58,7 @@ const MainRoutes = {
     { path: 'billing', element: <Billing /> },
     { path: 'email-preferences', element: <EmailPreferences /> },
     { path: 'account', element: <Account /> },
+    { path: 'positions', element: <PositionsStub /> },
     { path: 'support', element: <Support /> },
     { path: 'changelog', element: <Changelog /> },
 
@@ -67,7 +70,8 @@ const MainRoutes = {
         { index: true, element: <FounderOverview /> },
         { path: 'accounts', element: <FounderAccounts /> },
         { path: 'subscriptions', element: <FounderSubscriptions /> },
-        { path: 'system', element: <FounderSystem /> }
+        { path: 'system', element: <FounderSystem /> },
+        { path: 'positions', element: <AdminPositionsStub /> }
       ]
     }
   ]
