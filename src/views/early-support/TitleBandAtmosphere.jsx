@@ -24,16 +24,17 @@ function seedStars(count) {
   const rand = mulberry32(STAR_SEED);
   const stars = [];
   for (let i = 0; i < count; i += 1) {
-    const large = rand() > 0.78;
+    const hero = i < Math.max(8, Math.round(count * 0.22));
     stars.push({
       nx: rand(),
       ny: rand(),
-      r: large ? 1.35 + rand() * 1.05 : 0.45 + rand() * 0.75,
-      base: 0.28 + rand() * 0.42,
-      amp: 0.16 + rand() * 0.28,
-      speed: 0.45 + rand() * 0.75,
+      r: hero ? 1.7 + rand() * 1.3 : 0.4 + rand() * 0.7,
+      glow: hero ? 10 + rand() * 8 : 0,
+      base: hero ? 0.42 + rand() * 0.28 : 0.22 + rand() * 0.28,
+      amp: hero ? 0.28 + rand() * 0.22 : 0.1 + rand() * 0.16,
+      speed: hero ? 0.7 + rand() * 0.7 : 0.35 + rand() * 0.55,
       phase: rand() * Math.PI * 2,
-      warm: rand() > 0.82,
+      warm: hero ? rand() > 0.45 : rand() > 0.88,
     });
   }
   return stars;
@@ -57,22 +58,25 @@ function spawnComet(width, height) {
 }
 
 function drawStars(ctx, stars, width, height, now, animate) {
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
   for (const star of stars) {
     const x = star.nx * width;
     const y = star.ny * height;
     const twinkle = animate
       ? star.base + Math.sin(now * 0.001 * star.speed + star.phase) * star.amp
-      : star.base * 0.72;
-    const alpha = Math.max(0.1, Math.min(0.88, twinkle));
-    const rgb = star.warm ? "255, 220, 150" : "255, 252, 246";
+      : star.base * 0.7;
+    const alpha = Math.max(0.08, Math.min(0.92, twinkle));
+    const rgb = star.warm ? "255, 214, 132" : "255, 250, 240";
 
-    if (star.r > 1.05) {
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, star.r * 6.5);
-      glow.addColorStop(0, `rgba(${rgb},${alpha * 0.5})`);
+    if (star.glow > 0) {
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, star.glow);
+      glow.addColorStop(0, `rgba(${rgb},${alpha * 0.55})`);
+      glow.addColorStop(0.45, `rgba(${rgb},${alpha * 0.16})`);
       glow.addColorStop(1, `rgba(${rgb},0)`);
       ctx.fillStyle = glow;
       ctx.beginPath();
-      ctx.arc(x, y, star.r * 5.5, 0, Math.PI * 2);
+      ctx.arc(x, y, star.glow, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -81,6 +85,7 @@ function drawStars(ctx, stars, width, height, now, animate) {
     ctx.arc(x, y, star.r, 0, Math.PI * 2);
     ctx.fill();
   }
+  ctx.restore();
 }
 
 function drawComets(ctx, comets, dt, width, height) {
@@ -104,11 +109,11 @@ function drawComets(ctx, comets, dt, width, height) {
 
     const tail = ctx.createLinearGradient(x0, y0, comet.x, comet.y);
     tail.addColorStop(0, "rgba(255, 246, 220, 0)");
-    tail.addColorStop(0.45, `rgba(255, 236, 196, ${0.14 * fade})`);
-    tail.addColorStop(1, `rgba(255, 250, 236, ${0.42 * fade})`);
+    tail.addColorStop(0.4, `rgba(255, 228, 170, ${0.22 * fade})`);
+    tail.addColorStop(1, `rgba(255, 248, 230, ${0.55 * fade})`);
 
     ctx.strokeStyle = tail;
-    ctx.lineWidth = 3.8;
+    ctx.lineWidth = 4.6;
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(comet.x, comet.y);
@@ -210,7 +215,7 @@ export default function TitleBandAtmosphere() {
       cancelAnimationFrame(raf);
       comets.length = 0;
       last = performance.now();
-      nextCometAt = last + 900 + Math.random() * 900;
+      nextCometAt = last + 400;
       raf = requestAnimationFrame(frame);
     }
 
