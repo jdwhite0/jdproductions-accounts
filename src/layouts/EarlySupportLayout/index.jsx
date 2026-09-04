@@ -81,7 +81,8 @@ export default function EarlySupportLayout({ children }) {
                   WebkitBackdropFilter: "blur(12px) saturate(160%)",
                   "&:hover": {
                     backgroundColor: "transparent",
-                    backgroundImage: "linear-gradient(135deg, #ffc20e, #e0a500)",
+                    backgroundImage:
+                      "linear-gradient(135deg, #ffc20e, #e0a500)",
                     boxShadow:
                       "0 4px 16px rgba(255,194,14,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
                   },
