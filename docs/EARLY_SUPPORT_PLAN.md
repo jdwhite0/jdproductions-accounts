@@ -8,7 +8,7 @@ securities, or “investment,” until counsel papers the instrument. Code
 uses `instrument_type = 'early_support'`.
 
 **Where:** this repo / this Vercel project (`accounts.jdproductions.io`).
-**Not** ACCESS Supabase. **Not** `jdproductions-capital` (abandoned).
+**Not** ACCESS Supabase. **Not** a separate capital repo (deleted).
 
 ---
 
@@ -127,4 +127,4 @@ Do not add ACCESS imports. Do not show token balances (that is `jdp-saas`).
 ## Out of scope here
 
 ACCESS Gift/subscriptions, JYSON usage tiers, JDP token, equity round
-mechanics, `jdproductions-capital`.
+mechanics, a separate capital repo.

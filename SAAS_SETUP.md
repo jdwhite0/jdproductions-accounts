@@ -1,6 +1,6 @@
 # Local setup (JD Productions Accounts)
 
-The filename is historical (GitHub/Vercel project `jdproductions-saas`).
+The filename is historical. GitHub + Vercel project: `jdproductions-accounts`.
 This is **not** a generic SaasAble SaaS starter.
 
 **Read [AGENTS.md](./AGENTS.md) first.** Repo map: [docs/REPOS_MAP.md](./docs/REPOS_MAP.md).
@@ -32,5 +32,5 @@ against ACCESS Supabase.
 
 ## Deploy
 
-Vercel project for this GitHub repo. Do not rename `jdproductions-saas`
+Vercel project for this GitHub repo. Project name is already `jdproductions-accounts` — do not rename casually
 without reconnecting the project. Bind nothing to ACCESS’s Vercel project.

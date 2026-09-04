@@ -5,8 +5,9 @@ collaborator (Claude, ChatGPT, Cursor, etc.) — or human — can work here
 without breaking live auth, ACCESS, Clerk, or the marketing-site Sign In
 bridge.
 
-GitHub repo name: **`jdproductions-saas`** (keep it; Vercel is wired to this
-name). Product name: **JD Productions Accounts**.
+GitHub repo name: **`jdproductions-accounts`** (renamed from `jdproductions-saas`).
+Vercel project: **`jdproductions-accounts`**. Product name: **JD Productions Accounts**.
+Local folder may still be `apps/saas` — that is fine.
 
 Also see `docs/REPOS_MAP.md` and `docs/EARLY_SUPPORT_PLAN.md`.
 
@@ -19,8 +20,7 @@ Also see `docs/REPOS_MAP.md` and `docs/EARLY_SUPPORT_PLAN.md`.
 - **Accounts gateway** — sign-in / sign-up for the company, live at
   `https://accounts.jdproductions.io` (this Vercel project).
 - **Early-support capital** — the ledger, Stripe webhooks, and Positions UI
-  for `instrument_type=early_support` belong **here**. The separate
-  `jdproductions-capital` repo is abandoned; do not build there.
+  for `instrument_type=early_support` belong **here**. The old `jdproductions-capital` seed was **deleted**; do not recreate it.
 
 **This is NOT:**
 
@@ -121,7 +121,7 @@ contract items. Do not add new ACCESS API dependencies. Do not import
 - ❌ Merge this app into ACCESS, or ACCESS into this app.
 - ❌ Treat Early Support copy as equity, shares, securities, or an
   investment offering until counsel papers the instrument.
-- ❌ Build capital/ledger in `jdproductions-capital` (abandoned).
+- ❌ Recreate or build capital/ledger in a separate capital repo (deleted).
 - ❌ Delete or “simplify” `/auth/login`, `/auth/register`, `/auth/bridge`,
   `ClerkProvider`, or the `jdp_auth` postMessage contract.
 - ❌ Put secrets behind `VITE_`.
@@ -164,7 +164,7 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
 - Stack: Vite + React 19 + MUI, Clerk for auth, Vercel static output
   (`dist/`) plus future `api/` serverless routes.
 - Local: `npm install` → `npm run start` → http://localhost:5173
-- Live: `https://accounts.jdproductions.io` (GitHub repo `jdproductions-saas`).
+- Live: `https://accounts.jdproductions.io` (GitHub repo `jdproductions-accounts`).
 - Do not rename the GitHub repository without a documented Vercel reconnect.
 - After changing auth or the bridge, verify `/auth/login`, `/auth/register`,
   and `/auth/bridge` still load, and that the marketing iframe still receives

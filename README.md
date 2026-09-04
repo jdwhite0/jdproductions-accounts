@@ -6,7 +6,7 @@ Company **accounts gateway** and **early-support capital** home for
 | | |
 |---|---|
 | **Product** | JD Productions Accounts |
-| **GitHub repo** | `jdwhite0/jdproductions-saas` (name kept for Vercel; do not rename casually) |
+| **GitHub repo** | `jdwhite0/jdproductions-accounts` |
 | **Live** | https://accounts.jdproductions.io |
 | **Auth** | Clerk (shared pool with ACCESS — **consume keys only**, never edit Clerk) |
 
@@ -25,7 +25,7 @@ app. Read **[AGENTS.md](./AGENTS.md)** before changing anything.
 
 See [docs/REPOS_MAP.md](./docs/REPOS_MAP.md). ACCESS stays in `access-app`.
 JYSON stays in `jyson`. Marketing stays in `jdproductions-website`. JDP
-holder app stays in `jdp-saas`. `jdproductions-capital` is abandoned.
+holder app stays in `jdp-saas`. The old `jdproductions-capital` seed was deleted.
 
 ## Quick start
 

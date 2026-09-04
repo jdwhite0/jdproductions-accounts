@@ -12,7 +12,7 @@ import { PageHead, Grid, StatCard } from '@/views/member/_ui';
 const ACCESS = import.meta.env.VITE_ACCESS_URL || 'https://getaccess.world';
 
 const DEPLOYMENTS = [
-  { name: 'accounts.jdproductions.io', repo: 'jdproductions-saas — JD Productions Accounts (Vite/React)', url: 'https://vercel.com/jd-white-s-projects' },
+  { name: 'accounts.jdproductions.io', repo: 'jdproductions-accounts — JD Productions Accounts (Vite/React)', url: 'https://vercel.com/jd-white-s-projects' },
   { name: 'getaccess.world', repo: 'access-app (Next.js)', url: 'https://vercel.com/jd-white-s-projects/app' },
   { name: 'jdproductions.io', repo: 'jdproductions-website (static)', url: 'https://vercel.com/jd-white-s-projects' },
   { name: 'jdwhite.world', repo: 'jdwhite-world (static)', url: 'https://vercel.com/jd-white-s-projects' },

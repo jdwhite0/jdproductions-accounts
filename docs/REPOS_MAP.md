@@ -5,12 +5,12 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 
 | Surface | GitHub | Live | Role |
 |---|---|---|---|
-| **JD Productions Accounts (this repo)** | [`jdwhite0/jdproductions-saas`](https://github.com/jdwhite0/jdproductions-saas) | [accounts.jdproductions.io](https://accounts.jdproductions.io) | Company accounts gateway + early-support capital. GitHub name is historical (`*-saas`); product name is **Accounts**. |
+| **JD Productions Accounts (this repo)** | [`jdwhite0/jdproductions-accounts`](https://github.com/jdwhite0/jdproductions-accounts) | [accounts.jdproductions.io](https://accounts.jdproductions.io) | Company accounts gateway + early-support capital. |
 | **Marketing site** | [`jdwhite0/jdproductions-website`](https://github.com/jdwhite0/jdproductions-website) | [jdproductions.io](https://jdproductions.io) | Public marketing. Sign In → this app’s `/auth/login`. Hidden iframe → this app’s `/auth/bridge`. |
 | **ACCESS** | [`jdwhite0/access-app`](https://github.com/jdwhite0/access-app) | [getaccess.world](https://getaccess.world) | Separate platform / workspace product. Owns Clerk **configuration**. Do not import or merge. |
 | **JYSON** | [`jdwhite0/jyson`](https://github.com/jdwhite0/jyson) | JYSON deploy (own Vercel project) | Separate chat product. Connects to ACCESS via its own `AGENTS.md` contract. Not this app. |
 | **JDP token holder app** | [`jdwhite0/jdp-saas`](https://github.com/jdwhite0/jdp-saas) | JDP holder / wallet app (Privy + Base) | Token holder dashboard. Not company accounts. Not early-support capital. |
-| **Capital (abandoned)** | [`jdwhite0/jdproductions-capital`](https://github.com/jdwhite0/jdproductions-capital) | — | Empty seed. **Do not build there.** Ledger belongs here. |
+| **Capital (deleted)** | ~~jdproductions-capital~~ | — | Seed repo deleted 2026-09-04. Ledger belongs in this accounts repo. |
 
 ## Identity
 
@@ -34,4 +34,4 @@ to allowlisted parent origins. Contract: root `AGENTS.md`.
 
 Early-support positions, Stripe webhooks, and the ledger schema live in
 **this** project (see `docs/EARLY_SUPPORT_PLAN.md`). Not ACCESS Supabase.
-Not `jdproductions-capital`.
+Not a separate capital repo (deleted).
