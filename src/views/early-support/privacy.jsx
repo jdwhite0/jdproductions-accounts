@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
-import { INK, NAVY, SECONDARY, esCardSx } from "./brand";
+import { FONT, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 
 export default function EarlySupportPrivacy() {
   return (
@@ -23,7 +23,9 @@ export default function EarlySupportPrivacy() {
             gap: 2,
           }}
         >
-          <Typography sx={{ color: INK, fontSize: 15, lineHeight: 1.7 }}>
+          <Typography
+            sx={{ color: INK, fontFamily: FONT, fontSize: 15, lineHeight: 1.7 }}
+          >
             This addendum covers Early Support on accounts.jdproductions.io. It
             sits alongside the company privacy notice at{" "}
             <Link href="https://jdproductions.io/privacy.html">
@@ -32,10 +34,19 @@ export default function EarlySupportPrivacy() {
             .
           </Typography>
           <Box>
-            <Typography sx={{ color: NAVY, fontWeight: 700, mb: 0.75 }}>
+            <Typography
+              sx={{ color: NAVY, fontFamily: FONT, fontWeight: 700, mb: 0.75 }}
+            >
               What we collect
             </Typography>
-            <Typography sx={{ color: INK, fontSize: 15, lineHeight: 1.7 }}>
+            <Typography
+              sx={{
+                color: INK,
+                fontFamily: FONT,
+                fontSize: 15,
+                lineHeight: 1.7,
+              }}
+            >
               Your email (required to pay as a guest), the amount and tier you
               choose, Stripe customer / checkout / payment identifiers, and —
               only if you later sign in — your Clerk user id so you can claim
@@ -43,10 +54,19 @@ export default function EarlySupportPrivacy() {
             </Typography>
           </Box>
           <Box>
-            <Typography sx={{ color: NAVY, fontWeight: 700, mb: 0.75 }}>
+            <Typography
+              sx={{ color: NAVY, fontFamily: FONT, fontWeight: 700, mb: 0.75 }}
+            >
               Why
             </Typography>
-            <Typography sx={{ color: INK, fontSize: 15, lineHeight: 1.7 }}>
+            <Typography
+              sx={{
+                color: INK,
+                fontFamily: FONT,
+                fontSize: 15,
+                lineHeight: 1.7,
+              }}
+            >
               To record your Early Support on the ledger, send the Stripe
               receipt and itemized invoice, confirm payment via Stripe webhooks,
               and (if you choose) attach the position to your JD Productions
@@ -54,16 +74,25 @@ export default function EarlySupportPrivacy() {
             </Typography>
           </Box>
           <Box>
-            <Typography sx={{ color: NAVY, fontWeight: 700, mb: 0.75 }}>
+            <Typography
+              sx={{ color: NAVY, fontFamily: FONT, fontWeight: 700, mb: 0.75 }}
+            >
               Processors
             </Typography>
-            <Typography sx={{ color: INK, fontSize: 15, lineHeight: 1.7 }}>
+            <Typography
+              sx={{
+                color: INK,
+                fontFamily: FONT,
+                fontSize: 15,
+                lineHeight: 1.7,
+              }}
+            >
               Stripe processes the payment and emails the receipt and invoice.
               Clerk is used only if you create or use an account. We do not sell
               this information.
             </Typography>
           </Box>
-          <Typography sx={{ color: SECONDARY, fontSize: 13 }}>
+          <Typography sx={{ color: SECONDARY, fontFamily: FONT, fontSize: 13 }}>
             Questions: hello@jdproductions.io. Terms:{" "}
             <Link href="/early-support/terms" sx={{ color: NAVY }}>
               Early Support Terms (early_support_v0)

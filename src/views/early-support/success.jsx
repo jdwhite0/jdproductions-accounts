@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
-import { GOLD, INK, NAVY, SECONDARY, esCardSx } from "./brand";
+import { FONT, GOLD, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 import { THANK_YOU_COPY } from "../../../lib/early-support/copy.js";
 
 export default function EarlySupportSuccess() {
@@ -26,6 +26,7 @@ export default function EarlySupportSuccess() {
           <Typography
             sx={{
               color: GOLD,
+              fontFamily: FONT,
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -35,7 +36,15 @@ export default function EarlySupportSuccess() {
           >
             Receipt and invoice
           </Typography>
-          <Typography sx={{ color: INK, fontSize: 16, lineHeight: 1.7, mb: 2 }}>
+          <Typography
+            sx={{
+              color: INK,
+              fontFamily: FONT,
+              fontSize: 16,
+              lineHeight: 1.7,
+              mb: 2,
+            }}
+          >
             Stripe will email a payment receipt. An itemized invoice (charge
             line plus included items, terms early_support_v0) is sent after the
             payment is confirmed by webhook — not by this browser page alone. A

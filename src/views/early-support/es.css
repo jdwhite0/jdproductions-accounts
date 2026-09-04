@@ -1,0 +1,101 @@
+/* Early Support visual lock — fonts + nav logo morph from jdproductions.io site.css */
+
+.es-root {
+  --es-navy: #002244;
+  --es-gold: #ffc20e;
+  --es-ink: #0a0a0c;
+  --es-secondary: #51545c;
+  --es-bg: #ffffff;
+  --es-soft: #f7f7f8;
+  --es-title: #f7f7f8;
+  --font: 'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-family: var(--font);
+  color: var(--es-ink);
+  background: var(--es-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.es-root,
+.es-root .MuiTypography-root,
+.es-root .MuiButton-root,
+.es-root .MuiInputBase-root,
+.es-root .MuiInputLabel-root,
+.es-root .MuiFormHelperText-root,
+.es-root .MuiFormControlLabel-label,
+.es-root .MuiLink-root,
+.es-root .MuiCheckbox-root {
+  font-family: var(--font) !important;
+}
+
+.es-root .es-display {
+  font-family: var(--font-display) !important;
+}
+
+/* Animated logo — same classes and motion as jdproductions.io */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.nav-logo-animated {
+  position: relative;
+  height: 30px;
+  min-width: 244px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo .logo-full-img {
+  height: 32px;
+  width: auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  will-change: opacity, transform, filter;
+}
+
+.nav-logo .logo-jd-img {
+  height: 32px;
+  width: auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0.96);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  will-change: opacity, transform, filter;
+  pointer-events: none;
+}
+
+.es-nav.is-scrolled .logo-full-img {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.92);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.es-nav.is-scrolled .logo-jd-img {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  filter: drop-shadow(0 6px 16px rgba(255, 194, 14, 0.35));
+}
+
+@media (max-width: 600px) {
+  .nav-logo-animated {
+    height: 24px;
+    min-width: 198px;
+  }
+  .nav-logo .logo-full-img {
+    height: 26px;
+  }
+  .nav-logo .logo-jd-img {
+    height: 26px;
+  }
+}

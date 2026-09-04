@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Outlet, Link as RouterLink } from "react-router-dom";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import AppBar from "@mui/material/AppBar";
@@ -8,16 +9,39 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import LogoMain from "@/components/logo/LogoMain";
-import { BG, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
+import NavLogo from "@/views/early-support/NavLogo";
+import "@/views/early-support/es.css";
+import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 
 export default function EarlySupportLayout() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: BG, color: INK }}>
+    <Box
+      className="es-root"
+      sx={{ minHeight: "100vh", bgcolor: BG, color: INK }}
+    >
       <AppBar
         position="sticky"
         elevation={0}
-        sx={{ bgcolor: BG, color: NAVY, borderBottom: "1px solid #E6E8EC" }}
+        className={scrolled ? "es-nav is-scrolled" : "es-nav"}
+        sx={{
+          bgcolor: BG,
+          color: NAVY,
+          borderBottom: scrolled
+            ? "1px solid rgba(10, 10, 12, 0.08)"
+            : "1px solid transparent",
+          boxShadow: scrolled
+            ? "inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 12px rgba(10,10,20,0.04)"
+            : "none",
+        }}
       >
         <Toolbar
           sx={{
@@ -25,22 +49,17 @@ export default function EarlySupportLayout() {
             minHeight: { xs: 64, md: 72 },
           }}
         >
-          <Box
-            component={RouterLink}
-            to="/early-support"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-            }}
-          >
-            <LogoMain />
-          </Box>
+          <NavLogo />
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
             <Button
               component={RouterLink}
               to="/early-support"
-              sx={{ color: NAVY, fontWeight: 600, textTransform: "none" }}
+              sx={{
+                color: NAVY,
+                fontWeight: 600,
+                textTransform: "none",
+                fontFamily: FONT,
+              }}
             >
               Early Support
             </Button>
@@ -54,6 +73,7 @@ export default function EarlySupportLayout() {
                   color: NAVY,
                   textTransform: "none",
                   fontWeight: 600,
+                  fontFamily: FONT,
                 }}
               >
                 Sign in
@@ -63,7 +83,12 @@ export default function EarlySupportLayout() {
               <Button
                 component={RouterLink}
                 to="/positions"
-                sx={{ color: NAVY, fontWeight: 600, textTransform: "none" }}
+                sx={{
+                  color: NAVY,
+                  fontWeight: 600,
+                  textTransform: "none",
+                  fontFamily: FONT,
+                }}
               >
                 Positions
               </Button>
@@ -93,7 +118,10 @@ export default function EarlySupportLayout() {
               alignItems: { sm: "center" },
             }}
           >
-            <Typography variant="caption" sx={{ color: SECONDARY }}>
+            <Typography
+              variant="caption"
+              sx={{ color: SECONDARY, fontFamily: FONT }}
+            >
               © {new Date().getFullYear()} JD Productions Inc. Early Support
               terms: early_support_v0.
             </Typography>
@@ -102,7 +130,7 @@ export default function EarlySupportLayout() {
                 component={RouterLink}
                 to="/early-support/terms"
                 underline="hover"
-                sx={{ color: SECONDARY, fontSize: 13 }}
+                sx={{ color: SECONDARY, fontSize: 13, fontFamily: FONT }}
               >
                 Terms
               </Link>
@@ -110,14 +138,14 @@ export default function EarlySupportLayout() {
                 component={RouterLink}
                 to="/early-support/privacy"
                 underline="hover"
-                sx={{ color: SECONDARY, fontSize: 13 }}
+                sx={{ color: SECONDARY, fontSize: 13, fontFamily: FONT }}
               >
                 Privacy
               </Link>
               <Link
                 href="https://jdproductions.io"
                 underline="hover"
-                sx={{ color: SECONDARY, fontSize: 13 }}
+                sx={{ color: SECONDARY, fontSize: 13, fontFamily: FONT }}
               >
                 jdproductions.io
               </Link>

@@ -132,11 +132,13 @@ with builders + skipped-send cases.
 
 ## UI (title-band galaxy)
 
-Visual lock: **title-band galaxy only** (vivid Hubble NGC 1300 strip behind
-the EARLY SUPPORT / Your Early Support headline). Rest of UI is clean white.
-Brand hex from jdproductions.io: navy `#002244`, gold `#FFC20E`, ink
-`#0A0A0C`, secondary `#51545C`, bg `#FFFFFF`, soft `#F7F7F8`. Solid readable
-cards — not milky glass wallpaper.
+Visual lock: **Solution B title-band** — vivid Hubble NGC 1300 strip behind
+the headline only, solid edges (no milky feather mask), light/white type on
+the dark band, gold eyebrow. Rest of UI is clean white. Nav uses the exact
+jdproductions.io lockup (`nav-full.png` → scrolled `nav-jd-gold.png`).
+Fonts: Inter (UI) + Instrument Serif (display). Brand hex: navy `#002244`,
+gold `#FFC20E` (hairline/mark only), ink `#0A0A0C`, secondary `#51545C`,
+bg `#FFFFFF`, soft `#F7F7F8`. Solid readable cards — not milky glass.
 
 | Route | Who | What |
 |---|---|---|

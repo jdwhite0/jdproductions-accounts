@@ -40,8 +40,8 @@ export let ThemeFonts;
 
 (function (ThemeFonts) {
   ThemeFonts['FONT_ARCHIVO'] = "'Archivo', sans-serif";
-  ThemeFonts['FONT_INTER'] = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-  ThemeFonts['FONT_SERIF'] = "'Instrument Serif', Georgia, serif";
+  ThemeFonts['FONT_INTER'] = "'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif";
+  ThemeFonts['FONT_SERIF'] = "'Instrument Serif', Georgia, 'Times New Roman', serif";
 })(ThemeFonts || (ThemeFonts = {}));
 
 export const DEFAULT_THEME_MODE = ThemeMode.LIGHT;

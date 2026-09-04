@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
 import {
   CARD_BORDER,
+  FONT,
   GOLD,
   INK,
   NAVY,
@@ -118,7 +119,14 @@ export default function EarlySupportLanding() {
         <Stack spacing={2.5}>
           <Card variant="outlined" sx={esCardSx}>
             <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
-              <Typography sx={{ color: INK, fontSize: 16, lineHeight: 1.7 }}>
+              <Typography
+                sx={{
+                  color: INK,
+                  fontFamily: FONT,
+                  fontSize: 16,
+                  lineHeight: 1.7,
+                }}
+              >
                 {LANDING_BODY}
               </Typography>
             </CardContent>
@@ -129,6 +137,7 @@ export default function EarlySupportLanding() {
               <Typography
                 sx={{
                   color: GOLD,
+                  fontFamily: FONT,
                   fontWeight: 700,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
@@ -138,7 +147,14 @@ export default function EarlySupportLanding() {
               >
                 {IMPORTANT_DISCLOSURE_TITLE}
               </Typography>
-              <Typography sx={{ color: NAVY, fontSize: 15, lineHeight: 1.7 }}>
+              <Typography
+                sx={{
+                  color: NAVY,
+                  fontFamily: FONT,
+                  fontSize: 15,
+                  lineHeight: 1.7,
+                }}
+              >
                 {IMPORTANT_DISCLOSURE_BODY}
               </Typography>
             </CardContent>
@@ -149,6 +165,7 @@ export default function EarlySupportLanding() {
               <Typography
                 sx={{
                   color: NAVY,
+                  fontFamily: FONT,
                   fontWeight: 700,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
@@ -183,6 +200,7 @@ export default function EarlySupportLanding() {
             <Typography
               sx={{
                 color: NAVY,
+                fontFamily: FONT,
                 fontWeight: 700,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
@@ -270,6 +288,7 @@ export default function EarlySupportLanding() {
                 sx={{
                   bgcolor: NAVY,
                   color: "#fff",
+                  fontFamily: FONT,
                   textTransform: "none",
                   fontWeight: 700,
                   py: 1.25,
