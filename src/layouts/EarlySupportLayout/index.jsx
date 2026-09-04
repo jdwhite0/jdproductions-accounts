@@ -11,7 +11,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
 import "@/views/early-support/es.css";
-import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
+import {
+  BG,
+  FONT,
+  GOLD,
+  GOLD_2,
+  INK,
+  NAVY,
+  SECONDARY,
+} from "@/views/early-support/brand";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
@@ -51,29 +59,25 @@ export default function EarlySupportLayout({ children }) {
         >
           <NavLogo />
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
-            <Button
-              component={RouterLink}
-              to="/early-support"
-              sx={{
-                color: NAVY,
-                fontWeight: 600,
-                textTransform: "none",
-                fontFamily: FONT,
-              }}
-            >
-              Early Support
-            </Button>
             <SignedOut>
               <Button
                 component={RouterLink}
                 to="/auth/login?next=/positions"
-                variant="outlined"
+                variant="contained"
+                disableElevation
                 sx={{
-                  borderColor: NAVY,
-                  color: NAVY,
+                  bgcolor: GOLD,
+                  color: "#FFFFFF",
                   textTransform: "none",
                   fontWeight: 600,
                   fontFamily: FONT,
+                  border: "none",
+                  boxShadow: "none",
+                  "&:hover": {
+                    bgcolor: GOLD_2,
+                    color: "#FFFFFF",
+                    boxShadow: "none",
+                  },
                 }}
               >
                 Sign in

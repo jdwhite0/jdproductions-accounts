@@ -34,7 +34,9 @@ Terms version stamped on checkout, ledger, invoice, and Positions:
 
 ## Invest / belief page disclosure
 
-**Headline:** Early Support
+**Eyebrow:** Early Support
+
+**Headline:** Stand with the studio
 
 **Subhead:** Stand with JD Productions before the next formal round.
 
