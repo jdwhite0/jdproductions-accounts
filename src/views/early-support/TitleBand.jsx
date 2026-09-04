@@ -73,6 +73,8 @@ export default function TitleBand({
             color: TITLE_ON_BAND,
             fontFamily: FONT,
             fontWeight: 800,
+            fontStyle: "normal",
+            fontSynthesis: "none",
             fontSize: { xs: 34, md: 50 },
             lineHeight: 1.08,
             letterSpacing: "-0.036em",

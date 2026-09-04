@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
 
 const STAR_SEED = 1300;
 const MAX_COMETS = 1;
-const COMET_GAP_MIN_MS = 6200;
-const COMET_GAP_MAX_MS = 12000;
+const COMET_GAP_MIN_MS = 4800;
+const COMET_GAP_MAX_MS = 9000;
 
 function mulberry32(seed) {
   let t = seed >>> 0;
@@ -24,16 +24,16 @@ function seedStars(count) {
   const rand = mulberry32(STAR_SEED);
   const stars = [];
   for (let i = 0; i < count; i += 1) {
-    const large = rand() > 0.9;
+    const large = rand() > 0.78;
     stars.push({
       nx: rand(),
       ny: rand(),
-      r: large ? 1.15 + rand() * 0.85 : 0.35 + rand() * 0.7,
-      base: 0.16 + rand() * 0.38,
-      amp: 0.08 + rand() * 0.18,
-      speed: 0.28 + rand() * 0.55,
+      r: large ? 1.35 + rand() * 1.05 : 0.45 + rand() * 0.75,
+      base: 0.28 + rand() * 0.42,
+      amp: 0.16 + rand() * 0.28,
+      speed: 0.45 + rand() * 0.75,
       phase: rand() * Math.PI * 2,
-      warm: rand() > 0.88,
+      warm: rand() > 0.82,
     });
   }
   return stars;
@@ -42,17 +42,17 @@ function seedStars(count) {
 function spawnComet(width, height) {
   const fromLeft = Math.random() >= 0.4;
   const y = height * (0.16 + Math.random() * 0.62);
-  const speed = 72 + Math.random() * 48;
-  const tilt = (fromLeft ? -14 : 166) + Math.random() * 12;
+  const speed = 86 + Math.random() * 40;
+  const tilt = (fromLeft ? -12 : 168) + Math.random() * 10;
   const angle = (tilt * Math.PI) / 180;
   return {
-    x: fromLeft ? -28 : width + 28,
+    x: fromLeft ? -36 : width + 36,
     y,
     vx: Math.cos(angle) * speed,
     vy: Math.sin(angle) * speed,
     life: 0,
-    maxLife: 2.6 + Math.random() * 1.4,
-    len: 38 + Math.random() * 28,
+    maxLife: 2.8 + Math.random() * 1.2,
+    len: 56 + Math.random() * 28,
   };
 }
 
@@ -63,12 +63,12 @@ function drawStars(ctx, stars, width, height, now, animate) {
     const twinkle = animate
       ? star.base + Math.sin(now * 0.001 * star.speed + star.phase) * star.amp
       : star.base * 0.72;
-    const alpha = Math.max(0.06, Math.min(0.72, twinkle));
-    const rgb = star.warm ? "255, 214, 140" : "255, 250, 242";
+    const alpha = Math.max(0.1, Math.min(0.88, twinkle));
+    const rgb = star.warm ? "255, 220, 150" : "255, 252, 246";
 
     if (star.r > 1.05) {
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, star.r * 5.5);
-      glow.addColorStop(0, `rgba(${rgb},${alpha * 0.38})`);
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, star.r * 6.5);
+      glow.addColorStop(0, `rgba(${rgb},${alpha * 0.5})`);
       glow.addColorStop(1, `rgba(${rgb},0)`);
       ctx.fillStyle = glow;
       ctx.beginPath();
@@ -104,11 +104,11 @@ function drawComets(ctx, comets, dt, width, height) {
 
     const tail = ctx.createLinearGradient(x0, y0, comet.x, comet.y);
     tail.addColorStop(0, "rgba(255, 246, 220, 0)");
-    tail.addColorStop(0.5, `rgba(255, 236, 196, ${0.08 * fade})`);
-    tail.addColorStop(1, `rgba(255, 250, 236, ${0.28 * fade})`);
+    tail.addColorStop(0.45, `rgba(255, 236, 196, ${0.14 * fade})`);
+    tail.addColorStop(1, `rgba(255, 250, 236, ${0.42 * fade})`);
 
     ctx.strokeStyle = tail;
-    ctx.lineWidth = 3.4;
+    ctx.lineWidth = 3.8;
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(comet.x, comet.y);
@@ -126,13 +126,13 @@ function drawComets(ctx, comets, dt, width, height) {
       0,
       comet.x,
       comet.y,
-      6,
+      8,
     );
-    head.addColorStop(0, `rgba(255, 252, 244, ${0.36 * fade})`);
+    head.addColorStop(0, `rgba(255, 252, 244, ${0.5 * fade})`);
     head.addColorStop(1, "rgba(255, 252, 244, 0)");
     ctx.fillStyle = head;
     ctx.beginPath();
-    ctx.arc(comet.x, comet.y, 6, 0, Math.PI * 2);
+    ctx.arc(comet.x, comet.y, 8, 0, Math.PI * 2);
     ctx.fill();
 
     const off =
@@ -179,7 +179,7 @@ export default function TitleBandAtmosphere() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const count = Math.round(
-        Math.min(90, Math.max(36, (width * height) / 3400)),
+        Math.min(130, Math.max(48, (width * height) / 2400)),
       );
       stars = seedStars(count);
     }
@@ -210,7 +210,7 @@ export default function TitleBandAtmosphere() {
       cancelAnimationFrame(raf);
       comets.length = 0;
       last = performance.now();
-      nextCometAt = last + 1800 + Math.random() * 2200;
+      nextCometAt = last + 900 + Math.random() * 900;
       raf = requestAnimationFrame(frame);
     }
 
