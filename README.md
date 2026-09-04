@@ -19,8 +19,9 @@ app. Read **[AGENTS.md](./AGENTS.md)** before changing anything.
 - Member/founder accounts UI on `accounts.jdproductions.io`
 - `/auth/login`, `/auth/register`, `/auth/bridge` (marketing Sign In iframe)
 - Early-support ledger + Stripe webhooks in **this** project (`api/` + own
-  Postgres). Positions UI is a stub until JD designs it — see
-  [docs/EARLY_SUPPORT_PLAN.md](./docs/EARLY_SUPPORT_PLAN.md)
+  Postgres). Guest pay first, optional Clerk claim. UI: `/early-support`
+  and `/positions`. Copy: [docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md](./docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md).
+  Plan: [docs/EARLY_SUPPORT_PLAN.md](./docs/EARLY_SUPPORT_PLAN.md).
 
 ## What does not live here
 
@@ -52,9 +53,10 @@ npm test
 
 | Method | Path | Auth |
 |---|---|---|
-| POST | `/api/stripe/checkout` | `Authorization: Bearer <Clerk session token>` |
-| POST | `/api/stripe/webhook` | `Stripe-Signature` |
-| GET | `/api/positions` | `Authorization: Bearer <Clerk session token>` |
+| POST | `/api/stripe/checkout` | Optional. Guest: email + amount/tier. Signed-in: Bearer may pre-fill Clerk id. |
+| POST | `/api/stripe/webhook` | `Stripe-Signature` (fail closed) |
+| GET | `/api/positions` | `Authorization: Bearer <Clerk session token>` (fail closed) |
+| POST | `/api/positions/claim` | `Authorization: Bearer <Clerk session token>` (fail closed) |
 
 Local functions + webhook:
 

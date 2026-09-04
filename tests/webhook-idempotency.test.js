@@ -44,7 +44,7 @@ test('unpaid checkout.session.completed does not create an active position', asy
   assert.equal(repo.ledger.filter((row) => row.entry_type === 'payment_succeeded').length, 0);
 });
 
-test('events without clerk_user_id do not create a position (fail closed)', async () => {
+test('events without clerk_user_id and without email do not create a position (fail closed)', async () => {
   const repo = createMemoryRepo();
   const event = {
     id: 'evt_stray',
@@ -60,5 +60,34 @@ test('events without clerk_user_id do not create a position (fail closed)', asyn
   };
   const result = await processStripeEvent(event, repo);
   assert.equal(result.outcome, 'ignored');
+  assert.equal(result.reason, 'missing_identity');
   assert.equal(repo.positions.length, 0);
+});
+
+test('guest checkout.session.completed with email activates without clerk_user_id', async () => {
+  const repo = createMemoryRepo();
+  const event = checkoutCompletedEvent({ clerkUserId: null, email: 'guest@example.com', tier: 'standard' });
+  const result = await processStripeEvent(event, repo);
+  assert.equal(result.outcome, 'activated');
+  assert.equal(repo.positions.length, 1);
+  assert.equal(repo.positions[0].clerk_user_id, null);
+  assert.equal(repo.positions[0].supporter_email, 'guest@example.com');
+  assert.equal(repo.positions[0].status, 'active');
+  assert.equal(repo.positions[0].tier, 'standard');
+});
+
+test('duplicate paid event retries invoice if it was not stored', async () => {
+  const repo = createMemoryRepo();
+  const event = checkoutCompletedEvent();
+  let invoiceCalls = 0;
+  const sendInvoice = async () => {
+    invoiceCalls += 1;
+    return { skipped: false, invoiceId: 'in_test_1' };
+  };
+
+  await processStripeEvent(event, repo, { sendInvoice });
+  assert.equal(invoiceCalls, 1);
+
+  await processStripeEvent(event, repo, { sendInvoice });
+  assert.equal(invoiceCalls, 2);
 });

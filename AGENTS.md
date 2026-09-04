@@ -173,24 +173,28 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
 
 ---
 
-## 8. Early Support backend paths (UI reserved)
+## 8. Early Support paths
 
-Backend is implemented in this repo. **Do not invent polished Positions /
-Early Support page design** — founder directs visual design in a later pass.
-`/positions` and `/admin/positions` are temporary stubs (`UI TBD — backend ready`).
+Backend and title-band UI live in this repo. Official copy:
+`docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md`. Visual lock: title-band galaxy
+behind the headline only; white cards; brand hex navy `#002244` / gold
+`#FFC20E`. Flow: **pay first, account optional**.
 
 | Path | Role |
 |---|---|
-| `db/schema.js` + `db/migrations/` | Own Postgres schema (`early_support` only) |
+| `db/schema.js` + `db/migrations/` | Own Postgres schema (`early_support` only; guest email; nullable `clerk_user_id`) |
 | `db/migrate.js` / `db/seed.js` | `npm run db:migrate` · `npm run db:seed` |
-| `api/stripe/checkout.js` | POST Checkout Session (Clerk Bearer required) |
-| `api/stripe/webhook.js` | POST Stripe webhook (signature required; fail closed) |
+| `api/stripe/checkout.js` | POST Checkout Session — guest email OK; optional Clerk Bearer |
+| `api/stripe/webhook.js` | POST Stripe webhook (signature required; fail closed; itemized invoice) |
 | `api/positions.js` | GET current user's positions (Clerk Bearer required) |
-| `lib/early-support/` | Shared ledger + webhook logic (unit-tested) |
+| `api/positions/claim.js` | POST claim guest positions by verified email (Clerk Bearer required) |
+| `lib/early-support/` | Shared ledger, checkout metadata, invoice builders, claim (unit-tested) |
+| `/early-support` | Public belief + checkout |
+| `/positions` | Signed-in Positions (empty / pending / active) |
 
 Money truth = verified Stripe webhook + this project's DB. Checkout may
 write `pending` + `intent_created` only. **Never** mark a position `active`
-without a verified webhook.
+without a verified webhook. Browser success never activates.
 
 ---
 
