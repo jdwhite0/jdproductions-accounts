@@ -14,7 +14,9 @@ import '@fontsource/archivo/600.css';
 import '@fontsource/archivo/700.css';
 
 // Clerk publishable key is public by design; inline fallback guarantees the prod
-// build always has it even if the build env var isn't injected. Shared instance with access-app.
+// build always has it even if the build env var isn't injected.
+// Same Clerk instance as ACCESS — consume this key only. Never edit Clerk apps,
+// redirects, or the pool (AGENTS.md §2.1).
 const PUBLISHABLE_KEY =
   import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || 'pk_test_bWlnaHR5LW93bC0xNS5jbGVyay5hY2NvdW50cy5kZXYk';
 

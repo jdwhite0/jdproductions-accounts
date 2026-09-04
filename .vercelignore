@@ -7,3 +7,7 @@ yarn.lock
 dist
 .eslintrc.mjs
 eslint.config.mjs
+
+# SaasAble template copies — not part of the live Vite build
+admin
+uikit

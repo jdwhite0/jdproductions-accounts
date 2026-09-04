@@ -1,86 +1,36 @@
-# JD Productions SaaS Platform
+# Local setup (JD Productions Accounts)
 
-Complete SaaS application built with saasable-ui (React + Material UI) + Stripe.
+The filename is historical (GitHub/Vercel project `jdproductions-saas`).
+This is **not** a generic SaasAble SaaS starter.
 
-## Quick Start
+**Read [AGENTS.md](./AGENTS.md) first.** Repo map: [docs/REPOS_MAP.md](./docs/REPOS_MAP.md).
+
+## Run
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run start
 ```
 
-App runs on `http://localhost:5173`
+App: http://localhost:5173
 
-## Features
+Live: https://accounts.jdproductions.io
 
-- **Pricing Page** — Display LAUNCH, GROW, SCALE plans
-- **User Auth** — Login/Register (built-in to saasable-ui)
-- **Dashboard** — Customer portal (subscriptions, billing, settings)
-- **Stripe Integration** — Direct checkout link
+## Auth
 
-## Plans
+Clerk is already wired (`src/main.jsx`, `/auth/login`, `/auth/register`,
+`/auth/bridge`). Use the same publishable key ACCESS uses. **Do not**
+create Clerk apps, change redirects, or edit the Clerk dashboard.
 
-| Plan | Price | Features |
-|------|-------|----------|
-| LAUNCH | $297/mo | Website, Stripe, Mobile, 72-hour, Support |
-| GROW | $997/mo | Everything + Systems, Automation, AI, Analytics |
-| SCALE | $5k/mo | Everything + Account Mgr, Architecture, Training |
+## Stripe / Early Support
 
-## Deploy to Vercel
+Member billing may still call ACCESS Stripe endpoints (legacy). **Early
+Support** ledger + webhooks belong in this project — plan only, see
+[docs/EARLY_SUPPORT_PLAN.md](./docs/EARLY_SUPPORT_PLAN.md). Do not implement
+against ACCESS Supabase.
 
-```bash
-vercel
-```
+## Deploy
 
-Or connect repo to Vercel:
-- Root Directory: `.` (apps/saas)
-- Env vars set in vercel.json
-
-## Stripe Configuration
-
-1. Create Stripe Account (if not done)
-2. Create Products for each plan in Stripe Dashboard:
-   - LAUNCH: `prod_launch`
-   - GROW: `prod_grow`
-   - SCALE: `prod_scale`
-3. Create Price objects for each:
-   - LAUNCH Monthly: `price_launch_monthly`
-   - GROW Monthly: `price_grow_monthly`
-   - SCALE Monthly: `price_scale_monthly`
-4. Update Stripe keys in environment
-
-## File Structure
-
-```
-src/
-├── config/
-│   └── plans.js          ← Plan definitions + Stripe config
-├── sections/
-│   └── pricing/
-│       └── PricingSection.jsx  ← Pricing page component
-├── layouts/              ← Admin layout (dashboard)
-├── views/                ← Pages (login, register, dashboard)
-└── App.jsx
-```
-
-## Next Steps
-
-1. **Deploy to Vercel** — `vercel`
-2. **Wire checkout** — Create Stripe checkout session endpoint
-3. **Webhook handling** — Handle Stripe events (payment, subscription updates)
-4. **Customer portal** — Link to Stripe Customer Portal
-
-## Pricing Page
-
-Add to jdproductions.io:
-```html
-<a href="https://accounts.jdproductions.io/pricing">View Plans</a>
-```
-
-Customers → Sign up → Dashboard → Manage subscription
-
-## Troubleshooting
-
-- **Missing .env** → Copy .env.example to .env
-- **Stripe key missing** → Add VITE_STRIPE_PUBLISHABLE_KEY to environment
-- **Build fails** → `npm audit fix --force`
+Vercel project for this GitHub repo. Do not rename `jdproductions-saas`
+without reconnecting the project. Bind nothing to ACCESS’s Vercel project.
