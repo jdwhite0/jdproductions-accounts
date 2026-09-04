@@ -11,15 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
 import "@/views/early-support/es.css";
-import {
-  BG,
-  FONT,
-  GOLD,
-  GOLD_2,
-  INK,
-  NAVY,
-  SECONDARY,
-} from "@/views/early-support/brand";
+import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
@@ -61,22 +53,37 @@ export default function EarlySupportLayout({ children }) {
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
             <SignedOut>
               <Button
+                className="btn-signin"
                 component={RouterLink}
                 to="/auth/login?next=/positions"
                 variant="contained"
                 disableElevation
                 sx={{
-                  bgcolor: GOLD,
-                  color: "#FFFFFF",
-                  textTransform: "none",
-                  fontWeight: 600,
+                  /* jdproductions.io .nav-buttons .btn-signin / .btn-signin-m */
+                  minWidth: 116,
+                  px: "24px",
+                  py: "10px",
+                  borderRadius: "24px",
                   fontFamily: FONT,
-                  border: "none",
-                  boxShadow: "none",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: "0.01em",
+                  lineHeight: 1.25,
+                  textTransform: "none",
+                  color: "#fff",
+                  backgroundColor: "transparent",
+                  backgroundImage:
+                    "linear-gradient(135deg, rgba(255,194,14,0.92), rgba(224,165,0,0.92))",
+                  border: "1px solid rgba(255,194,14,0.65)",
+                  boxShadow:
+                    "0 2px 12px rgba(255,194,14,0.28), inset 0 1px 0 rgba(255,255,255,0.45)",
+                  backdropFilter: "blur(12px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(12px) saturate(160%)",
                   "&:hover": {
-                    bgcolor: GOLD_2,
-                    color: "#FFFFFF",
-                    boxShadow: "none",
+                    backgroundColor: "transparent",
+                    backgroundImage: "linear-gradient(135deg, #ffc20e, #e0a500)",
+                    boxShadow:
+                      "0 4px 16px rgba(255,194,14,0.4), inset 0 1px 0 rgba(255,255,255,0.5)",
                   },
                 }}
               >
