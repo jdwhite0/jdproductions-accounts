@@ -74,6 +74,7 @@ apply and are not itemized as a separate charge on this invoice.
 (`early_support_v0`) and the Early Support Privacy addendum.
 
 Live routes: `/early-support` (belief / checkout), `/invest` (redirects here),
+`https://invest.jdproductions.io/` (same landing; host-aware, no dashboard),
 `/early-support/terms`, `/early-support/privacy`.
 
 ---

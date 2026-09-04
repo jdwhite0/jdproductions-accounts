@@ -1,10 +1,10 @@
 import { lazy } from "react";
-import { Navigate } from "react-router-dom";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 // @project
 import Loadable from "@/components/Loadable";
 import AdminLayout from "@/layouts/AdminLayout";
+import HostAwareHome from "@/routes/HostAwareHome";
 import RoleGuard from "@/routes/RoleGuard";
 
 // Member views
@@ -54,34 +54,38 @@ function ProtectedAdmin() {
 
 const MainRoutes = {
   path: "/",
-  element: <ProtectedAdmin />,
   children: [
-    { index: true, element: <Navigate to="/dashboard" replace /> },
-
-    // Member
-    { path: "dashboard", element: <Overview /> },
-    { path: "jyson", element: <Jyson /> },
-    { path: "products", element: <Products /> },
-    { path: "the-mode", element: <TheMode /> },
-    { path: "services", element: <Services /> },
-    { path: "concierge", element: <Concierge /> },
-    { path: "billing", element: <Billing /> },
-    { path: "email-preferences", element: <EmailPreferences /> },
-    { path: "account", element: <Account /> },
-    { path: "positions", element: <PositionsPage /> },
-    { path: "support", element: <Support /> },
-    { path: "changelog", element: <Changelog /> },
-
-    // Founder / admin (role-gated)
+    // invest. root → Early Support (no ProtectedAdmin). accounts. `/` → /dashboard.
+    { index: true, element: <HostAwareHome /> },
     {
-      path: "admin",
-      element: <RoleGuard />,
+      element: <ProtectedAdmin />,
       children: [
-        { index: true, element: <FounderOverview /> },
-        { path: "accounts", element: <FounderAccounts /> },
-        { path: "subscriptions", element: <FounderSubscriptions /> },
-        { path: "system", element: <FounderSystem /> },
-        { path: "positions", element: <AdminPositionsStub /> },
+        // Member
+        { path: "dashboard", element: <Overview /> },
+        { path: "jyson", element: <Jyson /> },
+        { path: "products", element: <Products /> },
+        { path: "the-mode", element: <TheMode /> },
+        { path: "services", element: <Services /> },
+        { path: "concierge", element: <Concierge /> },
+        { path: "billing", element: <Billing /> },
+        { path: "email-preferences", element: <EmailPreferences /> },
+        { path: "account", element: <Account /> },
+        { path: "positions", element: <PositionsPage /> },
+        { path: "support", element: <Support /> },
+        { path: "changelog", element: <Changelog /> },
+
+        // Founder / admin (role-gated)
+        {
+          path: "admin",
+          element: <RoleGuard />,
+          children: [
+            { index: true, element: <FounderOverview /> },
+            { path: "accounts", element: <FounderAccounts /> },
+            { path: "subscriptions", element: <FounderSubscriptions /> },
+            { path: "system", element: <FounderSystem /> },
+            { path: "positions", element: <AdminPositionsStub /> },
+          ],
+        },
       ],
     },
   ],

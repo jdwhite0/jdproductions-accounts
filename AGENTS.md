@@ -166,6 +166,10 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
   (`dist/`) plus `api/` serverless routes (Early Support ledger).
 - Local: `npm install` → `npm run start` → http://localhost:5173
 - Live: `https://accounts.jdproductions.io` (GitHub repo `jdproductions-accounts`).
+- Alias: `https://invest.jdproductions.io` — Host-aware `/` serves Early Support
+  (not ProtectedAdmin `/dashboard`). `accounts.` `/` is unchanged. DNS at
+  Google Domains still required: `invest` CNAME →
+  `ba5acd7daa29209d.vercel-dns-017.com`.
 - Do not rename the GitHub repository without a documented Vercel reconnect.
 - After changing auth or the bridge, verify `/auth/login`, `/auth/register`,
   and `/auth/bridge` still load, and that the marketing iframe still receives
@@ -190,6 +194,7 @@ behind the headline only; white cards; brand hex navy `#002244` / gold
 | `api/positions/claim.js` | POST claim guest positions by verified email (Clerk Bearer required) |
 | `lib/early-support/` | Shared ledger, checkout metadata, invoice builders, claim (unit-tested) |
 | `/early-support` | Public belief + checkout |
+| `/` on `invest.jdproductions.io` (and `www.invest.`) | Same Early Support landing; do not send to `/dashboard` |
 | `/positions` | Signed-in Positions (empty / pending / active) |
 
 Money truth = verified Stripe webhook + this project's DB. Checkout may
