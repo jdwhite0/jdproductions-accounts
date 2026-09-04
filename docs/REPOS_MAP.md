@@ -5,7 +5,7 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 
 | Surface | GitHub | Live | Role |
 |---|---|---|---|
-| **JD Productions Accounts (this repo)** | [`jdwhite0/jdproductions-accounts`](https://github.com/jdwhite0/jdproductions-accounts) | [accounts.jdproductions.io](https://accounts.jdproductions.io) | Company accounts gateway + early-support capital. |
+| **JD Productions Accounts (this repo)** | [`jdwhite0/jdproductions-accounts`](https://github.com/jdwhite0/jdproductions-accounts) | [accounts.jdproductions.io](https://accounts.jdproductions.io) · [invest.jdproductions.io](https://invest.jdproductions.io) (Early Support at `/`) | Company accounts gateway + early-support capital. |
 | **Marketing site** | [`jdwhite0/jdproductions-website`](https://github.com/jdwhite0/jdproductions-website) | [jdproductions.io](https://jdproductions.io) | Public marketing. Sign In → this app’s `/auth/login`. Hidden iframe → this app’s `/auth/bridge`. |
 | **ACCESS** | [`jdwhite0/access-app`](https://github.com/jdwhite0/access-app) | [getaccess.world](https://getaccess.world) | Separate platform / workspace product. Owns Clerk **configuration**. Do not import or merge. |
 | **JYSON** | [`jdwhite0/jyson`](https://github.com/jdwhite0/jyson) | JYSON deploy (own Vercel project) | Separate chat product. Connects to ACCESS via its own `AGENTS.md` contract. Not this app. |

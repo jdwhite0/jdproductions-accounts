@@ -8,6 +8,9 @@ securities, angel, or “investment,” until counsel papers the instrument. Cod
 uses `instrument_type = 'early_support'` and stamps `early_support_v0`.
 
 **Where:** this repo / this Vercel project (`accounts.jdproductions.io`).
+Public Early Support alias: `invest.jdproductions.io` (same project; `/` is
+host-aware). DNS at Google Domains still required:
+`invest` CNAME → `ba5acd7daa29209d.vercel-dns-017.com`.
 **Not** ACCESS Supabase. **Not** a separate capital repo (deleted).
 
 ---
@@ -142,6 +145,7 @@ bg `#FFFFFF`, soft `#F7F7F8`. Solid readable cards — not milky glass.
 
 | Route | Who | What |
 |---|---|---|
+| `/` on `invest.jdproductions.io` (and `www.invest.`) | public | Early Support landing (host-aware; **not** ProtectedAdmin `/dashboard`) |
 | `/early-support` | public | Belief + amount picker + guest checkout |
 | `/invest` | public | Redirect to `/early-support` |
 | `/early-support/success` | public | Thank you; receipt/invoice note; claim CTA |

@@ -7,7 +7,7 @@ Company **accounts gateway** and **early-support capital** home for
 |---|---|
 | **Product** | JD Productions Accounts |
 | **GitHub repo** | `jdwhite0/jdproductions-accounts` |
-| **Live** | https://accounts.jdproductions.io |
+| **Live** | https://accounts.jdproductions.io · https://invest.jdproductions.io (Early Support at `/`) |
 | **Auth** | Clerk (shared pool with ACCESS — **consume keys only**, never edit Clerk) |
 
 This is **not** a generic SaasAble “SaaS Platform” template, **not** ACCESS,

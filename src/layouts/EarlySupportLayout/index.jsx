@@ -13,7 +13,7 @@ import NavLogo from "@/views/early-support/NavLogo";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 
-export default function EarlySupportLayout() {
+export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function EarlySupportLayout() {
         </Toolbar>
       </AppBar>
       <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
-        <Outlet />
+        {children ?? <Outlet />}
       </Container>
       <Box
         component="footer"
