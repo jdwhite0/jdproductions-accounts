@@ -1,11 +1,13 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import galaxyBand from "@/assets/images/early-support/galaxy-band.jpg";
-import { FONT, FONT_DISPLAY, GOLD, TITLE_ON_BAND } from "./brand";
+import { FONT, GOLD, TITLE_ON_BAND } from "./brand";
+import TitleBandAtmosphere from "./TitleBandAtmosphere";
 
 /**
  * Solution B title-band: vivid Hubble NGC 1300 strip behind the headline only.
- * Solid edges — no milky feather mask. Light type on the dark band.
+ * Solid edges — no milky feather mask. Bold Inter title on the dark band.
+ * Same galaxy asset; slow Ken Burns + soft starfield (static if reduced-motion).
  * Image: NASA/ESA Hubble (public domain), cropped to a horizontal band.
  */
 export default function TitleBand({
@@ -15,6 +17,7 @@ export default function TitleBand({
 }) {
   return (
     <Box
+      className="es-title-band"
       sx={{
         position: "relative",
         mb: { xs: 3, md: 4 },
@@ -25,9 +28,9 @@ export default function TitleBand({
     >
       <Box
         aria-hidden
+        className="es-galaxy-drift"
         sx={{
           position: "absolute",
-          inset: 0,
           backgroundImage: `url(${galaxyBand})`,
           backgroundSize: "cover",
           backgroundPosition: "center 38%",
@@ -35,10 +38,11 @@ export default function TitleBand({
           pointerEvents: "none",
         }}
       />
+      <TitleBandAtmosphere />
       <Box
         sx={{
           position: "relative",
-          zIndex: 1,
+          zIndex: 2,
           px: { xs: 2.5, sm: 3.5, md: 4.5 },
           py: { xs: 3.5, md: 4.5 },
           maxWidth: 760,
@@ -64,14 +68,17 @@ export default function TitleBand({
         </Box>
         <Typography
           component="h1"
-          className="es-display"
+          className="es-title-hero"
           sx={{
             color: TITLE_ON_BAND,
-            fontFamily: FONT_DISPLAY,
-            fontWeight: 400,
-            fontSize: { xs: 36, md: 52 },
-            lineHeight: 1.12,
-            letterSpacing: "-0.02em",
+            fontFamily: FONT,
+            fontWeight: 800,
+            fontStyle: "normal",
+            fontSynthesis: "none",
+            fontSize: { xs: 34, md: 50 },
+            lineHeight: 1.08,
+            letterSpacing: "-0.036em",
+            textShadow: "0 1px 18px rgba(0,0,0,0.35)",
           }}
         >
           {title}
