@@ -33,6 +33,50 @@
   font-family: var(--font-display) !important;
 }
 
+/* Title-band H1 — bold Inter, not Instrument Serif */
+.es-root .es-title-hero,
+.es-root h1.es-title-hero {
+  font-family: var(--font) !important;
+  font-weight: 800;
+  letter-spacing: -0.036em;
+}
+
+.es-title-band {
+  isolation: isolate;
+}
+
+.es-galaxy-drift {
+  inset: -18% -12%;
+  animation: es-galaxy-kenburns 56s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.es-title-atmosphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes es-galaxy-kenburns {
+  from {
+    transform: scale(1.03) translate3d(-1.5%, 1%, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(1.6%, -1.2%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .es-galaxy-drift {
+    animation: none;
+    transform: none;
+    inset: 0;
+  }
+}
+
 /* Animated logo — same classes and motion as jdproductions.io */
 .nav-logo {
   display: flex;

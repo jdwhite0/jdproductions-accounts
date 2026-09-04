@@ -177,8 +177,10 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
 
 Backend and title-band UI live in this repo. Official copy:
 `docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md`. Visual lock: title-band galaxy
-behind the headline only; white cards; brand hex navy `#002244` / gold
-`#FFC20E`. Flow: **pay first, account optional**.
+behind the headline only (same Hubble crop, slow Ken Burns + soft
+starfield; static if reduced-motion); bold Inter title (not Instrument
+Serif); white cards; brand hex navy `#002244` / gold `#FFC20E`. Flow:
+**pay first, account optional**.
 
 | Path | Role |
 |---|---|

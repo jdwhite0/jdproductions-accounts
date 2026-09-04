@@ -134,11 +134,15 @@ with builders + skipped-send cases.
 
 Visual lock: **Solution B title-band** — vivid Hubble NGC 1300 strip behind
 the headline only, solid edges (no milky feather mask), light/white type on
-the dark band, gold eyebrow. Rest of UI is clean white. Nav uses the exact
+the dark band, gold eyebrow. Same `galaxy-band.jpg` with a slow Ken Burns
+drift plus a quiet starfield / soft comets (static if
+`prefers-reduced-motion`). Rest of UI is clean white. Nav uses the exact
 jdproductions.io lockup (`nav-full.png` → scrolled `nav-jd-gold.png`).
-Fonts: Inter (UI) + Instrument Serif (display). Brand hex: navy `#002244`,
-gold `#FFC20E` (hairline/mark only), ink `#0A0A0C`, secondary `#51545C`,
-bg `#FFFFFF`, soft `#F7F7F8`. Solid readable cards — not milky glass.
+Fonts: Inter for UI and the title-band H1 (weight 800, tracking ~-0.036em).
+Do not use Instrument Serif on the Early Support headline. Brand hex: navy
+`#002244`, gold `#FFC20E` (hairline/mark only), ink `#0A0A0C`, secondary
+`#51545C`, bg `#FFFFFF`, soft `#F7F7F8`. Solid readable cards — not milky
+glass.
 
 | Route | Who | What |
 |---|---|---|
