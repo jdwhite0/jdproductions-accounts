@@ -11,7 +11,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
 import "@/views/early-support/es.css";
-import { BG, FONT, GOLD, GOLD_2, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
+import {
+  BG,
+  FONT,
+  GOLD,
+  GOLD_2,
+  INK,
+  NAVY,
+  SECONDARY,
+} from "@/views/early-support/brand";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
