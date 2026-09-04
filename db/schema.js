@@ -4,6 +4,7 @@ import { index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid, integer } fr
 /**
  * Early Support schema (this project only).
  * instrument_type is early_support — not equity / shares / securities.
+ * clerk_user_id is nullable until a supporter claims with a Clerk account.
  */
 
 export const instruments = pgTable(
@@ -23,7 +24,8 @@ export const positions = pgTable(
   'positions',
   {
     id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
-    clerkUserId: text('clerk_user_id').notNull(),
+    clerkUserId: text('clerk_user_id'),
+    supporterEmail: text('supporter_email'),
     instrumentId: uuid('instrument_id')
       .notNull()
       .references(() => instruments.id),
@@ -32,6 +34,10 @@ export const positions = pgTable(
     status: text('status').notNull(),
     stripeCheckoutSessionId: text('stripe_checkout_session_id').unique(),
     stripePaymentIntentId: text('stripe_payment_intent_id').unique(),
+    stripeCustomerId: text('stripe_customer_id'),
+    stripeInvoiceId: text('stripe_invoice_id'),
+    tier: text('tier'),
+    claimedAt: timestamp('claimed_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow()
   },
