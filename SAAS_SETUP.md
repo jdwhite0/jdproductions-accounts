@@ -26,9 +26,14 @@ create Clerk apps, change redirects, or edit the Clerk dashboard.
 ## Stripe / Early Support
 
 Member billing may still call ACCESS Stripe endpoints (legacy). **Early
-Support** ledger + webhooks belong in this project — plan only, see
+Support** ledger + webhooks are implemented in this project (`api/` +
+`DATABASE_URL`). Positions UI is a stub (`UI TBD — backend ready`). See
 [docs/EARLY_SUPPORT_PLAN.md](./docs/EARLY_SUPPORT_PLAN.md). Do not implement
 against ACCESS Supabase.
+
+Set server secrets in the Vercel project env UI, not `vercel.json`:
+`DATABASE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+`CLERK_SECRET_KEY`. Do not flip Clerk to `pk_live` here.
 
 ## Deploy
 
