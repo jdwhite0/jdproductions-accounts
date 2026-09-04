@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
-import { INK, NAVY, SECONDARY, esCardSx } from "./brand";
+import { FONT, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 
 const sections = [
   {
@@ -52,15 +52,36 @@ export default function EarlySupportTerms() {
         >
           {sections.map((section) => (
             <Box key={section.title}>
-              <Typography sx={{ color: NAVY, fontWeight: 700, mb: 0.75 }}>
+              <Typography
+                sx={{
+                  color: NAVY,
+                  fontFamily: FONT,
+                  fontWeight: 700,
+                  mb: 0.75,
+                }}
+              >
                 {section.title}
               </Typography>
-              <Typography sx={{ color: INK, fontSize: 15, lineHeight: 1.7 }}>
+              <Typography
+                sx={{
+                  color: INK,
+                  fontFamily: FONT,
+                  fontSize: 15,
+                  lineHeight: 1.7,
+                }}
+              >
                 {section.body}
               </Typography>
             </Box>
           ))}
-          <Typography sx={{ color: SECONDARY, fontSize: 13, lineHeight: 1.6 }}>
+          <Typography
+            sx={{
+              color: SECONDARY,
+              fontFamily: FONT,
+              fontSize: 13,
+              lineHeight: 1.6,
+            }}
+          >
             Related:{" "}
             <Link href="/early-support/privacy" sx={{ color: NAVY }}>
               Early Support Privacy addendum

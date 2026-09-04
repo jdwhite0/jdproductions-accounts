@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import galaxyBand from "@/assets/images/early-support/galaxy-band.jpg";
-import { GOLD, NAVY } from "./brand";
+import { FONT, FONT_DISPLAY, GOLD, TITLE_ON_BAND } from "./brand";
 
 /**
- * Title-band galaxy only — vivid Hubble NGC 1300 strip behind the headline,
- * feathered into the white page. Not a full-bleed wallpaper.
+ * Solution B title-band: vivid Hubble NGC 1300 strip behind the headline only.
+ * Solid edges — no milky feather mask. Light type on the dark band.
  * Image: NASA/ESA Hubble (public domain), cropped to a horizontal band.
  */
 export default function TitleBand({
@@ -18,57 +18,60 @@ export default function TitleBand({
       sx={{
         position: "relative",
         mb: { xs: 3, md: 4 },
-        pt: { xs: 3, md: 4 },
-        pb: { xs: 4, md: 5 },
+        mx: { xs: -2, sm: -3 },
+        overflow: "hidden",
+        bgcolor: "#000",
       }}
     >
       <Box
         aria-hidden
         sx={{
           position: "absolute",
-          left: { xs: -16, sm: -24 },
-          right: { xs: -16, sm: -24 },
-          top: 0,
-          bottom: 0,
+          inset: 0,
           backgroundImage: `url(${galaxyBand})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 40%",
+          backgroundPosition: "center 38%",
           backgroundRepeat: "no-repeat",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)",
-          WebkitMaskComposite: "source-in",
-          maskComposite: "intersect",
           pointerEvents: "none",
         }}
       />
-      <Box sx={{ position: "relative", zIndex: 1, maxWidth: 720 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1 }}>
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          px: { xs: 2.5, sm: 3.5, md: 4.5 },
+          py: { xs: 3.5, md: 4.5 },
+          maxWidth: 760,
+        }}
+      >
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1.25 }}
+        >
           <Typography
             component="p"
             sx={{
               color: GOLD,
+              fontFamily: FONT,
               fontWeight: 700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
               fontSize: 12,
-              textShadow: "0 1px 2px rgba(255,255,255,0.85)",
             }}
           >
             {eyebrow}
           </Typography>
-          <Box sx={{ width: 36, height: 2, bgcolor: GOLD, borderRadius: 1 }} />
+          <Box sx={{ width: 36, height: 1, bgcolor: GOLD }} />
         </Box>
         <Typography
           component="h1"
+          className="es-display"
           sx={{
-            color: NAVY,
-            fontWeight: 700,
-            fontSize: { xs: 32, md: 42 },
-            lineHeight: 1.15,
+            color: TITLE_ON_BAND,
+            fontFamily: FONT_DISPLAY,
+            fontWeight: 400,
+            fontSize: { xs: 36, md: 52 },
+            lineHeight: 1.12,
             letterSpacing: "-0.02em",
-            textShadow: "0 1px 8px rgba(255,255,255,0.9)",
           }}
         >
           {title}
@@ -77,10 +80,12 @@ export default function TitleBand({
           <Typography
             sx={{
               mt: 1.25,
-              color: NAVY,
+              color: "rgba(247,247,248,0.88)",
+              fontFamily: FONT,
               fontSize: { xs: 16, md: 18 },
               maxWidth: 560,
               fontWeight: 500,
+              lineHeight: 1.5,
             }}
           >
             {subtitle}
