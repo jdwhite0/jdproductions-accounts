@@ -178,6 +178,36 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
+/* Sign out — navy liquid-glass outline; never gold (Sign in is guest-only) */
+.es-root .es-nav .btn-signout.MuiButton-root {
+  min-width: 104px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  text-transform: none;
+  color: var(--es-navy);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 34, 68, 0.22);
+  box-shadow:
+    0 1px 8px rgba(0, 34, 68, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.es-root .es-nav .btn-signout.MuiButton-root:hover {
+  background: rgba(0, 34, 68, 0.04);
+  border-color: rgba(0, 34, 68, 0.38);
+}
+
 @media (max-width: 600px) {
   .nav-logo-animated {
     height: 24px;
@@ -188,5 +218,9 @@
   }
   .nav-logo .logo-jd-img {
     height: 26px;
+  }
+  .es-root .es-nav .btn-signout.MuiButton-root {
+    min-width: 0;
+    padding: 8px 14px;
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link as RouterLink } from "react-router-dom";
-import { useAuth, UserButton } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -13,14 +13,31 @@ import NavLogo from "@/views/early-support/NavLogo";
 import TermsStampLink from "@/views/early-support/TermsStampLink";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
+import {
+  earlySupportAfterSignOutPath,
+  earlySupportNavChrome,
+} from "@/utils/early-support-nav";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
-  const { isLoaded, isSignedIn } = useAuth();
+  const [signingOut, setSigningOut] = useState(false);
+  const { isLoaded, isSignedIn, signOut } = useAuth();
   // Only hide Sign in after Clerk confirms a session. While loading or when
   // session resolution fails (e.g. origin_invalid), keep chrome Sign in visible.
-  const showSignedInChrome = Boolean(isLoaded && isSignedIn);
-  const showSignIn = !showSignedInChrome;
+  const { showSignedInChrome, showSignIn } = earlySupportNavChrome({
+    isLoaded,
+    isSignedIn,
+  });
+
+  const handleSignOut = async () => {
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await signOut({ redirectUrl: earlySupportAfterSignOutPath() });
+    } catch {
+      setSigningOut(false);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -56,7 +73,11 @@ export default function EarlySupportLayout({ children }) {
           }}
         >
           <NavLogo />
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
+          <Stack
+            direction="row"
+            spacing={{ xs: 0.75, sm: 1.5 }}
+            sx={{ alignItems: "center", flexShrink: 0 }}
+          >
             {showSignIn ? (
               <Button
                 className="btn-signin"
@@ -107,16 +128,51 @@ export default function EarlySupportLayout({ children }) {
                     fontWeight: 600,
                     textTransform: "none",
                     fontFamily: FONT,
+                    minWidth: 0,
+                    px: { xs: 1, sm: 1.5 },
                   }}
                 >
                   Positions
                 </Button>
-                <UserButton
-                  afterSignOutUrl="/auth/login"
-                  appearance={{
-                    elements: { avatarBox: { width: 36, height: 36 } },
+                <Button
+                  className="btn-signout"
+                  type="button"
+                  variant="outlined"
+                  disableElevation
+                  onClick={handleSignOut}
+                  disabled={signingOut}
+                  aria-label="Sign out"
+                  sx={{
+                    minWidth: { xs: 0, sm: 104 },
+                    px: { xs: "14px", sm: "20px" },
+                    py: { xs: "8px", sm: "10px" },
+                    borderRadius: "24px",
+                    fontFamily: FONT,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    letterSpacing: "0.01em",
+                    lineHeight: 1.25,
+                    textTransform: "none",
+                    color: NAVY,
+                    backgroundColor: "transparent",
+                    borderColor: "rgba(0, 34, 68, 0.22)",
+                    boxShadow:
+                      "0 1px 8px rgba(0, 34, 68, 0.06), inset 0 1px 0 rgba(255,255,255,0.7)",
+                    backdropFilter: "blur(12px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(12px) saturate(160%)",
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 34, 68, 0.04)",
+                      borderColor: "rgba(0, 34, 68, 0.38)",
+                    },
+                    "&.Mui-disabled": {
+                      color: NAVY,
+                      borderColor: "rgba(0, 34, 68, 0.16)",
+                      opacity: 0.65,
+                    },
                   }}
-                />
+                >
+                  {signingOut ? "Signing out…" : "Sign out"}
+                </Button>
               </>
             ) : null}
           </Stack>
