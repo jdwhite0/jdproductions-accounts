@@ -3,6 +3,8 @@ import test from 'node:test';
 import {
   CHECKOUT_PRODUCT_DESCRIPTION,
   CONTINUE_ACCEPTS,
+  CONTINUE_ACCEPTS_AFTER,
+  CONTINUE_ACCEPTS_BEFORE,
   CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   INVOICE_NOTES,
@@ -77,4 +79,16 @@ test('display labels are Believe / Stand / Build; backend keys stay starter / st
   assert.equal(checkoutProductName('Believe'), 'Early Support — Believe');
   assert.equal(checkoutProductName('Stand'), 'Early Support — Stand');
   assert.equal(checkoutProductName('Build'), 'Early Support — Build');
+});
+
+test('CONTINUE_ACCEPTS is the terms-stamp parts plus TERMS_VERSION', () => {
+  assert.equal(TERMS_VERSION, 'early_support_v0');
+  assert.equal(
+    CONTINUE_ACCEPTS,
+    'By continuing you accept the Early Support Terms (early_support_v0) and the Early Support Privacy addendum.'
+  );
+  assert.equal(
+    `${CONTINUE_ACCEPTS_BEFORE}${TERMS_VERSION}${CONTINUE_ACCEPTS_AFTER}`,
+    CONTINUE_ACCEPTS
+  );
 });

@@ -23,7 +23,8 @@ import {
   esCardSx,
 } from "./brand";
 import {
-  CONTINUE_ACCEPTS,
+  CONTINUE_ACCEPTS_AFTER,
+  CONTINUE_ACCEPTS_BEFORE,
   CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   IMPORTANT_DISCLOSURE_TITLE,
@@ -35,6 +36,7 @@ import {
   WHAT_YOU_RECEIVE,
   formatUsdFromCents,
 } from "../../../lib/early-support/copy.js";
+import TermsStampLink, { linkTermsStamp } from "./TermsStampLink";
 
 const TIER_LIST = [TIERS.starter, TIERS.standard, TIERS.anchor];
 
@@ -179,7 +181,7 @@ export default function EarlySupportLanding() {
                     key={item}
                     sx={{ mb: 0.75, fontSize: 15, lineHeight: 1.6 }}
                   >
-                    {item}
+                    {linkTermsStamp(item)}
                   </Typography>
                 ))}
               </Box>
@@ -256,7 +258,9 @@ export default function EarlySupportLanding() {
                   <Typography
                     sx={{ fontSize: 13, color: SECONDARY, lineHeight: 1.5 }}
                   >
-                    {CONTINUE_ACCEPTS}{" "}
+                    {CONTINUE_ACCEPTS_BEFORE}
+                    <TermsStampLink />
+                    {CONTINUE_ACCEPTS_AFTER}{" "}
                     <Link component={RouterLink} to="/early-support/terms">
                       Terms
                     </Link>{" "}

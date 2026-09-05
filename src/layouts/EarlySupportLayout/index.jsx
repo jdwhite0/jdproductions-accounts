@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
+import TermsStampLink from "@/views/early-support/TermsStampLink";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 
@@ -135,7 +136,16 @@ export default function EarlySupportLayout({ children }) {
               sx={{ color: SECONDARY, fontFamily: FONT }}
             >
               © {new Date().getFullYear()} JD Productions Inc. Early Support
-              terms: early_support_v0.
+              terms:{" "}
+              <TermsStampLink
+                underline="hover"
+                sx={{
+                  color: SECONDARY,
+                  fontSize: "inherit",
+                  fontFamily: FONT,
+                }}
+              />
+              .
             </Typography>
             <Stack direction="row" spacing={2}>
               <Link
