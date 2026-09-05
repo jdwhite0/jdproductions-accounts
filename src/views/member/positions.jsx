@@ -97,9 +97,9 @@ export default function PositionsPage() {
               No Early Support position yet
             </Typography>
             <Typography sx={{ color: INK, mb: 2, lineHeight: 1.7 }}>
-              Pay first — an account was optional. If you already paid with this
-              email, we attach guest positions when the email on your login is
-              verified.
+              An account was optional. If you already completed Early Support
+              with this email, we attach guest positions when the email on your
+              login is verified.
             </Typography>
             <Button
               component={RouterLink}

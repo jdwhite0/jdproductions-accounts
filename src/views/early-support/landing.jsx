@@ -24,6 +24,7 @@ import {
 } from "./brand";
 import {
   CONTINUE_ACCEPTS,
+  CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   IMPORTANT_DISCLOSURE_TITLE,
   LANDING_BODY,
@@ -35,11 +36,7 @@ import {
   formatUsdFromCents,
 } from "../../../lib/early-support/copy.js";
 
-const TIER_LIST = [
-  { ...TIERS.starter, hint: "A first stand with the studio." },
-  { ...TIERS.standard, hint: "The standard Early Support amount." },
-  { ...TIERS.anchor, hint: "Anchor support before the next formal round." },
-];
+const TIER_LIST = [TIERS.starter, TIERS.standard, TIERS.anchor];
 
 export default function EarlySupportLanding() {
   const { getToken, isSignedIn } = useAuth();
@@ -224,9 +221,9 @@ export default function EarlySupportLanding() {
               <TierButton
                 selected={tier === "custom"}
                 onClick={() => setTier("custom")}
-                label="Custom"
+                label={CUSTOM_TIER.label}
                 amount="Your amount"
-                hint="Within the posted minimum and maximum."
+                hint={CUSTOM_TIER.hint}
               />
               {tier === "custom" && (
                 <TextField
@@ -245,7 +242,7 @@ export default function EarlySupportLanding() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 size="small"
-                helperText="Required. A JD Productions Accounts login is optional after you pay."
+                helperText="Required. A JD Productions Accounts login is optional afterward."
               />
               <FormControlLabel
                 control={

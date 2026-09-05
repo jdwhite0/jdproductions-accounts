@@ -9,7 +9,7 @@ import { FONT, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 const sections = [
   {
     title: "Definition",
-    body: "Early Support is a voluntary payment to JD Productions Inc. It records your support, emails a Stripe receipt and an itemized invoice, and may include priority consideration when counsel later offers a formal instrument. It is not equity, shares, a SAFE, or any other security. It is not a guaranteed return. It is not a charitable donation or 501(c)(3) contribution. Any later instrument is a separate, counsel-prepared step; nothing converts silently. Terms version: early_support_v0.",
+    body: "Early Support is how you stand with JD Productions Inc. before the next formal round. It is voluntary support to the company. It records your support, emails a Stripe receipt and an itemized invoice, and may include priority consideration when counsel later offers a formal instrument. It is not equity, shares, a SAFE, or any other security. It is not a guaranteed return. It is not a charitable donation or 501(c)(3) contribution. Any later instrument is a separate, counsel-prepared step; nothing converts silently. Terms version: early_support_v0.",
   },
   {
     title: "What you receive",
@@ -20,8 +20,8 @@ const sections = [
     body: "Early Support is not equity, shares, stock, a SAFE, or a security. It is not an investment offering and does not promise a return, ROI percentage, or repayment. It is not tax-deductible as a charitable gift. Tax treatment is between you and your advisor.",
   },
   {
-    title: "Pay first, account optional",
-    body: "You may pay as a guest with your email. A JD Productions Accounts login is optional. The ledger record, receipt, and itemized invoice are provided either way. If you later create an account with the same verified email, you may claim guest positions to view them under Positions.",
+    title: "Amount first, account optional",
+    body: "You may complete Early Support as a guest with your email. A JD Productions Accounts login is optional. The ledger record, Stripe receipt, and itemized invoice are provided either way. If you later create an account with the same verified email, you may claim guest positions to view them under Positions.",
   },
   {
     title: "Money confirmation",

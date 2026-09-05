@@ -29,7 +29,7 @@ positions that match a verified email.
 ## Flow
 
 1. Belief page `/early-support` (also `/invest` → same). Amount picker
-   (Starter $100, Standard $250, Anchor $500, Custom). Email required.
+   (Believe $100, Stand $250, Build $500, Custom). Email required.
    Continue accepts Terms + Privacy (`early_support_v0`).
 2. `POST /api/stripe/checkout` — **unauthenticated guest OK**. Signed-in
    requests may send a Clerk Bearer and pre-fill `clerk_user_id`. Metadata
