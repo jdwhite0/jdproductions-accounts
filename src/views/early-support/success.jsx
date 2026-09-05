@@ -47,7 +47,7 @@ export default function EarlySupportSuccess() {
             }}
           >
             Stripe will email a payment receipt. An itemized invoice (charge
-            line plus included items, terms <TermsStampLink />) is sent after
+            line plus included items, terms <TermsStampLink underline="hover" />) is sent after
             the payment is confirmed by webhook — not by this browser page
             alone. A position becomes active only after that confirmation.
           </Typography>

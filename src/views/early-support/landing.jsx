@@ -181,7 +181,7 @@ export default function EarlySupportLanding() {
                     key={item}
                     sx={{ mb: 0.75, fontSize: 15, lineHeight: 1.6 }}
                   >
-                    {linkTermsStamp(item)}
+                    {linkTermsStamp(item, { underline: "hover" })}
                   </Typography>
                 ))}
               </Box>
@@ -259,7 +259,7 @@ export default function EarlySupportLanding() {
                     sx={{ fontSize: 13, color: SECONDARY, lineHeight: 1.5 }}
                   >
                     {CONTINUE_ACCEPTS_BEFORE}
-                    <TermsStampLink />
+                    <TermsStampLink underline="hover" />
                     {CONTINUE_ACCEPTS_AFTER}{" "}
                     <Link component={RouterLink} to="/early-support/terms">
                       Terms
