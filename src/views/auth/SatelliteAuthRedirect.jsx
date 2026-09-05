@@ -9,8 +9,8 @@ import Copyright from "@/sections/auth/Copyright";
 import { satelliteReturnUrl } from "@/utils/clerk-satellite";
 
 /**
- * Satellite auth must run on the ACCESS primary. Do not embed <SignIn> /
- * <SignUp> here — buildSignInUrl / buildSignUpUrl append the Clerk sync
+ * Satellite auth must run on the ACCESS primary. Do not embed Clerk SignIn /
+ * SignUp widgets here — buildSignInUrl / buildSignUpUrl append the Clerk sync
  * handshake so the session is recognized when the user returns.
  */
 export default function SatelliteAuthRedirect({

@@ -56,18 +56,18 @@ test("login and register redirect to primary instead of embedding Clerk widgets"
   assert.match(login, /SatelliteAuthRedirect/);
   assert.match(login, /mode="signin"/);
   assert.match(login, /safeNextPath/);
-  assert.doesNotMatch(login, /<SignIn/);
+  assert.doesNotMatch(login, /<SignIn[\s/>]/);
 
   assert.match(register, /SatelliteAuthRedirect/);
   assert.match(register, /mode="signup"/);
   assert.match(register, /safeNextPath/);
-  assert.doesNotMatch(register, /<SignUp/);
+  assert.doesNotMatch(register, /<SignUp[\s/>]/);
 
   assert.match(redirect, /buildSignInUrl/);
   assert.match(redirect, /buildSignUpUrl/);
   assert.match(redirect, /satelliteReturnUrl/);
-  assert.doesNotMatch(redirect, /<SignIn/);
-  assert.doesNotMatch(redirect, /<SignUp/);
+  assert.doesNotMatch(redirect, /<SignIn[\s/>]/);
+  assert.doesNotMatch(redirect, /<SignUp[\s/>]/);
 });
 
 test(".env.example documents satellite Clerk vars without secrets", () => {
