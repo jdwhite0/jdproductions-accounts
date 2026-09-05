@@ -27,12 +27,7 @@ The JDP holder app (`jdp-saas`) uses **Privy**, not this Clerk pool.
 ```
 jdproductions.io  --iframe-->  accounts.jdproductions.io/auth/bridge
                   --link---->  accounts.jdproductions.io/auth/login
-                                    --redirect-->  getaccess.world/sign-in
-                                                   ?redirect_url=https://accounts.jdproductions.io/…
 ```
-
-`/auth/login` is a thin door. Magic-link emails complete on ACCESS
-(instance domain), then ACCESS returns to the allowlisted Accounts URL.
 
 Bridge posts `{ type: 'jdp_auth', signedIn, imageUrl, firstName, fullName }`
 to allowlisted parent origins. Contract: root `AGENTS.md`.

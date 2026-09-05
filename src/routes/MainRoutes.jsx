@@ -1,7 +1,5 @@
 import { lazy } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { SignedIn, SignedOut } from "@clerk/clerk-react";
-import { safeNextPath } from "@/utils/safe-next";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 // @project
 import Loadable from "@/components/Loadable";
@@ -40,21 +38,15 @@ const FounderSubscriptions = Loadable(
 );
 const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
 
-// Auth gate — signed-out users go to the thin Accounts door, which
-// immediately sends them to ACCESS with redirect_url back here.
+// Auth gate — only signed-in users reach the dashboard; others go to /auth/login
 function ProtectedAdmin() {
-  const location = useLocation();
-  const next = safeNextPath(location.pathname, "/dashboard");
   return (
     <>
       <SignedIn>
         <AdminLayout />
       </SignedIn>
       <SignedOut>
-        <Navigate
-          to={`/auth/login?next=${encodeURIComponent(next)}`}
-          replace
-        />
+        <RedirectToSignIn />
       </SignedOut>
     </>
   );

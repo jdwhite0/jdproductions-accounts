@@ -41,9 +41,9 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 
 | # | Connection | Mechanism | Direction | Secret? |
 |---|---|---|---|---|
-| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Accounts is a **primary-mode** consumer (no `isSatellite` — Clerk cannot register `accounts.jdproductions.io`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
+| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Accounts is a **primary-mode** consumer on this origin (embedded `<SignIn>` / `<SignUp>`). Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
-| 3 | **ACCESS auth door** | `/auth/login`, `/auth/register`, and Early Support Sign in send users to `https://getaccess.world/sign-in` (or `/sign-up`) with `redirect_url` back to an allowlisted Accounts/Invest URL. ACCESS owns magic-link completion. | this app → ACCESS → this app | No (public URLs) |
+| 3 | **Optional outbound links** | Plain URLs to `https://getaccess.world` and `https://jdproductions.io` | this app → those sites | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
 
 Anything outside these four is **not** an approved connection. Do not add new
@@ -60,19 +60,8 @@ coupling without updating this contract in the same commit.
   set `isSatellite` — Clerk cannot register `accounts.jdproductions.io` as
   a satellite (`reserved_subdomain`); satellite handshake loops forever.
 - Live routes that must keep working: `/auth/login`, `/auth/register`,
-  `/auth/bridge`. Login and register are **thin ACCESS doors** (immediate
-  redirect to `getaccess.world/sign-in` or `/sign-up` with `redirect_url`
-  back here). Do **not** embed email_link `<SignIn>` on this origin —
-  Clerk returns `redirect_url_domain_mismatch` because the instance
-  domain is getaccess.world only. Bridge payload is unchanged.
-- Exact Early Support Sign-in `redirect_url`:
-  `https://accounts.jdproductions.io/positions`
-  (ACCESS door: `https://getaccess.world/sign-in?redirect_url=https%3A%2F%2Faccounts.jdproductions.io%2Fpositions`).
-- Post-auth return is a **different** Clerk allowlist from magic-link
-  landing. ACCESS `safePostAuthRedirect` must allow Accounts/Invest
-  origins. If Clerk `prepare` still rejects the Accounts URL after ACCESS
-  honors it, that is a Clerk **redirect_urls** gap — ask a human; do not
-  edit the Clerk dashboard from this repo.
+  `/auth/bridge`. Login and register embed `<SignIn routing="hash">` /
+  `<SignUp routing="hash">` on this origin. Bridge payload is unchanged.
 
 ### 2.2 Marketing iframe bridge — do not break
 
@@ -158,7 +147,7 @@ them. They are excluded from the Vercel upload via `.vercelignore`.
 
 Unused Clerk-era leftovers inside `src/` (not wired to live routes):
 `src/sections/auth/AuthLogin.jsx`, `AuthRegister.jsx`, `AuthSocial.jsx`.
-Live auth doors are `src/views/auth/login.jsx` / `register.jsx` (ACCESS).
+Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
 
 ---
 
@@ -185,9 +174,9 @@ Live auth doors are `src/views/auth/login.jsx` / `register.jsx` (ACCESS).
   Google Domains still required: `invest` CNAME →
   `ba5acd7daa29209d.vercel-dns-017.com`.
 - Do not rename the GitHub repository without a documented Vercel reconnect.
-- After changing auth or the bridge, verify `/auth/login` and `/auth/register`
-  send users to ACCESS with `redirect_url` back to Accounts, `/auth/bridge`
-  still loads, and the marketing iframe still receives `jdp_auth`.
+- After changing auth or the bridge, verify `/auth/login`, `/auth/register`,
+  and `/auth/bridge` still load, and that the marketing iframe still receives
+  `jdp_auth`.
 
 ---
 
