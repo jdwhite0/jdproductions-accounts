@@ -18,25 +18,45 @@ test("ClerkProvider is primary mode on this origin, not a satellite", () => {
   assert.doesNotMatch(main, /VITE_CLERK_SIGN_IN_URL/);
   assert.doesNotMatch(main, /VITE_CLERK_SIGN_UP_URL/);
   assert.doesNotMatch(main, /pk_test_/);
+  assert.doesNotMatch(main, /getaccess\.world\/sign-in/);
+  assert.doesNotMatch(main, /getaccess\.world\/sign-up/);
   assert.match(main, /signInUrl="\/auth\/login"/);
   assert.match(main, /signUpUrl="\/auth\/register"/);
   assert.match(main, /afterSignOutUrl="\/auth\/login"/);
+  assert.match(main, /signInFallbackRedirectUrl="\/dashboard"/);
+  assert.match(main, /signUpFallbackRedirectUrl="\/dashboard"/);
   assert.match(main, /pk_live_/);
 });
 
-test("login and register are ACCESS doors, not embedded Clerk widgets", () => {
+test("login and register embed Clerk widgets instead of ACCESS-only doors", () => {
   const login = readRepo("src/views/auth/login.jsx");
   const register = readRepo("src/views/auth/register.jsx");
 
-  assert.doesNotMatch(login, /<SignIn/);
-  assert.doesNotMatch(register, /<SignUp/);
-  assert.match(login, /accessSignInUrl/);
-  assert.match(register, /accessWaitlistUrl/);
+  assert.match(login, /<SignIn/);
+  assert.match(login, /routing="hash"/);
+  assert.match(login, /safeNextPath/);
+  assert.match(login, /forceRedirectUrl=\{next\}/);
+  assert.match(login, /<SignedIn>/);
+  assert.match(login, /<Navigate to=\{next\} replace \/>/);
+  assert.doesNotMatch(login, /JYSON/);
+  assert.doesNotMatch(login, /identity pool/);
+  assert.doesNotMatch(login, /Sign in with ACCESS/);
+  assert.doesNotMatch(login, /Continue on ACCESS/);
   assert.doesNotMatch(login, /SatelliteAuthRedirect/);
+  assert.doesNotMatch(register, /Continue on ACCESS/);
   assert.doesNotMatch(login, /buildSignInUrl/);
+  assert.doesNotMatch(login, /Redirecting to sign in/);
   assert.doesNotMatch(login, /AccessDoorPage/);
+
+  assert.match(register, /<SignUp/);
+  assert.match(register, /routing="hash"/);
+  assert.match(register, /safeNextPath/);
+  assert.match(register, /forceRedirectUrl=\{next\}/);
+  assert.match(register, /<SignedIn>/);
+  assert.match(register, /<Navigate to=\{next\} replace \/>/);
   assert.doesNotMatch(register, /SatelliteAuthRedirect/);
   assert.doesNotMatch(register, /buildSignUpUrl/);
+  assert.doesNotMatch(register, /Redirecting to sign up/);
   assert.doesNotMatch(register, /AccessDoorPage/);
 });
 
@@ -73,8 +93,24 @@ test("live ACCESS publishable key stays in vercel.json; satellite env unused", (
   assert.doesNotMatch(example, /sk_live_|sk_test_[A-Za-z0-9]{10,}/);
 });
 
-test("Early Support Sign in stays on Accounts /auth/login", () => {
+test("login and register expose create-account and sign-in doors", () => {
+  const login = readRepo("src/views/auth/login.jsx");
+  const register = readRepo("src/views/auth/register.jsx");
+  assert.match(login, /Create an account/);
+  assert.match(login, /to=\{`\/auth\/register\?next=\$\{encodeURIComponent\(next\)\}`\}/);
+  assert.match(register, /Already have an account/);
+  assert.match(register, /to=\{`\/auth\/login\?next=\$\{encodeURIComponent\(next\)\}`\}/);
+});
+
+test("Early Support Sign in and Create account stay on Accounts Clerk", () => {
   const layout = readRepo("src/layouts/EarlySupportLayout/index.jsx");
+  const success = readRepo("src/views/early-support/success.jsx");
   assert.match(layout, /to="\/auth\/login\?next=\/positions"/);
+  assert.match(layout, /to="\/auth\/register\?next=\/positions"/);
   assert.doesNotMatch(layout, /accessSignInUrl/);
+  assert.match(success, /to="\/auth\/register\?next=\/positions"/);
+  assert.match(success, /to="\/auth\/login\?next=\/positions"/);
+  assert.match(success, /Create an account to claim Positions/);
+  assert.match(success, /earlySupportNavChrome/);
+  assert.doesNotMatch(success, /SignedOut/);
 });

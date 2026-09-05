@@ -1,5 +1,5 @@
 import { Link as RouterLink, useSearchParams } from "react-router-dom";
-import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -10,10 +10,16 @@ import TitleBand from "./TitleBand";
 import TermsStampLink from "./TermsStampLink";
 import { FONT, GOLD, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 import { THANK_YOU_COPY } from "../../../lib/early-support/copy.js";
+import { earlySupportNavChrome } from "@/utils/early-support-nav";
 
 export default function EarlySupportSuccess() {
   const [params] = useSearchParams();
   const sessionId = params.get("session_id");
+  const { isLoaded, isSignedIn } = useAuth();
+  const { showSignedInChrome, showSignIn } = earlySupportNavChrome({
+    isLoaded,
+    isSignedIn,
+  });
 
   return (
     <Box>
@@ -64,7 +70,8 @@ export default function EarlySupportSuccess() {
             </Typography>
           )}
           <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
-            <SignedOut>
+            {showSignIn ? (
+              <>
               <Button
                 component={RouterLink}
                 to="/auth/register?next=/positions"
@@ -91,8 +98,9 @@ export default function EarlySupportSuccess() {
               >
                 Sign in to claim
               </Button>
-            </SignedOut>
-            <SignedIn>
+              </>
+            ) : null}
+            {showSignedInChrome ? (
               <Button
                 component={RouterLink}
                 to="/positions"
@@ -106,7 +114,7 @@ export default function EarlySupportSuccess() {
               >
                 View your Positions
               </Button>
-            </SignedIn>
+            ) : null}
           </Stack>
         </CardContent>
       </Card>

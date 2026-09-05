@@ -17,7 +17,7 @@ app. Read **[AGENTS.md](./AGENTS.md)** before changing anything.
 ## What lives here
 
 - Member/founder accounts UI on `accounts.jdproductions.io`
-- `/auth/login`, `/auth/register` (click-only ACCESS doors), `/auth/bridge` (marketing iframe)
+- `/auth/login`, `/auth/register` (Clerk widgets on this origin, ACCESS pool), `/auth/bridge` (marketing iframe)
 - Early-support ledger + Stripe webhooks in **this** project (`api/` + own
   Postgres). Guest pay first, optional Clerk claim. UI: `/early-support`
   and `/positions`. Copy: [docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md](./docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md).
@@ -74,9 +74,10 @@ Do not change Clerk apps, redirects, or migrate `pk_test` → `pk_live`.
 
 1. Shared Clerk identity with ACCESS — env keys only; never change Clerk apps/redirects/pool.
 2. Marketing iframe bridge: website loads `/auth/bridge`; this app posts `jdp_auth`.
-3. Click-only ACCESS doors (`/sign-in`, waitlist `/`). Do **not**
-   auto-redirect `/auth/login` to ACCESS (cross-domain session loop). Do **not**
-   embed Clerk `<SignIn>` on this origin.
+3. Optional click-only ACCESS magic-link (`/sign-in`, waitlist `/`). Do **not**
+   auto-redirect `/auth/login` to ACCESS (cross-domain session loop). This
+   origin **does** embed Clerk `<SignIn>` / `<SignUp>` so Early Support and
+   the SaaS portal can mint a first-party session.
 4. Early-support DB + Stripe in **this** Vercel project — not ACCESS Supabase.
 
 Full rules: [AGENTS.md](./AGENTS.md).
