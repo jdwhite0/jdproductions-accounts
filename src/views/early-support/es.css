@@ -276,6 +276,13 @@
     max-width: min(148px, 48vw);
   }
 
+  .es-nav-auth--signed {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    max-width: min(168px, 52vw);
+  }
+
   .es-root .es-nav .btn-signin.MuiButton-root {
     min-width: 0 !important;
     width: 100%;

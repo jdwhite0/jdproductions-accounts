@@ -80,9 +80,11 @@ test("protected portal does not use Clerk RedirectToSignIn", () => {
 
 test("ticket route consumes Clerk sign-in tokens from ACCESS", () => {
   const ticket = readRepo("src/views/auth/ticket.jsx");
+  const consume = readRepo("src/utils/consume-clerk-ticket.js");
   const routes = readRepo("src/routes/PagesRoutes.jsx");
-  assert.match(ticket, /strategy: "ticket"/);
-  assert.match(ticket, /setActive/);
+  assert.match(ticket, /consumeClerkTicket/);
+  assert.match(consume, /strategy: "ticket"/);
+  assert.match(consume, /setActive/);
   assert.match(routes, /path: 'ticket'/);
   assert.match(ticket, /Sign in failed\. Try again\./);
   assert.doesNotMatch(ticket, /window\.location\.(replace|assign)/);
@@ -118,6 +120,9 @@ test("Early Support Sign in stays on Accounts routes", () => {
   assert.doesNotMatch(layout, /to="\/auth\/register\?next=\/positions"/);
   assert.doesNotMatch(layout, /Create account/);
   assert.doesNotMatch(layout, /accessSignInUrl/);
+  assert.match(layout, /NavAvatar/);
+  assert.match(layout, /GalaxySignOutButton/);
+  assert.match(layout, /InvestSessionRestore/);
   assert.match(success, /to="\/auth\/register\?next=\/positions"/);
   assert.match(success, /to="\/auth\/login\?next=\/positions"/);
   assert.match(success, /Create an account to track your support/);
@@ -136,4 +141,24 @@ test("/invest redirects to Early Support instead of a separate page", () => {
   );
   assert.match(vercel, /"source": "\/invest"/);
   assert.match(vercel, /"destination": "\/early-support"/);
+});
+
+test("invest restores the accounts session, not ACCESS, via session-share", () => {
+  const restore = readRepo("src/views/auth/InvestSessionRestore.jsx");
+  const share = readRepo("src/views/auth/session-share.jsx");
+  const routes = readRepo("src/routes/PagesRoutes.jsx");
+  const app = readRepo("src/App.jsx");
+  const api = readRepo("api/auth/sign-in-token.js");
+  const vercel = readRepo("vercel.json");
+
+  assert.match(app, /InvestSessionRestoreProvider/);
+  assert.match(routes, /path: 'session-share'/);
+  assert.match(share, /\/api\/auth\/sign-in-token/);
+  assert.match(share, /SESSION_SHARE_MESSAGE/);
+  assert.match(readRepo("src/utils/session-share.js"), /jdp_accounts_session/);
+  assert.doesNotMatch(restore, /getaccess\.world/);
+  assert.doesNotMatch(share, /getaccess\.world/);
+  assert.match(api, /mintSignInTokenForUser/);
+  assert.match(vercel, /frame-ancestors/);
+  assert.match(vercel, /https:\/\/invest\.jdproductions\.io/);
 });

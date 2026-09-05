@@ -6,6 +6,7 @@ import { ConfigProvider } from '@/contexts/ConfigContext';
 
 import router from '@/routes';
 import ThemeCustomization from '@/themes';
+import InvestSessionRestoreProvider from '@/views/auth/InvestSessionRestore';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <ConfigProvider>
         <ThemeCustomization>
           <Notistack>
-            <RouterProvider router={router} />
+            <InvestSessionRestoreProvider>
+              <RouterProvider router={router} />
+            </InvestSessionRestoreProvider>
           </Notistack>
         </ThemeCustomization>
       </ConfigProvider>

@@ -10,8 +10,10 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
+import NavAvatar from "@/views/early-support/NavAvatar";
 import GalaxySignOutButton from "@/views/early-support/GalaxySignOutButton";
 import TermsStampLink from "@/views/early-support/TermsStampLink";
+import { useInvestSessionRestore } from "@/views/auth/InvestSessionRestore";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 import {
@@ -22,19 +24,21 @@ import {
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
-  const { isLoaded, isSignedIn, signOut } = useAuth();
-  // Only hide Sign in after Clerk confirms a session. While loading or when
-  // session resolution fails (e.g. origin_invalid), keep chrome Sign in visible.
+  const { isLoaded, isSignedIn } = useAuth();
+  const { restorePending, signOutAcrossHosts } = useInvestSessionRestore();
+  // Only hide Sign in after Clerk confirms a session. While invest restores
+  // from accounts., show neither Sign in nor signed-in chrome.
   const { showSignedInChrome, showSignIn } = earlySupportNavChrome({
     isLoaded,
     isSignedIn,
+    restorePending,
   });
 
   const handleSignOut = async () => {
     if (signingOut) return;
     setSigningOut(true);
     try {
-      await signOut({ redirectUrl: EARLY_SUPPORT_AFTER_SIGN_OUT_PATH });
+      await signOutAcrossHosts(EARLY_SUPPORT_AFTER_SIGN_OUT_PATH);
     } catch {
       setSigningOut(false);
     }
@@ -90,11 +94,13 @@ export default function EarlySupportLayout({ children }) {
             <NavLogo />
           </Box>
           <Stack
-            className="es-nav-auth"
-            direction={{ xs: "column", sm: "row" }}
-            spacing={{ xs: 0.25, sm: 1.5 }}
+            className={
+              showSignedInChrome ? "es-nav-auth es-nav-auth--signed" : "es-nav-auth"
+            }
+            direction="row"
+            spacing={{ xs: 0.75, sm: 1.5 }}
             sx={{
-              alignItems: { xs: "stretch", sm: "center" },
+              alignItems: "center",
               flexShrink: 0,
               maxWidth: { xs: "48%", sm: "none" },
             }}
@@ -141,24 +147,7 @@ export default function EarlySupportLayout({ children }) {
             ) : null}
             {showSignedInChrome ? (
               <>
-                <Button
-                  component={RouterLink}
-                  to="/positions"
-                  sx={{
-                    color: NAVY,
-                    fontWeight: 600,
-                    textTransform: "none",
-                    fontFamily: FONT,
-                    minWidth: 0,
-                    px: { xs: 0.5, sm: 1.5 },
-                    py: { xs: 0.25, sm: 0.5 },
-                    fontSize: { xs: 12, sm: 14 },
-                    lineHeight: 1.2,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Positions
-                </Button>
+                <NavAvatar />
                 <GalaxySignOutButton
                   onClick={handleSignOut}
                   disabled={signingOut}

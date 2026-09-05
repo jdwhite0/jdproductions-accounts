@@ -45,8 +45,9 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
 | 3 | **ACCESS doors** | Optional click-only URLs to `https://getaccess.world/sign-in` (magic-link) and `https://getaccess.world/` (waitlist). **Never auto-redirect** `/auth/login` on page load (no shared session cookie → infinite loop). | this app → ACCESS | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
+| 5 | **Invest session restore** | `invest.` / `www.invest.` load a hidden iframe of **this app** at `https://accounts.jdproductions.io/auth/session-share`. That origin already has the dashboard ticket cookie (same site, Lax). It mints a short-lived Clerk ticket via `POST /api/auth/sign-in-token` and `postMessage`s `{ type: 'jdp_accounts_session', ticket }` to the invest parent only. Do **not** iframe ACCESS for this — `getaccess.world` is cross-site, so Lax Clerk cookies never arrive. | invest → accounts (same project) | Ticket is one-time; `CLERK_SECRET_KEY` stays server-only |
 
-Anything outside these four is **not** an approved connection. Do not add new
+Anything outside these five is **not** an approved connection. Do not add new
 coupling without updating this contract in the same commit.
 
 ### 2.1 Clerk — consume only, never configure
@@ -61,7 +62,7 @@ coupling without updating this contract in the same commit.
   a satellite (`reserved_subdomain`); satellite handshake loops forever.
   Do **not** fall back to `pk_test_` / mighty-owl-15.
 - Live routes that must keep working: `/auth/login`, `/auth/register`,
-  `/auth/ticket`, `/auth/bridge`. Login and register are **click-only**
+  `/auth/ticket`, `/auth/bridge`, `/auth/session-share`. Login and register are **click-only**
   doors to getaccess.world (no page-load bounce). After ACCESS auth, a
   one-time ticket lands on `/auth/ticket` then `/dashboard` (or `?next=`).
   Bridge payload is unchanged.

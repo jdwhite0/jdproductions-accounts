@@ -10,6 +10,17 @@
     "VITE_APP_NAME": "JD Productions Accounts",
     "VITE_ACCESS_URL": "https://getaccess.world"
   },
+  "headers": [
+    {
+      "source": "/auth/session-share",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://invest.jdproductions.io https://www.invest.jdproductions.io"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!api/).*)",

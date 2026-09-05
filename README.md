@@ -17,7 +17,7 @@ app. Read **[AGENTS.md](./AGENTS.md)** before changing anything.
 ## What lives here
 
 - Member/founder accounts UI on `accounts.jdproductions.io`
-- `/auth/login`, `/auth/register` (click-only doors to ACCESS; ticket return on `/auth/ticket`), `/auth/bridge` (marketing iframe)
+- `/auth/login`, `/auth/register` (click-only doors to ACCESS; ticket return on `/auth/ticket`), `/auth/bridge` (marketing iframe), `/auth/session-share` (invest host restores the accounts session)
 - Early-support ledger + Stripe webhooks in **this** project (`api/` + own
   Postgres). Guest pay first, optional Clerk claim. UI: `/early-support`
   and `/positions`. Copy: [docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md](./docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md).
@@ -57,6 +57,7 @@ npm test
 | POST | `/api/stripe/webhook` | `Stripe-Signature` (fail closed) |
 | GET | `/api/positions` | `Authorization: Bearer <Clerk session token>` (fail closed) |
 | POST | `/api/positions/claim` | `Authorization: Bearer <Clerk session token>` (fail closed) |
+| POST | `/api/auth/sign-in-token` | `Authorization: Bearer <Clerk session token>` (fail closed). Short-lived ticket for invest session restore. |
 
 Local functions + webhook:
 
@@ -79,6 +80,7 @@ Do not change Clerk apps, redirects, or migrate `pk_test` → `pk_live`.
    origin **does** embed Clerk `<SignIn>` / `<SignUp>` so Early Support and
    the SaaS portal can mint a first-party session.
 4. Early-support DB + Stripe in **this** Vercel project — not ACCESS Supabase.
+5. Invest session restore: `invest.` iframes `accounts.` `/auth/session-share` (same site). Do not iframe ACCESS.
 
 Full rules: [AGENTS.md](./AGENTS.md).
 

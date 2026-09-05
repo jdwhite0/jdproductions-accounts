@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSignIn } from "@clerk/clerk-react";
 import Copyright from "@/sections/auth/Copyright";
 import { safeNextPath } from "@/utils/safe-next";
+import { consumeClerkTicket } from "@/utils/consume-clerk-ticket";
 
 /**
  * Consumes a one-time Clerk sign-in token minted by ACCESS after Google /
@@ -30,10 +31,9 @@ export default function AuthTicket() {
     let cancelled = false;
     (async () => {
       try {
-        const attempt = await signIn.create({ strategy: "ticket", ticket });
+        const ok = await consumeClerkTicket({ signIn, setActive, ticket });
         if (cancelled) return;
-        if (attempt.status === "complete" && attempt.createdSessionId) {
-          await setActive({ session: attempt.createdSessionId });
+        if (ok) {
           navigate(next, { replace: true });
           return;
         }
