@@ -34,8 +34,14 @@ export default function SatelliteAuthRedirect({
     const redirectUrl = satelliteReturnUrl(window.location.origin, next);
     const destination =
       mode === "signup"
-        ? buildSignUpUrl({ redirectUrl })
-        : buildSignInUrl({ redirectUrl });
+        ? buildSignUpUrl({
+            signUpFallbackRedirectUrl: redirectUrl,
+            signInFallbackRedirectUrl: redirectUrl,
+          })
+        : buildSignInUrl({
+            signInFallbackRedirectUrl: redirectUrl,
+            signUpFallbackRedirectUrl: redirectUrl,
+          });
     window.location.assign(destination);
   }, [
     isLoaded,
