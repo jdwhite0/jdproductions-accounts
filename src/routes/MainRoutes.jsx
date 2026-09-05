@@ -38,7 +38,9 @@ const FounderSubscriptions = Loadable(
 );
 const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
 
-// Auth gate — only signed-in users reach the dashboard; others go to /auth/login
+// Auth gate — signed-out users stay on Accounts /auth/login (embedded
+// Clerk). Do not bounce them to ACCESS; that loops when sessions
+// do not sync across domains.
 function ProtectedAdmin() {
   return (
     <>

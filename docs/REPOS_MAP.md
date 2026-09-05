@@ -29,6 +29,10 @@ jdproductions.io  --iframe-->  accounts.jdproductions.io/auth/bridge
                   --link---->  accounts.jdproductions.io/auth/login
 ```
 
+`/auth/login` embeds Clerk `<SignIn>` on this origin. Do not auto-redirect
+to ACCESS on page load (no shared session cookie → infinite loop). Magic
+link can be completed on ACCESS via an explicit click-only link.
+
 Bridge posts `{ type: 'jdp_auth', signedIn, imageUrl, firstName, fullName }`
 to allowlisted parent origins. Contract: root `AGENTS.md`.
 

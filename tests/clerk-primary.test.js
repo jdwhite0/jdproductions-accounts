@@ -34,6 +34,7 @@ test("login and register embed Clerk widgets instead of satellite redirect", () 
   assert.doesNotMatch(login, /SatelliteAuthRedirect/);
   assert.doesNotMatch(login, /buildSignInUrl/);
   assert.doesNotMatch(login, /Redirecting to sign in/);
+  assert.doesNotMatch(login, /AccessDoorPage/);
 
   assert.match(register, /<SignUp/);
   assert.match(register, /routing="hash"/);
@@ -41,6 +42,21 @@ test("login and register embed Clerk widgets instead of satellite redirect", () 
   assert.doesNotMatch(register, /SatelliteAuthRedirect/);
   assert.doesNotMatch(register, /buildSignUpUrl/);
   assert.doesNotMatch(register, /Redirecting to sign up/);
+  assert.doesNotMatch(register, /AccessDoorPage/);
+});
+
+test("login and register never auto-redirect to ACCESS on page load", () => {
+  const login = readRepo("src/views/auth/login.jsx");
+  const register = readRepo("src/views/auth/register.jsx");
+
+  assert.doesNotMatch(login, /window\.location\.(replace|assign)/);
+  assert.doesNotMatch(register, /window\.location\.(replace|assign)/);
+  assert.doesNotMatch(login, /useEffect/);
+  assert.doesNotMatch(register, /useEffect/);
+  assert.equal(
+    fs.existsSync(path.join(root, "src/views/auth/AccessDoorPage.jsx")),
+    false,
+  );
 });
 
 test("satellite redirect helpers are not shipped", () => {
@@ -60,4 +76,10 @@ test("live ACCESS publishable key stays in vercel.json; satellite env unused", (
 
   assert.doesNotMatch(example, /VITE_CLERK_IS_SATELLITE=true/);
   assert.doesNotMatch(example, /sk_live_|sk_test_[A-Za-z0-9]{10,}/);
+});
+
+test("Early Support Sign in stays on Accounts /auth/login", () => {
+  const layout = readRepo("src/layouts/EarlySupportLayout/index.jsx");
+  assert.match(layout, /to="\/auth\/login\?next=\/positions"/);
+  assert.doesNotMatch(layout, /accessSignInUrl/);
 });
