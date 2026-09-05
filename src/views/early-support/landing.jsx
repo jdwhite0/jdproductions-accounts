@@ -46,7 +46,7 @@ export default function EarlySupportLanding() {
   const { getToken, isSignedIn } = useAuth();
   const { user } = useUser();
   const [tier, setTier] = useState("standard");
-  const [customAmount, setCustomAmount] = useState("750");
+  const [customAmount, setCustomAmount] = useState("0");
   const [email, setEmail] = useState(
     user?.primaryEmailAddress?.emailAddress || "",
   );
@@ -236,6 +236,7 @@ export default function EarlySupportLanding() {
                   label="Custom amount (USD)"
                   type="number"
                   value={customAmount}
+                  placeholder="0"
                   onChange={(e) => setCustomAmount(e.target.value)}
                   inputProps={{ min: 10, step: 1 }}
                   size="small"
