@@ -15,8 +15,9 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 ## Identity
 
 All company + ACCESS + JYSON surfaces that use Clerk share **one Clerk
-application / pool**. This repo **consumes** the publishable key. ACCESS
-owns dashboard/config. Agents must not edit Clerk.
+application / pool**. This repo **consumes** the publishable key as a
+**satellite** of the ACCESS primary (`getaccess.world` `/sign-in` and
+`/sign-up`). ACCESS owns dashboard/config. Agents must not edit Clerk.
 
 The JDP holder app (`jdp-saas`) uses **Privy**, not this Clerk pool.
 
