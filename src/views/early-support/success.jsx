@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
+import TermsStampLink from "./TermsStampLink";
 import { FONT, GOLD, INK, NAVY, SECONDARY, esCardSx } from "./brand";
 import { THANK_YOU_COPY } from "../../../lib/early-support/copy.js";
 
@@ -46,9 +47,9 @@ export default function EarlySupportSuccess() {
             }}
           >
             Stripe will email a payment receipt. An itemized invoice (charge
-            line plus included items, terms early_support_v0) is sent after the
-            payment is confirmed by webhook — not by this browser page alone. A
-            position becomes active only after that confirmation.
+            line plus included items, terms <TermsStampLink />) is sent after
+            the payment is confirmed by webhook — not by this browser page
+            alone. A position becomes active only after that confirmation.
           </Typography>
           {sessionId && (
             <Typography
