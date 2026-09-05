@@ -130,6 +130,10 @@ test("/invest redirects to Early Support instead of a separate page", () => {
   const vercel = readRepo("vercel.json");
   assert.match(routes, /investPathDestination/);
   assert.match(routes, /path: "\/invest"/);
+  assert.equal(
+    (routes.match(/export default EarlySupportRoutes/g) || []).length,
+    1,
+  );
   assert.match(vercel, /"source": "\/invest"/);
   assert.match(vercel, /"destination": "\/early-support"/);
 });

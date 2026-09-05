@@ -33,4 +33,3 @@ export const InvestRedirect = {
 
 export default EarlySupportRoutes;
 
-export default EarlySupportRoutes;
