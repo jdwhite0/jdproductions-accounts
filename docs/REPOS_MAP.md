@@ -16,11 +16,11 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 
 All company + ACCESS + JYSON surfaces that use Clerk share **one Clerk
 application / pool**. This repo **consumes** the ACCESS publishable key and
-hosts `<SignIn>` / `<SignUp>` on `accounts.jdproductions.io` /
-`invest.jdproductions.io` so the SaaS portal and Early Support claim flow
-get a first-party session. Clerk cannot register `accounts.jdproductions.io`
-as a satellite (`reserved_subdomain`). ACCESS owns dashboard/config. Agents
-must not edit Clerk.
+hosts `<SignIn>` / `<SignUp>` on `getaccess.world`. After auth, ACCESS mints a
+one-time Clerk ticket and this app consumes it at `/auth/ticket` so the SaaS
+portal and Early Support claim flow get a first-party session. Clerk cannot
+register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`).
+ACCESS owns dashboard/config. Agents must not edit Clerk.
 
 The JDP holder app (`jdp-saas`) uses **Privy**, not this Clerk pool.
 
@@ -33,8 +33,9 @@ jdproductions.io/invest   --link---->  invest.jdproductions.io/auth/login
                                        invest.jdproductions.io/auth/register
 ```
 
-`/auth/login` and `/auth/register` embed Clerk widgets (hash routing). After
-auth, land on `/dashboard` or `?next=` (`/positions` for Early Support).
+`/auth/login` and `/auth/register` are click-only doors to getaccess.world.
+After auth, ACCESS returns a one-time ticket to `/auth/ticket`, then land on
+`/dashboard` or `?next=` (`/positions` for Early Support).
 Do not auto-redirect to ACCESS on page load (no shared session cookie →
 infinite loop).
 

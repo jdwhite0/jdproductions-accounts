@@ -28,14 +28,16 @@ test("ClerkProvider is primary mode on this origin, not a satellite", () => {
   assert.match(main, /pk_live_/);
 });
 
-test("login and register embed Clerk widgets instead of ACCESS-only doors", () => {
+test("login and register are click-only ACCESS doors, not embedded widgets", () => {
   const login = readRepo("src/views/auth/login.jsx");
   const register = readRepo("src/views/auth/register.jsx");
 
-  assert.match(login, /<SignIn/);
-  assert.match(login, /routing="hash"/);
+  assert.doesNotMatch(login, /<SignIn/);
+  assert.doesNotMatch(register, /<SignUp/);
+  assert.match(login, /accessSignInUrl/);
+  assert.match(register, /accessSignUpUrl/);
   assert.match(login, /safeNextPath/);
-  assert.match(login, /forceRedirectUrl=\{next\}/);
+  assert.match(register, /safeNextPath/);
   assert.match(login, /<SignedIn>/);
   assert.match(login, /<Navigate to=\{next\} replace \/>/);
   assert.doesNotMatch(login, /JYSON/);
@@ -44,19 +46,8 @@ test("login and register embed Clerk widgets instead of ACCESS-only doors", () =
   assert.doesNotMatch(login, /Continue on ACCESS/);
   assert.doesNotMatch(login, /SatelliteAuthRedirect/);
   assert.doesNotMatch(register, /Continue on ACCESS/);
-  assert.doesNotMatch(login, /buildSignInUrl/);
-  assert.doesNotMatch(login, /Redirecting to sign in/);
   assert.doesNotMatch(login, /AccessDoorPage/);
-
-  assert.match(register, /<SignUp/);
-  assert.match(register, /routing="hash"/);
-  assert.match(register, /safeNextPath/);
-  assert.match(register, /forceRedirectUrl=\{next\}/);
-  assert.match(register, /<SignedIn>/);
-  assert.match(register, /<Navigate to=\{next\} replace \/>/);
   assert.doesNotMatch(register, /SatelliteAuthRedirect/);
-  assert.doesNotMatch(register, /buildSignUpUrl/);
-  assert.doesNotMatch(register, /Redirecting to sign up/);
   assert.doesNotMatch(register, /AccessDoorPage/);
 });
 
@@ -77,6 +68,16 @@ test("login and register never auto-redirect to ACCESS on page load", () => {
 test("satellite redirect helpers are not shipped", () => {
   assert.equal(fs.existsSync(path.join(root, "src/views/auth/SatelliteAuthRedirect.jsx")), false);
   assert.equal(fs.existsSync(path.join(root, "src/utils/clerk-satellite.js")), false);
+});
+
+test("ticket route consumes Clerk sign-in tokens from ACCESS", () => {
+  const ticket = readRepo("src/views/auth/ticket.jsx");
+  const routes = readRepo("src/routes/PagesRoutes.jsx");
+  assert.match(ticket, /strategy: "ticket"/);
+  assert.match(ticket, /setActive/);
+  assert.match(routes, /path: 'ticket'/);
+  assert.match(ticket, /Sign in failed\. Try again\./);
+  assert.doesNotMatch(ticket, /window\.location\.(replace|assign)/);
 });
 
 test("live ACCESS publishable key stays in vercel.json; satellite env unused", () => {
@@ -102,7 +103,7 @@ test("login and register expose create-account and sign-in doors", () => {
   assert.match(register, /to=\{`\/auth\/login\?next=\$\{encodeURIComponent\(next\)\}`\}/);
 });
 
-test("Early Support Sign in and Create account stay on Accounts Clerk", () => {
+test("Early Support Sign in and Create account stay on Accounts routes", () => {
   const layout = readRepo("src/layouts/EarlySupportLayout/index.jsx");
   const success = readRepo("src/views/early-support/success.jsx");
   assert.match(layout, /to="\/auth\/login\?next=\/positions"/);
