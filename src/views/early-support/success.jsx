@@ -1,6 +1,5 @@
 import { Link as RouterLink, useSearchParams } from "react-router-dom";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
-import { accessSignInUrl, accessSignUpUrl } from "@/utils/access-doors";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -67,7 +66,8 @@ export default function EarlySupportSuccess() {
           <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
             <SignedOut>
               <Button
-                href={accessSignUpUrl({ next: "/positions" })}
+                component={RouterLink}
+                to="/auth/register?next=/positions"
                 variant="contained"
                 sx={{
                   bgcolor: NAVY,
@@ -79,7 +79,8 @@ export default function EarlySupportSuccess() {
                 Create an account to claim Positions
               </Button>
               <Button
-                href={accessSignInUrl({ next: "/positions" })}
+                component={RouterLink}
+                to="/auth/login?next=/positions"
                 variant="outlined"
                 sx={{
                   borderColor: NAVY,

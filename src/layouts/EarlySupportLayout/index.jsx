@@ -14,7 +14,6 @@ import GalaxySignOutButton from "@/views/early-support/GalaxySignOutButton";
 import TermsStampLink from "@/views/early-support/TermsStampLink";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
-import { accessSignInUrl } from "@/utils/access-doors";
 import {
   EARLY_SUPPORT_AFTER_SIGN_OUT_PATH,
   earlySupportNavChrome,
@@ -83,7 +82,8 @@ export default function EarlySupportLayout({ children }) {
             {showSignIn ? (
               <Button
                 className="btn-signin"
-                href={accessSignInUrl({ next: "/positions" })}
+                component={RouterLink}
+                to="/auth/login?next=/positions"
                 variant="contained"
                 disableElevation
                 sx={{
