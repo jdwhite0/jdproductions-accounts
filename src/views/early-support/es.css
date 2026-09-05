@@ -133,31 +133,35 @@
   filter: drop-shadow(0 6px 16px rgba(255, 194, 14, 0.35));
 }
 
-/* Sign In — exact jdproductions.io .nav-buttons .btn-signin / .btn-signin-m */
+/* Sign In — exact jdproductions.io .nav-buttons .btn-signin / .btn-signin-m
+   !important beats MUI contained Button background-color so the gold pill stays visible. */
 .es-root .es-nav .btn-signin.MuiButton-root {
-  min-width: 116px;
-  padding: 10px 24px;
-  border-radius: 24px;
+  min-width: 116px !important;
+  padding: 10px 24px !important;
+  border-radius: 24px !important;
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.25;
-  text-transform: none;
+  text-transform: none !important;
   text-decoration: none;
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  background: linear-gradient(
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #fff !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(
     135deg,
     rgba(255, 194, 14, 0.92),
     rgba(224, 165, 0, 0.92)
-  );
-  border: 1px solid rgba(255, 194, 14, 0.65);
+  ) !important;
+  border: 1px solid rgba(255, 194, 14, 0.65) !important;
   box-shadow:
     0 2px 12px rgba(255, 194, 14, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   transition:
@@ -167,10 +171,11 @@
 }
 
 .es-root .es-nav .btn-signin.MuiButton-root:hover {
-  background: linear-gradient(135deg, #ffc20e, #e0a500);
+  background-color: transparent !important;
+  background-image: linear-gradient(135deg, #ffc20e, #e0a500) !important;
   box-shadow:
     0 4px 16px rgba(255, 194, 14, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
 @media (max-width: 600px) {

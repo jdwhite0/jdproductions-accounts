@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link as RouterLink } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { useAuth, UserButton } from "@clerk/clerk-react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -16,6 +16,11 @@ import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
+  const { isLoaded, isSignedIn } = useAuth();
+  // Only hide Sign in after Clerk confirms a session. While loading or when
+  // session resolution fails (e.g. origin_invalid), keep chrome Sign in visible.
+  const showSignedInChrome = Boolean(isLoaded && isSignedIn);
+  const showSignIn = !showSignedInChrome;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -52,7 +57,7 @@ export default function EarlySupportLayout({ children }) {
         >
           <NavLogo />
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
-            <SignedOut>
+            {showSignIn ? (
               <Button
                 className="btn-signin"
                 component={RouterLink}
@@ -91,27 +96,29 @@ export default function EarlySupportLayout({ children }) {
               >
                 Sign in
               </Button>
-            </SignedOut>
-            <SignedIn>
-              <Button
-                component={RouterLink}
-                to="/positions"
-                sx={{
-                  color: NAVY,
-                  fontWeight: 600,
-                  textTransform: "none",
-                  fontFamily: FONT,
-                }}
-              >
-                Positions
-              </Button>
-              <UserButton
-                afterSignOutUrl="/auth/login"
-                appearance={{
-                  elements: { avatarBox: { width: 36, height: 36 } },
-                }}
-              />
-            </SignedIn>
+            ) : null}
+            {showSignedInChrome ? (
+              <>
+                <Button
+                  component={RouterLink}
+                  to="/positions"
+                  sx={{
+                    color: NAVY,
+                    fontWeight: 600,
+                    textTransform: "none",
+                    fontFamily: FONT,
+                  }}
+                >
+                  Positions
+                </Button>
+                <UserButton
+                  afterSignOutUrl="/auth/login"
+                  appearance={{
+                    elements: { avatarBox: { width: 36, height: 36 } },
+                  }}
+                />
+              </>
+            ) : null}
           </Stack>
         </Toolbar>
       </AppBar>
