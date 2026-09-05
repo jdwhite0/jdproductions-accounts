@@ -70,6 +70,14 @@ test("satellite redirect helpers are not shipped", () => {
   assert.equal(fs.existsSync(path.join(root, "src/utils/clerk-satellite.js")), false);
 });
 
+test("protected portal does not use Clerk RedirectToSignIn", () => {
+  const mainRoutes = readRepo("src/routes/MainRoutes.jsx");
+  assert.doesNotMatch(mainRoutes, /RedirectToSignIn/);
+  assert.doesNotMatch(mainRoutes, /<SignedOut>/);
+  assert.match(mainRoutes, /useAuth\(\)/);
+  assert.match(mainRoutes, /\/auth\/login\?next=/);
+});
+
 test("ticket route consumes Clerk sign-in tokens from ACCESS", () => {
   const ticket = readRepo("src/views/auth/ticket.jsx");
   const routes = readRepo("src/routes/PagesRoutes.jsx");

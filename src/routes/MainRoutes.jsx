@@ -1,11 +1,13 @@
 import { lazy } from "react";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
 
 // @project
 import Loadable from "@/components/Loadable";
 import AdminLayout from "@/layouts/AdminLayout";
 import HostAwareHome from "@/routes/HostAwareHome";
 import RoleGuard from "@/routes/RoleGuard";
+import { safeNextPath } from "@/utils/safe-next";
 
 // Member views
 const Overview = Loadable(lazy(() => import("@/views/member/overview")));
@@ -38,20 +40,21 @@ const FounderSubscriptions = Loadable(
 );
 const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
 
-// Auth gate — signed-out users go to Accounts /auth/login (Clerk SignIn on
-// this origin). Do not bounce them to ACCESS on page load; that loops when
-// sessions do not sync across domains.
+// Auth gate — signed-out users go to Accounts /auth/login (click-only ACCESS
+// door). Do not start Clerk's hash SignIn on this origin — that fights the
+// ACCESS ticket session and looks like a logout on refresh. Do not bounce to
+// ACCESS on page load (session cookies are not shared → infinite loop).
 function ProtectedAdmin() {
-  return (
-    <>
-      <SignedIn>
-        <AdminLayout />
-      </SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
-    </>
-  );
+  const { isLoaded, isSignedIn } = useAuth();
+  const location = useLocation();
+  if (!isLoaded) return null;
+  if (!isSignedIn) {
+    const next = safeNextPath(location.pathname, "/dashboard");
+    return (
+      <Navigate to={`/auth/login?next=${encodeURIComponent(next)}`} replace />
+    );
+  }
+  return <AdminLayout />;
 }
 
 const MainRoutes = {
