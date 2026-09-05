@@ -1,47 +1,18 @@
 // @mui
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 // @third-party
 import { Navigate, Link as RouterLink, useSearchParams } from "react-router-dom";
-import { SignIn, SignedIn } from "@clerk/clerk-react";
+import { SignedIn } from "@clerk/clerk-react";
 
 // @project
 import Copyright from "@/sections/auth/Copyright";
-import ClerkWidgetBoundary from "@/views/auth/ClerkWidgetBoundary";
+import { accessSignInUrl } from "@/utils/access-doors";
 import { safeNextPath } from "@/utils/safe-next";
-
-const clerkAppearance = {
-  variables: {
-    colorPrimary: "#002244",
-    colorText: "#1B1B1F",
-    fontFamily: "'Inter', sans-serif",
-    borderRadius: "10px",
-  },
-  elements: {
-    rootBox: { width: "100%" },
-    cardBox: { width: "100%", boxShadow: "none" },
-    card: {
-      boxShadow: "none",
-      border: "none",
-      padding: 0,
-      background: "transparent",
-    },
-    headerTitle: { display: "none" },
-    headerSubtitle: { display: "none" },
-    footer: { display: "none" },
-    formButtonPrimary: {
-      backgroundColor: "#002244",
-      textTransform: "none",
-      fontSize: "15px",
-      fontWeight: 600,
-      "&:hover": { backgroundColor: "#001B36" },
-    },
-    socialButtonsBlockButton: { borderRadius: "10px" },
-  },
-};
 
 /***************************  AUTH - LOGIN  ***************************/
 
@@ -62,44 +33,58 @@ export default function Login() {
         <Navigate to={next} replace />
       </SignedIn>
       <Box sx={{ width: 1, maxWidth: 458 }}>
-          <Stack
-            sx={{
-              gap: { xs: 1, sm: 1.5 },
-              textAlign: "center",
-              mb: { xs: 3, sm: 5 },
-            }}
-          >
-            <Typography variant="h1">Sign in</Typography>
-            <Typography variant="body1" color="text.secondary">
-              Welcome back to JD Productions.
-            </Typography>
-          </Stack>
-
-          <ClerkWidgetBoundary>
-          <SignIn
-            routing="hash"
-            signUpUrl={`/auth/register?next=${encodeURIComponent(next)}`}
-            fallbackRedirectUrl={next}
-            forceRedirectUrl={next}
-            appearance={clerkAppearance}
-          />
-          </ClerkWidgetBoundary>
-
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ mt: 3, textAlign: "center" }}
-          >
-            New here?{" "}
-            <Link
-              component={RouterLink}
-              to={`/auth/register?next=${encodeURIComponent(next)}`}
-              underline="hover"
-            >
-              Create an account
-            </Link>
+        <Stack
+          sx={{
+            gap: { xs: 1, sm: 1.5 },
+            textAlign: "center",
+            mb: { xs: 3, sm: 5 },
+          }}
+        >
+          <Typography variant="h1">Sign in</Typography>
+          <Typography variant="body1" color="text.secondary">
+            Welcome back to JD Productions.
           </Typography>
-        </Box>
+        </Stack>
+
+        <Button
+          href={accessSignInUrl({ next })}
+          variant="contained"
+          fullWidth
+          sx={{
+            py: 1.4,
+            backgroundColor: "#002244",
+            textTransform: "none",
+            fontSize: "15px",
+            fontWeight: 600,
+            borderRadius: "10px",
+            "&:hover": { backgroundColor: "#001B36" },
+          }}
+        >
+          Sign in
+        </Button>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 2, textAlign: "center" }}
+        >
+          We&apos;ll email a sign-in link, or you can continue with Google.
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 3, textAlign: "center" }}
+        >
+          New here?{" "}
+          <Link
+            component={RouterLink}
+            to={`/auth/register?next=${encodeURIComponent(next)}`}
+            underline="hover"
+          >
+            Create an account
+          </Link>
+        </Typography>
+      </Box>
 
       <Copyright />
     </Stack>

@@ -41,7 +41,7 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 
 | # | Connection | Mechanism | Direction | Secret? |
 |---|---|---|---|---|
-| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. This origin hosts embedded `<SignIn>` / `<SignUp>` so the SaaS portal (`/dashboard`) gets a first-party session. Magic-link completion still belongs on getaccess.world (click-only). Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
+| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Magic-link and Google complete on `getaccess.world`. ACCESS mints a one-time Clerk sign-in ticket; this app consumes it at `/auth/ticket` so `/dashboard` gets a first-party session. Do not embed `<SignIn>` / `<SignUp>` on this origin — OAuth from here returns `authorization_invalid`. Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
 | 3 | **ACCESS doors** | Optional click-only URLs to `https://getaccess.world/sign-in` (magic-link) and `https://getaccess.world/` (waitlist). **Never auto-redirect** `/auth/login` on page load (no shared session cookie → infinite loop). | this app → ACCESS | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
@@ -61,8 +61,9 @@ coupling without updating this contract in the same commit.
   a satellite (`reserved_subdomain`); satellite handshake loops forever.
   Do **not** fall back to `pk_test_` / mighty-owl-15.
 - Live routes that must keep working: `/auth/login`, `/auth/register`,
-  `/auth/bridge`. Login and register embed Clerk widgets (hash routing) on
-  this origin, then send authenticated users to `/dashboard` (or `?next=`).
+  `/auth/ticket`, `/auth/bridge`. Login and register are **click-only**
+  doors to getaccess.world (no page-load bounce). After ACCESS auth, a
+  one-time ticket lands on `/auth/ticket` then `/dashboard` (or `?next=`).
   Bridge payload is unchanged.
 - **Never auto-redirect** `/auth/login` or `/auth/register` to
   `getaccess.world` on page load. Clerk session cookies are not shared

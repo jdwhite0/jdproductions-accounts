@@ -1,16 +1,13 @@
 /**
- * Optional ACCESS links for explicit user clicks only (magic-link).
+ * Optional ACCESS links for explicit user clicks only (magic-link / Google).
  *
- * JD Productions Accounts hosts its own Clerk SignIn/SignUp on this origin
- * so the SaaS portal (`/dashboard`) gets a first-party session. Same ACCESS
- * pool (`pk_live` / clerk.getaccess.world).
+ * Clerk cannot register accounts.jdproductions.io as a satellite
+ * (`reserved_subdomain`). Google OAuth and magic-link complete on
+ * getaccess.world. ACCESS then mints a one-time Clerk ticket and returns
+ * the browser to `/auth/ticket` so this origin gets a first-party session.
  *
- * Do NOT auto-redirect /auth/login or /auth/register to ACCESS on page
- * load. Session cookies are not shared across accounts.jdproductions.io
- * and getaccess.world — a page-load bounce loops forever.
- *
- * Magic-link completion must happen on getaccess.world (Clerk instance
- * domain). Accounts cannot be a satellite (`reserved_subdomain`).
+ * Do NOT auto-redirect `/auth/login` or `/auth/register` to ACCESS on page
+ * load. Session cookies are not shared — a page-load bounce loops forever.
  */
 import { normalizeHostname } from "./invest-host.js";
 import { safeNextPath } from "./safe-next.js";

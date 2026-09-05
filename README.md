@@ -17,7 +17,7 @@ app. Read **[AGENTS.md](./AGENTS.md)** before changing anything.
 ## What lives here
 
 - Member/founder accounts UI on `accounts.jdproductions.io`
-- `/auth/login`, `/auth/register` (Clerk widgets on this origin, ACCESS pool), `/auth/bridge` (marketing iframe)
+- `/auth/login`, `/auth/register` (click-only doors to ACCESS; ticket return on `/auth/ticket`), `/auth/bridge` (marketing iframe)
 - Early-support ledger + Stripe webhooks in **this** project (`api/` + own
   Postgres). Guest pay first, optional Clerk claim. UI: `/early-support`
   and `/positions`. Copy: [docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md](./docs/EARLY_SUPPORT_OFFICIAL_COPY_v0.md).
