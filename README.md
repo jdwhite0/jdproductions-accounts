@@ -74,7 +74,8 @@ Do not change Clerk apps, redirects, or migrate `pk_test` → `pk_live`.
 
 1. Shared Clerk identity with ACCESS — env keys only; never change Clerk apps/redirects/pool.
 2. Marketing iframe bridge: website loads `/auth/bridge`; this app posts `jdp_auth`.
-3. Optional links out to getaccess.world and jdproductions.io.
+3. Optional links out to getaccess.world and jdproductions.io. Do **not**
+   auto-redirect `/auth/login` to ACCESS (cross-domain session loop).
 4. Early-support DB + Stripe in **this** Vercel project — not ACCESS Supabase.
 
 Full rules: [AGENTS.md](./AGENTS.md).

@@ -1,6 +1,7 @@
 // @mui
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 // @third-party
@@ -9,6 +10,7 @@ import { SignUp } from "@clerk/clerk-react";
 
 // @project
 import Copyright from "@/sections/auth/Copyright";
+import { accessSignUpUrl } from "@/utils/access-doors";
 import { safeNextPath } from "@/utils/safe-next";
 
 const clerkAppearance = {
@@ -76,6 +78,17 @@ export default function Register() {
           fallbackRedirectUrl={next}
           appearance={clerkAppearance}
         />
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 3, textAlign: "center" }}
+        >
+          Need a magic link?{" "}
+          <Link href={accessSignUpUrl({ next })} underline="hover">
+            Continue on ACCESS
+          </Link>
+        </Typography>
       </Box>
 
       <Copyright />
