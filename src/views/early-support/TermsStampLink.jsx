@@ -5,7 +5,7 @@ import { TERMS_VERSION } from "../../../lib/early-support/copy.js";
 export const TERMS_HREF = "/early-support/terms";
 
 /** Same-tab RouterLink for the `early_support_v0` stamp — matches landing Terms. */
-export default function TermsStampLink({ underline, sx }) {
+export default function TermsStampLink({ underline = "always", sx }) {
   return (
     <Link component={RouterLink} to={TERMS_HREF} underline={underline} sx={sx}>
       {TERMS_VERSION}

@@ -1,4 +1,3 @@
-import { Link as RouterLink } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -95,7 +94,7 @@ export default function EarlySupportPrivacy() {
           </Box>
           <Typography sx={{ color: SECONDARY, fontFamily: FONT, fontSize: 13 }}>
             Questions: hello@jdproductions.io. Terms:{" "}
-            <Link component={RouterLink} to="/early-support/terms" sx={{ color: NAVY }}>
+            <Link href="/early-support/terms" sx={{ color: NAVY }}>
               Early Support Terms (early_support_v0)
             </Link>
             .
