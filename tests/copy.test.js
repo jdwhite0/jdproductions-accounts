@@ -71,7 +71,7 @@ test('display labels are Believe / Stand / Build; backend keys stay starter / st
       { key: 'anchor', label: 'Build', amountCents: 50_000, hint: 'Help build what’s next' }
     ]
   );
-  assert.deepEqual(CUSTOM_TIER, { key: 'custom', label: 'Custom', hint: 'Name what you can' });
+  assert.deepEqual(CUSTOM_TIER, { key: 'custom', label: 'Custom', hint: 'Support what you desire' });
   assert.equal(tierLabel('starter'), 'Believe');
   assert.equal(tierLabel('standard'), 'Stand');
   assert.equal(tierLabel('anchor'), 'Build');

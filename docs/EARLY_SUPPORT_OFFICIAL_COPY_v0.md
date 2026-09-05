@@ -68,7 +68,7 @@ step prepared by counsel; nothing converts silently.
 | Believe | $100 | A first show of belief |
 | Stand | $250 | Stand with the studio |
 | Build | $500 | Help build what’s next |
-| Custom | Amount you choose, within the posted minimum and maximum | Name what you can |
+| Custom | Amount you choose, within the posted minimum and maximum | Support what you desire |
 
 Backend keys stay `starter` / `standard` / `anchor` / `custom`.
 
