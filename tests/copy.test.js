@@ -3,12 +3,16 @@ import test from 'node:test';
 import {
   CHECKOUT_PRODUCT_DESCRIPTION,
   CONTINUE_ACCEPTS,
+  CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   INVOICE_NOTES,
   LANDING_BODY,
   LANDING_HEADLINE,
   TERMS_VERSION,
-  invoiceTermsFooter
+  TIERS,
+  checkoutProductName,
+  invoiceTermsFooter,
+  tierLabel
 } from '../lib/early-support/copy.js';
 
 const BANNED_OFFER_LANGUAGE = /angel|equity round|\bSAFE\b|ROI\s*%|tax-deductible contribution/i;
@@ -49,4 +53,28 @@ test('legal stamp and not-donation disclosure stay firm', () => {
   assert.match(footer, /By continuing you accept Early Support Terms early_support_v0/);
   assert.match(footer, /not charitable donation/);
   assert.doesNotMatch(footer, /By paying you accept/);
+});
+
+test('display labels are Believe / Stand / Build; backend keys stay starter / standard / anchor', () => {
+  assert.deepEqual(
+    Object.values(TIERS).map((tier) => ({
+      key: tier.key,
+      label: tier.label,
+      amountCents: tier.amountCents,
+      hint: tier.hint
+    })),
+    [
+      { key: 'starter', label: 'Believe', amountCents: 10_000, hint: 'A first show of belief' },
+      { key: 'standard', label: 'Stand', amountCents: 25_000, hint: 'Stand with the studio' },
+      { key: 'anchor', label: 'Build', amountCents: 50_000, hint: 'Help build what’s next' }
+    ]
+  );
+  assert.deepEqual(CUSTOM_TIER, { key: 'custom', label: 'Custom', hint: 'Name what you can' });
+  assert.equal(tierLabel('starter'), 'Believe');
+  assert.equal(tierLabel('standard'), 'Stand');
+  assert.equal(tierLabel('anchor'), 'Build');
+  assert.equal(tierLabel('custom'), 'Custom');
+  assert.equal(checkoutProductName('Believe'), 'Early Support — Believe');
+  assert.equal(checkoutProductName('Stand'), 'Early Support — Stand');
+  assert.equal(checkoutProductName('Build'), 'Early Support — Build');
 });

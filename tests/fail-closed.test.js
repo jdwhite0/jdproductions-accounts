@@ -70,7 +70,7 @@ test('guest checkout is allowed without clerk_user_id and stamps metadata', asyn
   assert.equal(params.metadata.email, 'guest@example.com');
   assert.equal(params.metadata.clerk_user_id, undefined);
   assert.equal(params.payment_intent_data.receipt_email, 'guest@example.com');
-  assert.equal(params.line_items[0].price_data.product_data.name, 'Early Support — Starter');
+  assert.equal(params.line_items[0].price_data.product_data.name, 'Early Support — Believe');
   assert.match(params.line_items[0].price_data.product_data.description, /Not equity/);
 });
 
@@ -104,17 +104,17 @@ test('named tiers resolve to locked amounts and custom respects env bounds', () 
   assert.deepEqual(resolveTierAndAmount({ tier: 'starter' }), {
     tier: 'starter',
     amountCents: 10000,
-    label: 'Starter'
+    label: 'Believe'
   });
   assert.deepEqual(resolveTierAndAmount({ tier: 'standard' }), {
     tier: 'standard',
     amountCents: 25000,
-    label: 'Standard'
+    label: 'Stand'
   });
   assert.deepEqual(resolveTierAndAmount({ tier: 'anchor' }), {
     tier: 'anchor',
     amountCents: 50000,
-    label: 'Anchor'
+    label: 'Build'
   });
   assert.equal(resolveTierAndAmount({ amountCents: 33300 }).tier, 'custom');
   assert.throws(() => resolveTierAndAmount({ amountCents: 1 }), /amount_cents/);

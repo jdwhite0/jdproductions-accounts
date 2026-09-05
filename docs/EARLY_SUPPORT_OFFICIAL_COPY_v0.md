@@ -63,12 +63,14 @@ step prepared by counsel; nothing converts silently.
 
 **Amounts**
 
-| Tier | Amount |
-|---|---|
-| Starter | $100 |
-| Standard | $250 |
-| Anchor | $500 |
-| Custom | Amount you choose, within the posted minimum and maximum |
+| Name | Amount | Hint |
+|---|---|---|
+| Believe | $100 | A first show of belief |
+| Stand | $250 | Stand with the studio |
+| Build | $500 | Help build what’s next |
+| Custom | Amount you choose, within the posted minimum and maximum | Name what you can |
+
+Backend keys stay `starter` / `standard` / `anchor` / `custom`.
 
 **Processor fees:** Payments are processed by Stripe. Stripe’s processor fees
 apply and are not itemized as a separate charge on this invoice.
@@ -84,7 +86,7 @@ Live routes: `/early-support` (belief / checkout), `/invest` (redirects here),
 
 ## Checkout product
 
-**Name:** `Early Support — [Starter|Standard|Anchor|Custom]`
+**Name:** `Early Support — [Believe|Stand|Build|Custom]`
 
 **Description:** Voluntary Early Support to JD Productions Inc. Includes
 ledger record, email receipt, and itemized invoice. Not equity or a security.
@@ -94,7 +96,7 @@ Not a guaranteed return. Not a charitable donation. Terms: early_support_v0.
 
 ## Invoice itemization (every tier)
 
-**Charge line:** `Early Support — [tier] — $[amount]`
+**Charge line:** `Early Support — [Believe|Stand|Build|Custom] — $[amount]`
 
 **$0 included lines**
 
