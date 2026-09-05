@@ -206,6 +206,14 @@
   box-shadow: 0 4px 16px rgba(0, 10, 24, 0.42);
 }
 
+.es-root .es-nav .btn-signout .es-galaxy-drift {
+  position: absolute !important;
+  inset: -70% -55%;
+  background-size: cover;
+  background-position: 48% 22%;
+  background-repeat: no-repeat;
+}
+
 .es-root .es-nav .btn-signout .es-signout-scrim {
   position: absolute;
   inset: 0;
@@ -213,8 +221,8 @@
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(0, 8, 18, 0.22),
-    rgba(0, 8, 18, 0.38)
+    rgba(0, 8, 18, 0.08),
+    rgba(0, 8, 18, 0.2)
   );
 }
 

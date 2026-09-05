@@ -59,7 +59,7 @@ export default function GalaxySignOutButton({
           position: "absolute",
           backgroundImage: `url(${galaxyBand})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 38%",
+          backgroundPosition: "48% 22%",
           backgroundRepeat: "no-repeat",
           pointerEvents: "none",
           zIndex: 0,
