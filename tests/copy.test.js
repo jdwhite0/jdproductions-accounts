@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  ALABAMA_SOS_ENTITY_ID,
+  ALABAMA_SOS_ENTITY_URL,
   CHECKOUT_PRODUCT_DESCRIPTION,
   CONTINUE_ACCEPTS,
   CONTINUE_ACCEPTS_AFTER,
@@ -9,7 +11,10 @@ import {
   IMPORTANT_DISCLOSURE_BODY,
   INVOICE_NOTES,
   LANDING_BODY,
+  LANDING_BODY_AFTER,
+  LANDING_BODY_BEFORE,
   LANDING_HEADLINE,
+  PAYEE_NAME,
   TERMS_VERSION,
   TIERS,
   checkoutProductName,
@@ -25,7 +30,18 @@ test('belief body uses the locked friend/family Early Support wording', () => {
     'Early Support is how you stand with JD Productions Inc. before the next formal round. Choose an amount first — a login is optional. We record your support on our ledger and email a Stripe receipt plus an itemized invoice either way. Afterward, you can create an account to claim your position here.'
   );
   assert.equal(LANDING_HEADLINE, 'Stand with the studio');
+  assert.equal(PAYEE_NAME, 'JD Productions Inc.');
+  assert.equal(
+    `${LANDING_BODY_BEFORE}${PAYEE_NAME}${LANDING_BODY_AFTER}`,
+    LANDING_BODY
+  );
+  assert.equal(ALABAMA_SOS_ENTITY_ID, '000-514-953');
+  assert.equal(
+    ALABAMA_SOS_ENTITY_URL,
+    'https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000514953'
+  );
   assert.doesNotMatch(LANDING_BODY, /voluntary payment|Pay first/i);
+  assert.doesNotMatch(LANDING_BODY, /we're real|we are real|proof of|secretary of state/i);
   assert.doesNotMatch(LANDING_BODY, BANNED_OFFER_LANGUAGE);
 });
 

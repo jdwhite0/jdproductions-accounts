@@ -28,7 +28,8 @@ import {
   CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   IMPORTANT_DISCLOSURE_TITLE,
-  LANDING_BODY,
+  LANDING_BODY_AFTER,
+  LANDING_BODY_BEFORE,
   LANDING_HEADLINE,
   LANDING_SUBHEAD,
   STRIPE_FEES_DISCLOSURE,
@@ -36,6 +37,7 @@ import {
   WHAT_YOU_RECEIVE,
   formatUsdFromCents,
 } from "../../../lib/early-support/copy.js";
+import PayeeSosLink from "./PayeeSosLink";
 import TermsStampLink, { linkTermsStamp } from "./TermsStampLink";
 
 const TIER_LIST = [TIERS.starter, TIERS.standard, TIERS.anchor];
@@ -126,7 +128,9 @@ export default function EarlySupportLanding() {
                   lineHeight: 1.7,
                 }}
               >
-                {LANDING_BODY}
+                {LANDING_BODY_BEFORE}
+                <PayeeSosLink />
+                {LANDING_BODY_AFTER}
               </Typography>
             </CardContent>
           </Card>

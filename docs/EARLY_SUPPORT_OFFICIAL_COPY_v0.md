@@ -14,8 +14,8 @@ later instrument.
 
 ## Definition
 
-Early Support is how you stand with JD Productions Inc. before the next formal
-round. It is voluntary support to the company.
+Early Support is how you stand with [JD Productions Inc.](https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000514953)
+before the next formal round. It is voluntary support to the company.
 
 It records the supporter’s Early Support on the JD Productions Accounts ledger,
 emails a Stripe payment receipt and an itemized invoice, and may include
@@ -41,10 +41,15 @@ Terms version stamped on checkout, ledger, invoice, and Positions:
 
 **Subhead:** Stand with JD Productions before the next formal round.
 
-**Body:** Early Support is how you stand with JD Productions Inc. before the
-next formal round. Choose an amount first — a login is optional. We record
-your support on our ledger and email a Stripe receipt plus an itemized invoice
-either way. Afterward, you can create an account to claim your position here.
+**Body:** Early Support is how you stand with [JD Productions Inc.](https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000514953)
+before the next formal round. Choose an amount first — a login is optional. We
+record your support on our ledger and email a Stripe receipt plus an itemized
+invoice either way. Afterward, you can create an account to claim your
+position here.
+
+The company name in that first sentence is a quiet link to the Alabama
+Secretary of State business-entity record (entity `000-514-953`). Do not add a
+separate “we’re real” line on the belief page.
 
 **Important:** Early Support is not equity, shares, a SAFE, or any other
 security. It is not a guaranteed return. It is not a charitable donation or
