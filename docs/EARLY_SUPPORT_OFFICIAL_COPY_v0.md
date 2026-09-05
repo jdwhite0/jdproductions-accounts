@@ -35,17 +35,19 @@ Terms version stamped on checkout, ledger, invoice, and Positions:
 
 ## Invest / belief page disclosure
 
-**Eyebrow:** Early Support
+**Headline:** Early Support
 
-**Headline:** Stand with the studio
+**Subhead (why you're here — once):** Stand with JD Productions before the next
+formal round.
 
-**Subhead:** Stand with JD Productions before the next formal round.
+Do not repeat that sentence in the gold eyebrow or in **What it is**. The
+belief page has no gold eyebrow.
 
-**Body:** Early Support is how you stand with [JD Productions Inc.](https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000514953)
-before the next formal round. Choose an amount first — a login is optional. We
-record your support on our ledger and email a Stripe receipt plus an itemized
-invoice either way. Afterward, you can create an account to claim your
-position here.
+**What it is:** Early Support is voluntary support to [JD Productions Inc.](https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000514953).
+
+Do not put “login is optional” or “claim your position” on this card. Checkout
+email helper may say: after you pay, you can create an account to track your
+support.
 
 The company name in that first sentence is a quiet link to the Alabama
 Secretary of State business-entity record (entity `000-514-953`). Do not add a

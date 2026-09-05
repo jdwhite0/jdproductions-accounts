@@ -15,5 +15,24 @@
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/invest",
+      "has": [{ "type": "host", "value": "invest.jdproductions.io" }],
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/invest",
+      "has": [{ "type": "host", "value": "www.invest.jdproductions.io" }],
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/invest",
+      "destination": "/early-support",
+      "permanent": true
+    }
   ]
 }

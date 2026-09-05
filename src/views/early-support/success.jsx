@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
 import TermsStampLink from "./TermsStampLink";
 import { FONT, GOLD, INK, NAVY, SECONDARY, esCardSx } from "./brand";
-import { THANK_YOU_COPY } from "../../../lib/early-support/copy.js";
+import { SUCCESS_SUBHEAD, THANK_YOU_COPY } from "../../../lib/early-support/copy.js";
 import { earlySupportNavChrome } from "@/utils/early-support-nav";
 
 export default function EarlySupportSuccess() {
@@ -26,7 +26,7 @@ export default function EarlySupportSuccess() {
       <TitleBand
         eyebrow="Early Support"
         title="Thank you"
-        subtitle={THANK_YOU_COPY}
+        subtitle={SUCCESS_SUBHEAD}
       />
       <Card variant="outlined" sx={{ ...esCardSx, maxWidth: 640 }}>
         <CardContent sx={{ p: { xs: 2.5, md: 3.5 } }}>
@@ -52,10 +52,11 @@ export default function EarlySupportSuccess() {
               mb: 2,
             }}
           >
-            Stripe will email a payment receipt. An itemized invoice (charge
-            line plus included items, terms <TermsStampLink />) is sent after
-            the payment is confirmed by webhook — not by this browser page
-            alone. A position becomes active only after that confirmation.
+            {THANK_YOU_COPY} Stripe will email a payment receipt. An itemized
+            invoice (charge line plus included items, terms <TermsStampLink />)
+            is sent after the payment is confirmed by webhook — not by this
+            browser page alone. A position becomes active only after that
+            confirmation.
           </Typography>
           {sessionId && (
             <Typography
@@ -83,7 +84,7 @@ export default function EarlySupportSuccess() {
                   "&:hover": { bgcolor: "#001B36" },
                 }}
               >
-                Create an account to claim Positions
+                Create an account to track your support
               </Button>
               <Button
                 component={RouterLink}

@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 import Loadable from "@/components/Loadable";
 import EarlySupportLayout from "@/layouts/EarlySupportLayout";
+import { investPathDestination } from "@/utils/invest-host";
 
 const Landing = Loadable(lazy(() => import("@/views/early-support/landing")));
 const Success = Loadable(lazy(() => import("@/views/early-support/success")));
@@ -20,9 +21,16 @@ const EarlySupportRoutes = {
   ],
 };
 
+function InvestPathRedirect() {
+  return <Navigate to={investPathDestination()} replace />;
+}
+
+/** `/invest` is not a separate page. */
 export const InvestRedirect = {
   path: "/invest",
-  element: <Navigate to="/early-support" replace />,
+  element: <InvestPathRedirect />,
 };
+
+export default EarlySupportRoutes;
 
 export default EarlySupportRoutes;

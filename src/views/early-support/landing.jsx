@@ -25,6 +25,7 @@ import {
 import {
   CONTINUE_ACCEPTS_AFTER,
   CONTINUE_ACCEPTS_BEFORE,
+  CHECKOUT_EMAIL_HELPER,
   CUSTOM_TIER,
   IMPORTANT_DISCLOSURE_BODY,
   IMPORTANT_DISCLOSURE_TITLE,
@@ -32,6 +33,7 @@ import {
   LANDING_BODY_BEFORE,
   LANDING_HEADLINE,
   LANDING_SUBHEAD,
+  WHAT_IT_IS_TITLE,
   STRIPE_FEES_DISCLOSURE,
   TIERS,
   WHAT_YOU_RECEIVE,
@@ -100,18 +102,14 @@ export default function EarlySupportLanding() {
 
   return (
     <Box>
-      <TitleBand
-        eyebrow="Early Support"
-        title={LANDING_HEADLINE}
-        subtitle={LANDING_SUBHEAD}
-      />
+      <TitleBand title={LANDING_HEADLINE} subtitle={LANDING_SUBHEAD} />
 
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: {
-            xs: "1fr",
-            md: "minmax(0, 1.4fr) minmax(280px, 0.8fr)",
+            xs: "minmax(0, 1fr)",
+            md: "minmax(0, 1.4fr) minmax(0, 0.8fr)",
           },
           gap: 2.5,
           alignItems: "start",
@@ -120,6 +118,19 @@ export default function EarlySupportLanding() {
         <Stack spacing={2.5}>
           <Card variant="outlined" sx={esCardSx}>
             <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
+              <Typography
+                sx={{
+                  color: NAVY,
+                  fontFamily: FONT,
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  fontSize: 12,
+                  mb: 1,
+                }}
+              >
+                {WHAT_IT_IS_TITLE}
+              </Typography>
               <Typography
                 sx={{
                   color: INK,
@@ -249,7 +260,7 @@ export default function EarlySupportLanding() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 size="small"
-                helperText="Required. A JD Productions Accounts login is optional afterward."
+                helperText={CHECKOUT_EMAIL_HELPER}
               />
               <FormControlLabel
                 control={
