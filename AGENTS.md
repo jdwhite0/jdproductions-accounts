@@ -41,7 +41,7 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 
 | # | Connection | Mechanism | Direction | Secret? |
 |---|---|---|---|---|
-| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Accounts is a **satellite** of the ACCESS primary (`getaccess.world`); sign-in/up run there and the session syncs back here. | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
+| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Accounts is a **primary-mode** consumer on this origin (embedded `<SignIn>` / `<SignUp>`). Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
 | 3 | **Optional outbound links** | Plain URLs to `https://getaccess.world` and `https://jdproductions.io` | this app → those sites | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
@@ -55,16 +55,13 @@ coupling without updating this contract in the same commit.
   instances, redirect URLs, allowed origins, or the shared pool.
 - Do **not** open the Clerk dashboard to “fix” auth. If auth is broken, stop
   and ask a human. ACCESS owns Clerk configuration.
-- `ClerkProvider` in `src/main.jsx` is a Clerk **satellite** of the ACCESS
-  primary: `isSatellite={true}`,
-  `domain` from `VITE_CLERK_DOMAIN` (default `accounts.jdproductions.io`),
-  `signInUrl` / `signUpUrl` from `VITE_CLERK_SIGN_IN_URL` /
-  `VITE_CLERK_SIGN_UP_URL` (defaults `https://getaccess.world/sign-in` and
-  `https://getaccess.world/sign-up`), `afterSignOutUrl="/auth/login"`.
+- `ClerkProvider` in `src/main.jsx` must keep `signInUrl="/auth/login"`,
+  `signUpUrl="/auth/register"`, `afterSignOutUrl="/auth/login"`. Do **not**
+  set `isSatellite` — Clerk cannot register `accounts.jdproductions.io` as
+  a satellite (`reserved_subdomain`); satellite handshake loops forever.
 - Live routes that must keep working: `/auth/login`, `/auth/register`,
-  `/auth/bridge`. Login and register **redirect** to the ACCESS primary
-  (`buildSignInUrl` / `buildSignUpUrl`); do not embed `<SignIn>` /
-  `<SignUp>` on the satellite. Bridge payload is unchanged.
+  `/auth/bridge`. Login and register embed `<SignIn routing="hash">` /
+  `<SignUp routing="hash">` on this origin. Bridge payload is unchanged.
 
 ### 2.2 Marketing iframe bridge — do not break
 
