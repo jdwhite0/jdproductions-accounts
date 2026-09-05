@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import galaxyBand from "@/assets/images/early-support/galaxy-band.jpg";
-import { FONT, GOLD, TITLE_ON_BAND } from "./brand";
+import { CARD_RADIUS, FONT, GOLD, TITLE_ON_BAND } from "./brand";
 import TitleBandAtmosphere from "./TitleBandAtmosphere";
 
 /**
@@ -20,9 +20,10 @@ export default function TitleBand({
       className="es-title-band"
       sx={{
         position: "relative",
+        width: "100%",
         mb: { xs: 3, md: 4 },
-        mx: { xs: -2, sm: -3 },
         overflow: "hidden",
+        borderRadius: CARD_RADIUS,
         bgcolor: "#000",
       }}
     >
