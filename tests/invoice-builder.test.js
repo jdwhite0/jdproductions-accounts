@@ -28,8 +28,14 @@ for (const tier of TIERS_UNDER_TEST) {
     assert.ok(built.lines.some((line) => /early_support_v0/.test(line.description)));
     assert.ok(built.lines.some((line) => /Priority consideration/.test(line.description)));
     assert.match(built.notes, /JD Productions Inc/);
+    assert.match(built.notes, /voluntary support to JD Productions Inc/);
+    assert.match(built.notes, /not a charitable donation or 501\(c\)\(3\) contribution/);
     assert.doesNotMatch(built.notes, /equity round|ROI|angel/i);
+    assert.doesNotMatch(built.productDescription, /Voluntary Early Support payment/);
+    assert.match(built.productDescription, /^Voluntary Early Support to JD Productions Inc\./);
     assert.match(built.footer, /EARLY SUPPORT TERMS NOTICE/);
+    assert.match(built.footer, /By continuing you accept/);
+    assert.doesNotMatch(built.footer, /By paying you accept/);
     assert.match(built.footer, /early-support\/terms/);
     assert.match(built.footer, /early-support\/privacy/);
     assert.equal(built.metadata.instrument_type, 'early_support');

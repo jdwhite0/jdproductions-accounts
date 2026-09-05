@@ -245,7 +245,7 @@ export default function EarlySupportLanding() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 size="small"
-                helperText="Required. A JD Productions Accounts login is optional after you pay."
+                helperText="Required. A JD Productions Accounts login is optional afterward."
               />
               <FormControlLabel
                 control={
