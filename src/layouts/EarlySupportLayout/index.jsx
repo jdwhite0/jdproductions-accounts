@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link as RouterLink } from "react-router-dom";
-import { useAuth, UserButton } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,17 +10,35 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
+import GalaxySignOutButton from "@/views/early-support/GalaxySignOutButton";
 import TermsStampLink from "@/views/early-support/TermsStampLink";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
+import {
+  EARLY_SUPPORT_AFTER_SIGN_OUT_PATH,
+  earlySupportNavChrome,
+} from "@/utils/early-support-nav";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
-  const { isLoaded, isSignedIn } = useAuth();
+  const [signingOut, setSigningOut] = useState(false);
+  const { isLoaded, isSignedIn, signOut } = useAuth();
   // Only hide Sign in after Clerk confirms a session. While loading or when
   // session resolution fails (e.g. origin_invalid), keep chrome Sign in visible.
-  const showSignedInChrome = Boolean(isLoaded && isSignedIn);
-  const showSignIn = !showSignedInChrome;
+  const { showSignedInChrome, showSignIn } = earlySupportNavChrome({
+    isLoaded,
+    isSignedIn,
+  });
+
+  const handleSignOut = async () => {
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await signOut({ redirectUrl: EARLY_SUPPORT_AFTER_SIGN_OUT_PATH });
+    } catch {
+      setSigningOut(false);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -56,7 +74,11 @@ export default function EarlySupportLayout({ children }) {
           }}
         >
           <NavLogo />
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
+          <Stack
+            direction="row"
+            spacing={{ xs: 0.75, sm: 1.5 }}
+            sx={{ alignItems: "center", flexShrink: 0 }}
+          >
             {showSignIn ? (
               <Button
                 className="btn-signin"
@@ -107,16 +129,18 @@ export default function EarlySupportLayout({ children }) {
                     fontWeight: 600,
                     textTransform: "none",
                     fontFamily: FONT,
+                    minWidth: 0,
+                    px: { xs: 1, sm: 1.5 },
                   }}
                 >
                   Positions
                 </Button>
-                <UserButton
-                  afterSignOutUrl="/auth/login"
-                  appearance={{
-                    elements: { avatarBox: { width: 36, height: 36 } },
-                  }}
-                />
+                <GalaxySignOutButton
+                  onClick={handleSignOut}
+                  disabled={signingOut}
+                >
+                  Sign out
+                </GalaxySignOutButton>
               </>
             ) : null}
           </Stack>
