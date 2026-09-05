@@ -20,16 +20,16 @@ function mulberry32(seed) {
   };
 }
 
-function seedStars(count) {
-  const rand = mulberry32(STAR_SEED);
+function seedStars(count, { seed = STAR_SEED, scale = 1 } = {}) {
+  const rand = mulberry32(seed);
   const stars = [];
   for (let i = 0; i < count; i += 1) {
     const hero = i < Math.max(8, Math.round(count * 0.22));
     stars.push({
       nx: rand(),
       ny: rand(),
-      r: hero ? 1.7 + rand() * 1.3 : 0.4 + rand() * 0.7,
-      glow: hero ? 10 + rand() * 8 : 0,
+      r: (hero ? 1.7 + rand() * 1.3 : 0.4 + rand() * 0.7) * scale,
+      glow: (hero ? 10 + rand() * 8 : 0) * scale,
       base: hero ? 0.42 + rand() * 0.28 : 0.22 + rand() * 0.28,
       amp: hero ? 0.28 + rand() * 0.22 : 0.1 + rand() * 0.16,
       speed: hero ? 0.7 + rand() * 0.7 : 0.35 + rand() * 0.55,
@@ -152,7 +152,7 @@ function drawComets(ctx, comets, dt, width, height) {
   ctx.restore();
 }
 
-export default function TitleBandAtmosphere() {
+export default function TitleBandAtmosphere({ compact = false }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -183,10 +183,13 @@ export default function TitleBandAtmosphere() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(
-        Math.min(130, Math.max(48, (width * height) / 2400)),
-      );
-      stars = seedStars(count);
+      const count = compact
+        ? Math.round(Math.min(22, Math.max(10, (width * height) / 400)))
+        : Math.round(Math.min(130, Math.max(48, (width * height) / 2400)));
+      stars = seedStars(count, {
+        seed: compact ? STAR_SEED + 7 : STAR_SEED,
+        scale: compact ? 0.45 : 1,
+      });
     }
 
     function paintStatic() {
@@ -200,14 +203,14 @@ export default function TitleBandAtmosphere() {
       ctx.clearRect(0, 0, width, height);
       drawStars(ctx, stars, width, height, now, true);
 
-      if (now >= nextCometAt && comets.length < MAX_COMETS) {
+      if (!compact && now >= nextCometAt && comets.length < MAX_COMETS) {
         comets.push(spawnComet(width, height));
         nextCometAt =
           now +
           COMET_GAP_MIN_MS +
           Math.random() * (COMET_GAP_MAX_MS - COMET_GAP_MIN_MS);
       }
-      drawComets(ctx, comets, dt, width, height);
+      if (!compact) drawComets(ctx, comets, dt, width, height);
       raf = requestAnimationFrame(frame);
     }
 
@@ -246,7 +249,7 @@ export default function TitleBandAtmosphere() {
       observer.disconnect();
       motionMq.removeEventListener("change", onMotionChange);
     };
-  }, []);
+  }, [compact]);
 
   return <canvas ref={canvasRef} className="es-title-atmosphere" aria-hidden />;
 }

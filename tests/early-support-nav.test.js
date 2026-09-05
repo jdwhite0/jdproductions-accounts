@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  earlySupportAfterSignOutPath,
+  EARLY_SUPPORT_AFTER_SIGN_OUT_PATH,
   earlySupportNavChrome,
 } from "../src/utils/early-support-nav.js";
 
@@ -31,18 +31,6 @@ test("signed-in chrome is Positions | Sign out only after Clerk confirms", () =>
   });
 });
 
-test("Sign out lands on Early Support, not /auth/login", () => {
-  assert.equal(
-    earlySupportAfterSignOutPath("accounts.jdproductions.io"),
-    "/early-support",
-  );
-  assert.equal(
-    earlySupportAfterSignOutPath("localhost"),
-    "/early-support",
-  );
-  assert.equal(earlySupportAfterSignOutPath("invest.jdproductions.io"), "/");
-  assert.equal(
-    earlySupportAfterSignOutPath("www.invest.jdproductions.io"),
-    "/",
-  );
+test("Sign out lands on /early-support, not /auth/login", () => {
+  assert.equal(EARLY_SUPPORT_AFTER_SIGN_OUT_PATH, "/early-support");
 });

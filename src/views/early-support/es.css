@@ -8,8 +8,9 @@
   --es-bg: #ffffff;
   --es-soft: #f7f7f8;
   --es-title: #f7f7f8;
-  --font: 'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font:
+    "Inter", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   font-family: var(--font);
   color: var(--es-ink);
   background: var(--es-bg);
@@ -178,8 +179,11 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Sign out — navy liquid-glass outline; never gold (Sign in is guest-only) */
+/* Sign out — Hubble galaxy pill + white label (never gold; Sign in is guest-only) */
 .es-root .es-nav .btn-signout.MuiButton-root {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-width: 104px;
   padding: 10px 20px;
   border-radius: 24px;
@@ -189,23 +193,40 @@
   letter-spacing: 0.01em;
   line-height: 1.25;
   text-transform: none;
-  color: var(--es-navy);
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(0, 34, 68, 0.22);
-  box-shadow:
-    0 1px 8px rgba(0, 34, 68, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  transition:
-    box-shadow 0.3s ease,
-    background-color 0.3s ease,
-    border-color 0.3s ease;
+  color: #fff !important;
+  background-color: #000 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 2px 12px rgba(0, 10, 24, 0.32);
 }
 
 .es-root .es-nav .btn-signout.MuiButton-root:hover {
-  background: rgba(0, 34, 68, 0.04);
-  border-color: rgba(0, 34, 68, 0.38);
+  background-color: #000 !important;
+  background-image: none !important;
+  box-shadow: 0 4px 16px rgba(0, 10, 24, 0.42);
+}
+
+.es-root .es-nav .btn-signout .es-signout-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 8, 18, 0.22),
+    rgba(0, 8, 18, 0.38)
+  );
+}
+
+.es-root .es-nav .btn-signout .es-title-atmosphere {
+  z-index: 2;
+}
+
+.es-root .es-nav .btn-signout .btn-signout-label {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 600px) {

@@ -10,11 +10,12 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NavLogo from "@/views/early-support/NavLogo";
+import GalaxySignOutButton from "@/views/early-support/GalaxySignOutButton";
 import TermsStampLink from "@/views/early-support/TermsStampLink";
 import "@/views/early-support/es.css";
 import { BG, FONT, INK, NAVY, SECONDARY } from "@/views/early-support/brand";
 import {
-  earlySupportAfterSignOutPath,
+  EARLY_SUPPORT_AFTER_SIGN_OUT_PATH,
   earlySupportNavChrome,
 } from "@/utils/early-support-nav";
 
@@ -33,7 +34,7 @@ export default function EarlySupportLayout({ children }) {
     if (signingOut) return;
     setSigningOut(true);
     try {
-      await signOut({ redirectUrl: earlySupportAfterSignOutPath() });
+      await signOut({ redirectUrl: EARLY_SUPPORT_AFTER_SIGN_OUT_PATH });
     } catch {
       setSigningOut(false);
     }
@@ -134,45 +135,12 @@ export default function EarlySupportLayout({ children }) {
                 >
                   Positions
                 </Button>
-                <Button
-                  className="btn-signout"
-                  type="button"
-                  variant="outlined"
-                  disableElevation
+                <GalaxySignOutButton
                   onClick={handleSignOut}
                   disabled={signingOut}
-                  aria-label="Sign out"
-                  sx={{
-                    minWidth: { xs: 0, sm: 104 },
-                    px: { xs: "14px", sm: "20px" },
-                    py: { xs: "8px", sm: "10px" },
-                    borderRadius: "24px",
-                    fontFamily: FONT,
-                    fontSize: 14,
-                    fontWeight: 600,
-                    letterSpacing: "0.01em",
-                    lineHeight: 1.25,
-                    textTransform: "none",
-                    color: NAVY,
-                    backgroundColor: "transparent",
-                    borderColor: "rgba(0, 34, 68, 0.22)",
-                    boxShadow:
-                      "0 1px 8px rgba(0, 34, 68, 0.06), inset 0 1px 0 rgba(255,255,255,0.7)",
-                    backdropFilter: "blur(12px) saturate(160%)",
-                    WebkitBackdropFilter: "blur(12px) saturate(160%)",
-                    "&:hover": {
-                      backgroundColor: "rgba(0, 34, 68, 0.04)",
-                      borderColor: "rgba(0, 34, 68, 0.38)",
-                    },
-                    "&.Mui-disabled": {
-                      color: NAVY,
-                      borderColor: "rgba(0, 34, 68, 0.16)",
-                      opacity: 0.65,
-                    },
-                  }}
                 >
-                  {signingOut ? "Signing out…" : "Sign out"}
-                </Button>
+                  Sign out
+                </GalaxySignOutButton>
               </>
             ) : null}
           </Stack>

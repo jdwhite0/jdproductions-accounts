@@ -1,5 +1,3 @@
-import { isInvestHost } from "./invest-host.js";
-
 /**
  * Early Support header chrome.
  * Guest (and unresolved Clerk) sees gold Sign in — same rule as PR #16.
@@ -13,10 +11,5 @@ export function earlySupportNavChrome({ isLoaded, isSignedIn } = {}) {
   };
 }
 
-/**
- * After Sign out, stay on Early Support — not ClerkProvider's /auth/login.
- * invest. `/` is the Early Support landing; elsewhere use /early-support.
- */
-export function earlySupportAfterSignOutPath(hostname) {
-  return isInvestHost(hostname) ? "/" : "/early-support";
-}
+/** After Sign out, land on Early Support — not ClerkProvider's /auth/login. */
+export const EARLY_SUPPORT_AFTER_SIGN_OUT_PATH = "/early-support";
