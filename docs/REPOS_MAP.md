@@ -6,7 +6,7 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 | Surface | GitHub | Live | Role |
 |---|---|---|---|
 | **JD Productions Accounts (this repo)** | [`jdwhite0/jdproductions-accounts`](https://github.com/jdwhite0/jdproductions-accounts) | [accounts.jdproductions.io](https://accounts.jdproductions.io) · [invest.jdproductions.io](https://invest.jdproductions.io) (Early Support at `/`) | Company accounts gateway + early-support capital. |
-| **Marketing site** | [`jdwhite0/jdproductions-website`](https://github.com/jdwhite0/jdproductions-website) | [jdproductions.io](https://jdproductions.io) | Public marketing. Sign In → this app’s `/auth/login`. Hidden iframe → this app’s `/auth/bridge`. |
+| **Marketing site** | [`jdwhite0/jdproductions-website`](https://github.com/jdwhite0/jdproductions-website) | [jdproductions.io](https://jdproductions.io) | Public marketing. Sign In → ACCESS `/sign-in` (same as JYSON). Hidden iframe → this app’s `/auth/bridge`. |
 | **ACCESS** | [`jdwhite0/access-app`](https://github.com/jdwhite0/access-app) | [getaccess.world](https://getaccess.world) | Separate platform / workspace product. Owns Clerk **configuration**. Do not import or merge. |
 | **JYSON** | [`jdwhite0/jyson`](https://github.com/jdwhite0/jyson) | JYSON deploy (own Vercel project) | Separate chat product. Connects to ACCESS via its own `AGENTS.md` contract. Not this app. |
 | **JDP token holder app** | [`jdwhite0/jdp-saas`](https://github.com/jdwhite0/jdp-saas) | JDP holder / wallet app (Privy + Base) | Token holder dashboard. Not company accounts. Not early-support capital. |
@@ -15,10 +15,11 @@ home.** Do not put that work in ACCESS, JYSON, the marketing site, or jdp-saas.
 ## Identity
 
 All company + ACCESS + JYSON surfaces that use Clerk share **one Clerk
-application / pool**. This repo **consumes** the publishable key in
-**primary mode** on this origin (embedded `/auth/login` and `/auth/register`).
-Clerk cannot register `accounts.jdproductions.io` as a satellite
-(`reserved_subdomain`). ACCESS owns dashboard/config. Agents must not edit Clerk.
+application / pool**. Sign-in completes on ACCESS (`getaccess.world/sign-in`),
+matching JYSON. This repo **consumes** the publishable key and must **not**
+embed `<SignIn>` / `<SignUp>`. Clerk cannot register `accounts.jdproductions.io`
+as a satellite (`reserved_subdomain`). ACCESS owns dashboard/config. Agents
+must not edit Clerk.
 
 The JDP holder app (`jdp-saas`) uses **Privy**, not this Clerk pool.
 
@@ -26,12 +27,12 @@ The JDP holder app (`jdp-saas`) uses **Privy**, not this Clerk pool.
 
 ```
 jdproductions.io  --iframe-->  accounts.jdproductions.io/auth/bridge
-                  --link---->  accounts.jdproductions.io/auth/login
+                  --link---->  getaccess.world/sign-in   (same door as JYSON)
 ```
 
-`/auth/login` embeds Clerk `<SignIn>` on this origin. Do not auto-redirect
-to ACCESS on page load (no shared session cookie → infinite loop). Magic
-link can be completed on ACCESS via an explicit click-only link.
+`/auth/login` is a click-only ACCESS door for leftover links. Do not
+auto-redirect to ACCESS on page load (no shared session cookie → infinite
+loop). Do not embed Clerk `<SignIn>` on this origin.
 
 Bridge posts `{ type: 'jdp_auth', signedIn, imageUrl, firstName, fullName }`
 to allowlisted parent origins. Contract: root `AGENTS.md`.

@@ -1,4 +1,4 @@
-// TEMPLATE LEGACY — unused. Live login embeds Clerk <SignIn> in src/views/auth/.
+// TEMPLATE LEGACY — unused. Live login is an ACCESS door in src/views/auth/.
 // Do not wire this form into /auth/login.
 import PropTypes from 'prop-types';
 import { useState } from 'react';

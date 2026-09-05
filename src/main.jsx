@@ -13,14 +13,13 @@ import '@fontsource/archivo/500.css';
 import '@fontsource/archivo/600.css';
 import '@fontsource/archivo/700.css';
 
-// Clerk publishable key is public by design; inline fallback guarantees the prod
-// build always has it even if the build env var isn't injected.
 // Same Clerk instance as ACCESS — consume this key only. Never edit Clerk apps,
-// redirects, or the pool (AGENTS.md §2.1).
-// Primary mode on this origin: Clerk cannot register accounts.jdproductions.io
-// as a satellite (reserved_subdomain), so isSatellite + buildSignInUrl loops.
-const PUBLISHABLE_KEY =
-  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || 'pk_test_bWlnaHR5LW93bC0xNS5jbGVyay5hY2NvdW50cy5kZXYk';
+// redirects, or the pool (AGENTS.md §2.1). pk_test / mighty-owl-15 is frozen.
+// Clerk cannot register accounts.jdproductions.io as a satellite
+// (reserved_subdomain). Sign-in is an ACCESS door, not an embedded widget.
+const ACCESS_LIVE_PK = 'pk_live_Y2xlcmsuZ2V0YWNjZXNzLndvcmxkJA';
+const rawKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || ACCESS_LIVE_PK;
+const PUBLISHABLE_KEY = rawKey.startsWith('pk_live_') ? rawKey : ACCESS_LIVE_PK;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

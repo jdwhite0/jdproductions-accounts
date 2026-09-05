@@ -17,31 +17,26 @@ test("ClerkProvider is primary mode on this origin, not a satellite", () => {
   assert.doesNotMatch(main, /VITE_CLERK_DOMAIN/);
   assert.doesNotMatch(main, /VITE_CLERK_SIGN_IN_URL/);
   assert.doesNotMatch(main, /VITE_CLERK_SIGN_UP_URL/);
-  assert.doesNotMatch(main, /getaccess\.world\/sign-in/);
-  assert.doesNotMatch(main, /getaccess\.world\/sign-up/);
+  assert.doesNotMatch(main, /pk_test_/);
   assert.match(main, /signInUrl="\/auth\/login"/);
   assert.match(main, /signUpUrl="\/auth\/register"/);
   assert.match(main, /afterSignOutUrl="\/auth\/login"/);
+  assert.match(main, /pk_live_/);
 });
 
-test("login and register embed Clerk widgets instead of satellite redirect", () => {
+test("login and register are ACCESS doors, not embedded Clerk widgets", () => {
   const login = readRepo("src/views/auth/login.jsx");
   const register = readRepo("src/views/auth/register.jsx");
 
-  assert.match(login, /<SignIn/);
-  assert.match(login, /routing="hash"/);
-  assert.match(login, /safeNextPath/);
+  assert.doesNotMatch(login, /<SignIn/);
+  assert.doesNotMatch(register, /<SignUp/);
+  assert.match(login, /accessSignInUrl/);
+  assert.match(register, /accessWaitlistUrl/);
   assert.doesNotMatch(login, /SatelliteAuthRedirect/);
   assert.doesNotMatch(login, /buildSignInUrl/);
-  assert.doesNotMatch(login, /Redirecting to sign in/);
   assert.doesNotMatch(login, /AccessDoorPage/);
-
-  assert.match(register, /<SignUp/);
-  assert.match(register, /routing="hash"/);
-  assert.match(register, /safeNextPath/);
   assert.doesNotMatch(register, /SatelliteAuthRedirect/);
   assert.doesNotMatch(register, /buildSignUpUrl/);
-  assert.doesNotMatch(register, /Redirecting to sign up/);
   assert.doesNotMatch(register, /AccessDoorPage/);
 });
 

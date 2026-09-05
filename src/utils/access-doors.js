@@ -1,12 +1,18 @@
 /**
- * Optional ACCESS links for explicit user clicks only (magic-link).
+ * ACCESS is the only production Clerk door for this app, matching JYSON.
+ *
+ * Clerk cannot register accounts.jdproductions.io as a satellite
+ * (reserved_subdomain). Magic-link completion belongs on getaccess.world.
+ * Embedding <SignIn> here starts a second Clerk widget on the wrong host
+ * and loops with ACCESS / the Account Portal.
  *
  * Do NOT auto-redirect /auth/login or /auth/register to ACCESS on page
  * load. Session cookies are not shared across accounts.jdproductions.io
  * and getaccess.world — a page-load bounce loops forever.
  *
- * Magic-link completion must happen on getaccess.world (Clerk instance
- * domain). Accounts cannot be a satellite.
+ * Do NOT pass https://accounts.jdproductions.io/... as Clerk redirect_url.
+ * ACCESS only honors same-app paths; absolute Accounts URLs are stripped,
+ * and Clerk-level allowed-origin bounces were the loop.
  */
 import { normalizeHostname } from "./invest-host.js";
 import { safeNextPath } from "./safe-next.js";
@@ -41,17 +47,17 @@ export function accountsReturnUrl(
   return `${accountsReturnOrigin(hostname)}${path}`;
 }
 
-function accessDoorUrl(pathname, options = {}) {
-  const redirectUrl = accountsReturnUrl(options.next, options);
-  return `${ACCESS_ORIGIN}${pathname}?redirect_url=${encodeURIComponent(redirectUrl)}`;
+/** Click-only ACCESS sign-in. Never use in a page-load redirect. */
+export function accessSignInUrl() {
+  return `${ACCESS_ORIGIN}/sign-in`;
 }
 
-/** Click-only ACCESS sign-in URL. Never use in a page-load redirect. */
-export function accessSignInUrl(options = {}) {
-  return accessDoorUrl("/sign-in", options);
+/** New people — ACCESS waitlist (no open self-serve sign-up on this origin). */
+export function accessWaitlistUrl() {
+  return `${ACCESS_ORIGIN}/`;
 }
 
-/** Click-only ACCESS sign-up URL. Never use in a page-load redirect. */
-export function accessSignUpUrl(options = {}) {
-  return accessDoorUrl("/sign-up", options);
+/** @deprecated Use accessWaitlistUrl — ACCESS sign-up is invite-gated. */
+export function accessSignUpUrl() {
+  return accessWaitlistUrl();
 }

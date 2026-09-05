@@ -1,4 +1,4 @@
-// TEMPLATE LEGACY — unused. Live register embeds Clerk <SignUp> in src/views/auth/.
+// TEMPLATE LEGACY — unused. Live register is an ACCESS waitlist door in src/views/auth/.
 // Do not wire this form into /auth/register.
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
