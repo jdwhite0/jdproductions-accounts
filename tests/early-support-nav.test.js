@@ -24,7 +24,18 @@ test("guest and unresolved Clerk keep gold Sign in", () => {
   }
 });
 
-test("signed-in chrome is Positions | Sign out only after Clerk confirms", () => {
+test("invest restore pending hides Sign in until the accounts ticket lands", () => {
+  assert.deepEqual(
+    earlySupportNavChrome({
+      isLoaded: true,
+      isSignedIn: false,
+      restorePending: true,
+    }),
+    { showSignedInChrome: false, showSignIn: false },
+  );
+});
+
+test("signed-in chrome is avatar | Sign out only after Clerk confirms", () => {
   assert.deepEqual(earlySupportNavChrome({ isLoaded: true, isSignedIn: true }), {
     showSignedInChrome: true,
     showSignIn: false,

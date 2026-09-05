@@ -8,6 +8,8 @@ import AdminLayout from "@/layouts/AdminLayout";
 import HostAwareHome from "@/routes/HostAwareHome";
 import RoleGuard from "@/routes/RoleGuard";
 import { safeNextPath } from "@/utils/safe-next";
+import { isInvestHost } from "@/utils/invest-host";
+import { useInvestSessionRestore } from "@/views/auth/InvestSessionRestore";
 
 // Member views
 const Overview = Loadable(lazy(() => import("@/views/member/overview")));
@@ -46,8 +48,10 @@ const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
 // ACCESS on page load (session cookies are not shared → infinite loop).
 function ProtectedAdmin() {
   const { isLoaded, isSignedIn } = useAuth();
+  const { restorePending } = useInvestSessionRestore();
   const location = useLocation();
   if (!isLoaded) return null;
+  if (isInvestHost() && restorePending && !isSignedIn) return null;
   if (!isSignedIn) {
     const next = safeNextPath(location.pathname, "/dashboard");
     return (

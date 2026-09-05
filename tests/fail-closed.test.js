@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { optionalClerkUserId, requireClerkUserId } from '../lib/clerk-auth.js';
+import { mintSignInTokenForUser, optionalClerkUserId, requireClerkUserId, SIGN_IN_TOKEN_TTL_SECONDS } from '../lib/clerk-auth.js';
 import { coerceAmountCents, createEarlySupportCheckout, resolveTierAndAmount } from '../lib/early-support/checkout.js';
 import { createMemoryRepo } from './helpers/memory-repo.js';
 
@@ -164,4 +164,29 @@ test('GET-style auth helper stays fail-closed without a bearer (positions/claim)
   );
   if (previous == null) delete process.env.CLERK_SECRET_KEY;
   else process.env.CLERK_SECRET_KEY = previous;
+});
+
+test('sign-in token mint is short-lived and fail-closed', async () => {
+  await assert.rejects(
+    () => mintSignInTokenForUser(''),
+    (err) => err.status === 401 && err.code === 'unauthorized'
+  );
+
+  const ticket = await mintSignInTokenForUser('user_abc', {
+    createSignInToken: async ({ userId, expiresInSeconds }) => {
+      assert.equal(userId, 'user_abc');
+      assert.equal(expiresInSeconds, SIGN_IN_TOKEN_TTL_SECONDS);
+      assert.equal(SIGN_IN_TOKEN_TTL_SECONDS, 60);
+      return { token: 'tk_test_not_a_real_secret' };
+    }
+  });
+  assert.equal(ticket, 'tk_test_not_a_real_secret');
+
+  await assert.rejects(
+    () =>
+      mintSignInTokenForUser('user_abc', {
+        createSignInToken: async () => ({ token: null })
+      }),
+    (err) => err.status === 503 && err.code === 'ticket_mint_failed'
+  );
 });
