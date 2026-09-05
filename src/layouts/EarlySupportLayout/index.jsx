@@ -80,6 +80,22 @@ export default function EarlySupportLayout({ children }) {
             sx={{ alignItems: "center", flexShrink: 0 }}
           >
             {showSignIn ? (
+              <>
+              <Button
+                component={RouterLink}
+                to="/auth/register?next=/positions"
+                variant="text"
+                sx={{
+                  color: NAVY,
+                  fontWeight: 600,
+                  textTransform: "none",
+                  fontFamily: FONT,
+                  minWidth: 0,
+                  px: { xs: 1, sm: 1.5 },
+                }}
+              >
+                Create account
+              </Button>
               <Button
                 className="btn-signin"
                 component={RouterLink}
@@ -118,6 +134,7 @@ export default function EarlySupportLayout({ children }) {
               >
                 Sign in
               </Button>
+              </>
             ) : null}
             {showSignedInChrome ? (
               <>

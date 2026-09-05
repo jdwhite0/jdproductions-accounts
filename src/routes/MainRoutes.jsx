@@ -38,8 +38,8 @@ const FounderSubscriptions = Loadable(
 );
 const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
 
-// Auth gate — signed-out users stay on Accounts /auth/login (ACCESS door,
-// click-only). Do not bounce them to ACCESS on page load; that loops when
+// Auth gate — signed-out users go to Accounts /auth/login (Clerk SignIn on
+// this origin). Do not bounce them to ACCESS on page load; that loops when
 // sessions do not sync across domains.
 function ProtectedAdmin() {
   return (
