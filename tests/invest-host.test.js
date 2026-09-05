@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   isInvestHost,
+  investPathDestination,
   normalizeHostname,
   rootIntentForHost,
 } from "../src/utils/invest-host.js";
@@ -41,4 +42,14 @@ test("normalizeHostname strips port, case, and trailing dot", () => {
     normalizeHostname("WWW.Invest.JDProductions.IO.:443"),
     "www.invest.jdproductions.io",
   );
+});
+
+test("/invest is not its own page", () => {
+  assert.equal(investPathDestination("invest.jdproductions.io"), "/");
+  assert.equal(investPathDestination("www.invest.jdproductions.io"), "/");
+  assert.equal(
+    investPathDestination("accounts.jdproductions.io"),
+    "/early-support",
+  );
+  assert.equal(investPathDestination("localhost"), "/early-support");
 });

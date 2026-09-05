@@ -33,3 +33,8 @@ export function isInvestHost(hostname) {
 export function rootIntentForHost(hostname) {
   return isInvestHost(hostname) ? "early-support" : "dashboard";
 }
+
+/** `/invest` is not its own page — send it to the Early Support landing. */
+export function investPathDestination(hostname) {
+  return isInvestHost(hostname) ? "/" : "/early-support";
+}

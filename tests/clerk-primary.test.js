@@ -111,15 +111,25 @@ test("login and register expose create-account and sign-in doors", () => {
   assert.match(register, /to=\{`\/auth\/login\?next=\$\{encodeURIComponent\(next\)\}`\}/);
 });
 
-test("Early Support Sign in and Create account stay on Accounts routes", () => {
+test("Early Support Sign in stays on Accounts routes", () => {
   const layout = readRepo("src/layouts/EarlySupportLayout/index.jsx");
   const success = readRepo("src/views/early-support/success.jsx");
   assert.match(layout, /to="\/auth\/login\?next=\/positions"/);
-  assert.match(layout, /to="\/auth\/register\?next=\/positions"/);
+  assert.doesNotMatch(layout, /to="\/auth\/register\?next=\/positions"/);
+  assert.doesNotMatch(layout, /Create account/);
   assert.doesNotMatch(layout, /accessSignInUrl/);
   assert.match(success, /to="\/auth\/register\?next=\/positions"/);
   assert.match(success, /to="\/auth\/login\?next=\/positions"/);
-  assert.match(success, /Create an account to claim Positions/);
+  assert.match(success, /Create an account to track your support/);
   assert.match(success, /earlySupportNavChrome/);
   assert.doesNotMatch(success, /SignedOut/);
+});
+
+test("/invest redirects to Early Support instead of a separate page", () => {
+  const routes = readRepo("src/routes/EarlySupportRoutes.jsx");
+  const vercel = readRepo("vercel.json");
+  assert.match(routes, /investPathDestination/);
+  assert.match(routes, /path: "\/invest"/);
+  assert.match(vercel, /"source": "\/invest"/);
+  assert.match(vercel, /"destination": "\/early-support"/);
 });

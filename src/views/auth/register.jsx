@@ -42,8 +42,7 @@ export default function Register() {
         >
           <Typography variant="h1">Create your account</Typography>
           <Typography variant="body1" color="text.secondary">
-            First time here is fine. You can also create an account after
-            Early Support.
+            Create an account to track your Early Support.
           </Typography>
         </Stack>
 

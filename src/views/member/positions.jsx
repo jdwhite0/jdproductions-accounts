@@ -22,6 +22,7 @@ import {
   esCardSx,
 } from "@/views/early-support/brand";
 import {
+  POSITIONS_SUBHEAD,
   PRIORITY_CARD_COPY,
   TERMS_VERSION,
   THANK_YOU_COPY,
@@ -77,7 +78,11 @@ export default function PositionsPage() {
 
   return (
     <Box>
-      <TitleBand eyebrow="Early Support" title="Your Early Support" />
+      <TitleBand
+        eyebrow="Early Support"
+        title="Your positions"
+        subtitle={POSITIONS_SUBHEAD}
+      />
 
       {loading && (
         <Typography sx={{ color: SECONDARY }}>

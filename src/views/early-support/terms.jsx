@@ -5,11 +5,12 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
 import { FONT, INK, NAVY, SECONDARY, esCardSx } from "./brand";
+import { TERMS_SUBHEAD } from "../../../lib/early-support/copy.js";
 
 const sections = [
   {
     title: "Definition",
-    body: "Early Support is how you stand with JD Productions Inc. before the next formal round. It is voluntary support to the company. It records your support, emails a Stripe receipt and an itemized invoice, and may include priority consideration when counsel later offers a formal instrument. It is not equity, shares, a SAFE, or any other security. It is not a guaranteed return. It is not a charitable donation or 501(c)(3) contribution. Any later instrument is a separate, counsel-prepared step; nothing converts silently. Terms version: early_support_v0.",
+    body: "Early Support is voluntary support to JD Productions Inc. It records your support, emails a Stripe receipt and an itemized invoice, and may include priority consideration when counsel later offers a formal instrument. It is not equity, shares, a SAFE, or any other security. It is not a guaranteed return. It is not a charitable donation or 501(c)(3) contribution. Any later instrument is a separate, counsel-prepared step; nothing converts silently. Terms version: early_support_v0.",
   },
   {
     title: "What you receive",
@@ -21,7 +22,7 @@ const sections = [
   },
   {
     title: "Amount first, account optional",
-    body: "You may complete Early Support as a guest with your email. A JD Productions Accounts login is optional. The ledger record, Stripe receipt, and itemized invoice are provided either way. If you later create an account with the same verified email, you may claim guest positions to view them under Positions.",
+    body: "You may complete Early Support with your email. An account is not required to pay. If you later create an account with the same verified email, you can track that support under Positions.",
   },
   {
     title: "Money confirmation",
@@ -39,7 +40,7 @@ export default function EarlySupportTerms() {
       <TitleBand
         eyebrow="Early Support"
         title="Early Support Terms"
-        subtitle="early_support_v0 — JD Productions Inc."
+        subtitle={TERMS_SUBHEAD}
       />
       <Card variant="outlined" sx={esCardSx}>
         <CardContent

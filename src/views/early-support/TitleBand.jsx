@@ -11,7 +11,7 @@ import TitleBandAtmosphere from "./TitleBandAtmosphere";
  * Image: NASA/ESA Hubble (public domain), cropped to a horizontal band.
  */
 export default function TitleBand({
-  eyebrow = "Early Support",
+  eyebrow,
   title,
   subtitle,
 }) {
@@ -49,24 +49,26 @@ export default function TitleBand({
           maxWidth: 760,
         }}
       >
-        <Box
-          sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1.25 }}
-        >
-          <Typography
-            component="p"
-            sx={{
-              color: GOLD,
-              fontFamily: FONT,
-              fontWeight: 700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              fontSize: 12,
-            }}
+        {eyebrow ? (
+          <Box
+            sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1.25 }}
           >
-            {eyebrow}
-          </Typography>
-          <Box sx={{ width: 36, height: 1, bgcolor: GOLD }} />
-        </Box>
+            <Typography
+              component="p"
+              sx={{
+                color: GOLD,
+                fontFamily: FONT,
+                fontWeight: 700,
+                letterSpacing: { xs: "0.08em", sm: "0.1em" },
+                textTransform: "uppercase",
+                fontSize: 12,
+              }}
+            >
+              {eyebrow}
+            </Typography>
+            <Box sx={{ width: 36, height: 1, bgcolor: GOLD }} />
+          </Box>
+        ) : null}
         <Typography
           component="h1"
           className="es-title-hero"

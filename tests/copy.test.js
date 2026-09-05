@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   ALABAMA_SOS_ENTITY_ID,
   ALABAMA_SOS_ENTITY_URL,
+  CHECKOUT_EMAIL_HELPER,
   CHECKOUT_PRODUCT_DESCRIPTION,
   CONTINUE_ACCEPTS,
   CONTINUE_ACCEPTS_AFTER,
@@ -14,7 +15,13 @@ import {
   LANDING_BODY_AFTER,
   LANDING_BODY_BEFORE,
   LANDING_HEADLINE,
+  LANDING_SUBHEAD,
+  WHAT_IT_IS_TITLE,
   PAYEE_NAME,
+  POSITIONS_SUBHEAD,
+  PRIVACY_SUBHEAD,
+  SUCCESS_SUBHEAD,
+  TERMS_SUBHEAD,
   TERMS_VERSION,
   TIERS,
   checkoutProductName,
@@ -25,16 +32,27 @@ import {
 const BANNED_OFFER_LANGUAGE = /angel|equity round|\bSAFE\b|ROI\s*%|tax-deductible contribution/i;
 
 test('belief body uses the locked friend/family Early Support wording', () => {
+  assert.equal(WHAT_IT_IS_TITLE, 'What it is');
+  assert.equal(LANDING_HEADLINE, 'Early Support');
+  assert.equal(
+    LANDING_SUBHEAD,
+    'Stand with JD Productions before the next formal round.'
+  );
   assert.equal(
     LANDING_BODY,
-    'Early Support is how you stand with JD Productions Inc. before the next formal round. Choose an amount first — a login is optional. We record your support on our ledger and email a Stripe receipt plus an itemized invoice either way. Afterward, you can create an account to claim your position here.'
+    'Early Support is voluntary support to JD Productions Inc.'
   );
-  assert.equal(LANDING_HEADLINE, 'Stand with the studio');
-  assert.equal(PAYEE_NAME, 'JD Productions Inc.');
   assert.equal(
     `${LANDING_BODY_BEFORE}${PAYEE_NAME}${LANDING_BODY_AFTER}`,
     LANDING_BODY
   );
+  assert.doesNotMatch(LANDING_BODY, /how you stand with|before the next formal round/);
+  assert.doesNotMatch(LANDING_BODY, /login is optional|claim your position/i);
+  assert.equal(
+    CHECKOUT_EMAIL_HELPER,
+    'Receipt and invoice go here. After you pay, you can create an account to track your support.'
+  );
+  assert.equal(PAYEE_NAME, 'JD Productions Inc.');
   assert.equal(ALABAMA_SOS_ENTITY_ID, '000-514-953');
   assert.equal(
     ALABAMA_SOS_ENTITY_URL,
@@ -43,6 +61,16 @@ test('belief body uses the locked friend/family Early Support wording', () => {
   assert.doesNotMatch(LANDING_BODY, /voluntary payment|Pay first/i);
   assert.doesNotMatch(LANDING_BODY, /we're real|we are real|proof of|secretary of state/i);
   assert.doesNotMatch(LANDING_BODY, BANNED_OFFER_LANGUAGE);
+  assert.equal(
+    SUCCESS_SUBHEAD,
+    'Checkout is complete. Your position activates after Stripe confirms the payment — not from this page.'
+  );
+  assert.equal(
+    POSITIONS_SUBHEAD,
+    'The ledger record of your voluntary Early Support.'
+  );
+  assert.match(TERMS_SUBHEAD, /voluntary support/i);
+  assert.match(PRIVACY_SUBHEAD, /email for checkout and the ledger/);
 });
 
 test('checkout and invoice lead-ins stay warm without charity or equity framing', () => {

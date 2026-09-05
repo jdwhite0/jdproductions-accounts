@@ -50,7 +50,13 @@ export default function EarlySupportLayout({ children }) {
   return (
     <Box
       className="es-root"
-      sx={{ minHeight: "100vh", bgcolor: BG, color: INK }}
+      sx={{
+        minHeight: "100vh",
+        bgcolor: BG,
+        color: INK,
+        maxWidth: "100%",
+        overflowX: "clip",
+      }}
     >
       <AppBar
         position="sticky"
@@ -70,32 +76,30 @@ export default function EarlySupportLayout({ children }) {
         <Toolbar
           sx={{
             justifyContent: "space-between",
+            alignItems: "center",
             minHeight: { xs: 64, md: 72 },
+            width: "100%",
+            maxWidth: "100%",
+            minWidth: 0,
+            gap: { xs: 1, sm: 1.5 },
+            px: { xs: 1.5, sm: 2 },
+            overflowX: "clip",
           }}
         >
-          <NavLogo />
+          <Box className="es-nav-brand" sx={{ minWidth: 0, flex: "1 1 auto" }}>
+            <NavLogo />
+          </Box>
           <Stack
-            direction="row"
-            spacing={{ xs: 0.75, sm: 1.5 }}
-            sx={{ alignItems: "center", flexShrink: 0 }}
+            className="es-nav-auth"
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 0.25, sm: 1.5 }}
+            sx={{
+              alignItems: { xs: "stretch", sm: "center" },
+              flexShrink: 0,
+              maxWidth: { xs: "48%", sm: "none" },
+            }}
           >
             {showSignIn ? (
-              <>
-              <Button
-                component={RouterLink}
-                to="/auth/register?next=/positions"
-                variant="text"
-                sx={{
-                  color: NAVY,
-                  fontWeight: 600,
-                  textTransform: "none",
-                  fontFamily: FONT,
-                  minWidth: 0,
-                  px: { xs: 1, sm: 1.5 },
-                }}
-              >
-                Create account
-              </Button>
               <Button
                 className="btn-signin"
                 component={RouterLink}
@@ -104,12 +108,12 @@ export default function EarlySupportLayout({ children }) {
                 disableElevation
                 sx={{
                   /* jdproductions.io .nav-buttons .btn-signin / .btn-signin-m */
-                  minWidth: 116,
-                  px: "24px",
-                  py: "10px",
+                  minWidth: { xs: 0, sm: 116 },
+                  px: { xs: "14px", sm: "24px" },
+                  py: { xs: "7px", sm: "10px" },
                   borderRadius: "24px",
                   fontFamily: FONT,
-                  fontSize: 14,
+                  fontSize: { xs: 13, sm: 14 },
                   fontWeight: 600,
                   letterSpacing: "0.01em",
                   lineHeight: 1.25,
@@ -134,7 +138,6 @@ export default function EarlySupportLayout({ children }) {
               >
                 Sign in
               </Button>
-              </>
             ) : null}
             {showSignedInChrome ? (
               <>
@@ -147,7 +150,11 @@ export default function EarlySupportLayout({ children }) {
                     textTransform: "none",
                     fontFamily: FONT,
                     minWidth: 0,
-                    px: { xs: 1, sm: 1.5 },
+                    px: { xs: 0.5, sm: 1.5 },
+                    py: { xs: 0.25, sm: 0.5 },
+                    fontSize: { xs: 12, sm: 14 },
+                    lineHeight: 1.2,
+                    whiteSpace: "nowrap",
                   }}
                 >
                   Positions

@@ -5,6 +5,7 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import TitleBand from "./TitleBand";
 import { FONT, INK, NAVY, SECONDARY, esCardSx } from "./brand";
+import { PRIVACY_SUBHEAD } from "../../../lib/early-support/copy.js";
 
 export default function EarlySupportPrivacy() {
   return (
@@ -12,7 +13,7 @@ export default function EarlySupportPrivacy() {
       <TitleBand
         eyebrow="Early Support"
         title="Privacy addendum"
-        subtitle="How Early Support uses your email — early_support_v0."
+        subtitle={PRIVACY_SUBHEAD}
       />
       <Card variant="outlined" sx={esCardSx}>
         <CardContent
@@ -26,8 +27,9 @@ export default function EarlySupportPrivacy() {
           <Typography
             sx={{ color: INK, fontFamily: FONT, fontSize: 15, lineHeight: 1.7 }}
           >
-            This addendum covers Early Support on accounts.jdproductions.io. It
-            sits alongside the company privacy notice at{" "}
+            This addendum covers Early Support on accounts.jdproductions.io and
+            invest.jdproductions.io. It sits alongside the company privacy
+            notice at{" "}
             <Link href="https://jdproductions.io/privacy.html">
               jdproductions.io/privacy.html
             </Link>
