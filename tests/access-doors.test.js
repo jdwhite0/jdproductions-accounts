@@ -6,6 +6,7 @@ import {
   ACCOUNTS_CANONICAL_ORIGIN,
   accessSignInUrl,
   accessSignUpUrl,
+  accessWaitlistUrl,
   accountsReturnOrigin,
   accountsReturnUrl,
 } from "../src/utils/access-doors.js";
@@ -23,40 +24,15 @@ test("accounts return origin is canonical except invest hosts", () => {
   );
 });
 
-test("click-only ACCESS sign-in URL returns to Accounts positions", () => {
-  const href = accessSignInUrl({
-    next: "/positions",
-    hostname: "accounts.jdproductions.io",
-  });
-  const expectedReturn = "https://accounts.jdproductions.io/positions";
-  assert.equal(
-    href,
-    `${ACCESS_ORIGIN}/sign-in?redirect_url=${encodeURIComponent(expectedReturn)}`,
-  );
-  assert.equal(accountsReturnUrl("/positions"), expectedReturn);
+test("click-only ACCESS sign-in is the ACCESS front door, not Accounts", () => {
+  assert.equal(accessSignInUrl(), `${ACCESS_ORIGIN}/sign-in`);
+  assert.doesNotMatch(accessSignInUrl(), /accounts\.jdproductions\.io/);
+  assert.doesNotMatch(accessSignInUrl(), /redirect_url/);
 });
 
-test("login without next returns to Accounts dashboard", () => {
-  const href = accessSignInUrl({ hostname: "accounts.jdproductions.io" });
-  assert.equal(
-    href,
-    `${ACCESS_ORIGIN}/sign-in?redirect_url=${encodeURIComponent(
-      "https://accounts.jdproductions.io/dashboard",
-    )}`,
-  );
-});
-
-test("register preserves next on ACCESS sign-up door", () => {
-  const href = accessSignUpUrl({
-    next: "/early-support",
-    hostname: "accounts.jdproductions.io",
-  });
-  assert.equal(
-    href,
-    `${ACCESS_ORIGIN}/sign-up?redirect_url=${encodeURIComponent(
-      "https://accounts.jdproductions.io/early-support",
-    )}`,
-  );
+test("new accounts go through ACCESS waitlist, not embedded SignUp", () => {
+  assert.equal(accessWaitlistUrl(), `${ACCESS_ORIGIN}/`);
+  assert.equal(accessSignUpUrl(), accessWaitlistUrl());
 });
 
 test("unsafe next falls back instead of open-redirecting", () => {

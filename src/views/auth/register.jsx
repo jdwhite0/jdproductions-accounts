@@ -1,53 +1,19 @@
 // @mui
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
-// @third-party
-import { useSearchParams } from "react-router-dom";
-import { SignUp } from "@clerk/clerk-react";
-
 // @project
 import Copyright from "@/sections/auth/Copyright";
-import { accessSignUpUrl } from "@/utils/access-doors";
-import { safeNextPath } from "@/utils/safe-next";
-
-const clerkAppearance = {
-  variables: {
-    colorPrimary: "#002244",
-    colorText: "#1B1B1F",
-    fontFamily: "'Inter', sans-serif",
-    borderRadius: "10px",
-  },
-  elements: {
-    rootBox: { width: "100%" },
-    cardBox: { width: "100%", boxShadow: "none" },
-    card: {
-      boxShadow: "none",
-      border: "none",
-      padding: 0,
-      background: "transparent",
-    },
-    headerTitle: { display: "none" },
-    headerSubtitle: { display: "none" },
-    footer: { display: "none" },
-    formButtonPrimary: {
-      backgroundColor: "#002244",
-      textTransform: "none",
-      fontSize: "15px",
-      fontWeight: 600,
-      "&:hover": { backgroundColor: "#001B36" },
-    },
-    socialButtonsBlockButton: { borderRadius: "10px" },
-  },
-};
+import { accessSignInUrl, accessWaitlistUrl } from "@/utils/access-doors";
 
 /***************************  AUTH - REGISTER  ***************************/
 
 export default function Register() {
-  const [params] = useSearchParams();
-  const next = safeNextPath(params.get("next"), "/dashboard");
+  const waitlistHref = accessWaitlistUrl();
+  const signInHref = accessSignInUrl();
 
   return (
     <Stack
@@ -68,25 +34,37 @@ export default function Register() {
         >
           <Typography variant="h1">Create your account</Typography>
           <Typography variant="body1" color="text.secondary">
-            Get started with JD Productions.
+            Accounts are created through ACCESS — the network identity pool.
+            This app does not host a second sign-up.
           </Typography>
         </Stack>
 
-        <SignUp
-          routing="hash"
-          signInUrl={`/auth/login?next=${encodeURIComponent(next)}`}
-          fallbackRedirectUrl={next}
-          appearance={clerkAppearance}
-        />
+        <Button
+          href={waitlistHref}
+          variant="contained"
+          fullWidth
+          size="large"
+          sx={{
+            backgroundColor: "#002244",
+            textTransform: "none",
+            fontSize: "15px",
+            fontWeight: 600,
+            py: 1.5,
+            borderRadius: "10px",
+            "&:hover": { backgroundColor: "#001B36" },
+          }}
+        >
+          Request ACCESS
+        </Button>
 
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{ mt: 3, textAlign: "center" }}
         >
-          Need a magic link?{" "}
-          <Link href={accessSignUpUrl({ next })} underline="hover">
-            Continue on ACCESS
+          Already have an account?{" "}
+          <Link href={signInHref} underline="hover">
+            Sign in with ACCESS
           </Link>
         </Typography>
       </Box>

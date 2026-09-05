@@ -41,9 +41,9 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 
 | # | Connection | Mechanism | Direction | Secret? |
 |---|---|---|---|---|
-| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Accounts is a **primary-mode** consumer on this origin (embedded `<SignIn>` / `<SignUp>`). Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
+| 1 | **Shared Clerk identity** | Same Clerk application / pool as ACCESS, via `VITE_CLERK_PUBLISHABLE_KEY`. Sign-in / sign-up are **ACCESS doors** (click-only links to getaccess.world), matching JYSON. Do not embed `<SignIn>` / `<SignUp>` on this origin — magic-link completion belongs on getaccess.world. Clerk cannot register `accounts.jdproductions.io` as a satellite (`reserved_subdomain`). | consume only | Publishable key is public. Secret key, if ever added, is server-only (`CLERK_SECRET_KEY`, never `VITE_`) |
 | 2 | **Marketing iframe bridge** | Hidden iframe on jdproductions.io loads `/auth/bridge`; this app `postMessage`s `{ type: 'jdp_auth', ... }` | this app → marketing parents | No |
-| 3 | **Optional outbound links** | Plain URLs to `https://getaccess.world` and `https://jdproductions.io`. Magic-link users may click through to ACCESS; **never auto-redirect** `/auth/login` on page load (no shared session cookie → infinite loop). | this app → those sites | No (public URLs) |
+| 3 | **ACCESS doors** | Plain URLs to `https://getaccess.world/sign-in` (members) and `https://getaccess.world/` (waitlist). **Never auto-redirect** `/auth/login` on page load (no shared session cookie → infinite loop). | this app → ACCESS | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
 
 Anything outside these four is **not** an approved connection. Do not add new
@@ -59,13 +59,14 @@ coupling without updating this contract in the same commit.
   `signUpUrl="/auth/register"`, `afterSignOutUrl="/auth/login"`. Do **not**
   set `isSatellite` — Clerk cannot register `accounts.jdproductions.io` as
   a satellite (`reserved_subdomain`); satellite handshake loops forever.
+  Do **not** fall back to `pk_test_` / mighty-owl-15.
 - Live routes that must keep working: `/auth/login`, `/auth/register`,
-  `/auth/bridge`. Login and register embed `<SignIn routing="hash">` /
-  `<SignUp routing="hash">` on this origin. Bridge payload is unchanged.
+  `/auth/bridge`. Login and register are click-only ACCESS doors (no
+  embedded Clerk widgets). Bridge payload is unchanged.
 - **Never auto-redirect** `/auth/login` or `/auth/register` to
   `getaccess.world` on page load. Clerk session cookies are not shared
   across those domains, so ACCESS returning a signed-out Accounts user
-  loops forever. Optional ACCESS links are click-only (magic-link).
+  loops forever. ACCESS links are click-only, same as JYSON.
 
 ### 2.2 Marketing iframe bridge — do not break
 
@@ -93,7 +94,8 @@ change):
 { type: 'jdp_auth', signedIn: false }
 ```
 
-Marketing Sign In buttons point at `/auth/login` on this domain.
+Marketing Sign In buttons point at ACCESS (`https://getaccess.world/sign-in`),
+same as JYSON. `/auth/login` remains a click-only ACCESS door for old links.
 
 ### 2.3 Transitional ACCESS HTTP calls (legacy — do not grow)
 
@@ -151,7 +153,7 @@ them. They are excluded from the Vercel upload via `.vercelignore`.
 
 Unused Clerk-era leftovers inside `src/` (not wired to live routes):
 `src/sections/auth/AuthLogin.jsx`, `AuthRegister.jsx`, `AuthSocial.jsx`.
-Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
+Live auth is click-only ACCESS doors in `src/views/auth/` (not embedded Clerk widgets).
 
 ---
 
@@ -178,9 +180,9 @@ Live auth is Clerk `<SignIn>` / `<SignUp>` in `src/views/auth/`.
   Google Domains still required: `invest` CNAME →
   `ba5acd7daa29209d.vercel-dns-017.com`.
 - Do not rename the GitHub repository without a documented Vercel reconnect.
-- After changing auth or the bridge, verify `/auth/login`, `/auth/register`,
-  and `/auth/bridge` still load **without** bouncing to ACCESS, and that
-  the marketing iframe still receives `jdp_auth`.
+- After changing auth or the bridge, verify `/auth/login` and `/auth/register`
+  load **without** bouncing to ACCESS, that Sign in with ACCESS is click-only
+  to `getaccess.world/sign-in`, and that ACCESS `/sign-in` still renders.
 
 ---
 
