@@ -1,4 +1,4 @@
-// TEMPLATE LEGACY — unused. Live register redirects to ACCESS primary sign-up.
+// TEMPLATE LEGACY — unused. Live register is Clerk <SignUp> in src/views/auth/register.jsx.
 // Do not wire this form into /auth/register.
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';

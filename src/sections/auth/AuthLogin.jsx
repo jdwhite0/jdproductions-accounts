@@ -1,4 +1,4 @@
-// TEMPLATE LEGACY — unused. Live login redirects to ACCESS primary sign-in.
+// TEMPLATE LEGACY — unused. Live login is Clerk <SignIn> in src/views/auth/login.jsx.
 // Do not wire this form into /auth/login.
 import PropTypes from 'prop-types';
 import { useState } from 'react';
