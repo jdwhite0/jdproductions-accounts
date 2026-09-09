@@ -91,3 +91,19 @@ test('duplicate paid event retries invoice if it was not stored', async () => {
   await processStripeEvent(event, repo, { sendInvoice });
   assert.equal(invoiceCalls, 2);
 });
+
+test('invoice send failure does not unwind an activated position', async () => {
+  const repo = createMemoryRepo();
+  const event = checkoutCompletedEvent();
+  const result = await processStripeEvent(event, repo, {
+    sendInvoice: async () => {
+      const err = new Error('Received unknown parameter: paid_out_of_band');
+      err.code = 'parameter_unknown';
+      throw err;
+    }
+  });
+
+  assert.equal(result.outcome, 'activated');
+  assert.equal(result.invoice.reason, 'invoice_send_failed');
+  assert.equal(repo.positions[0].status, 'active');
+});
