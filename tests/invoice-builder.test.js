@@ -58,3 +58,49 @@ test('invoice send is skipped when an invoice id is already stored', async () =>
   assert.equal(result.skipped, true);
   assert.equal(result.reason, 'already_invoiced');
 });
+
+test('invoice send finalizes then pays out of band (not on finalizeInvoice)', async () => {
+  const { sendItemizedInvoice } = await import('../lib/early-support/invoice.js');
+  const calls = [];
+  const stripe = {
+    invoices: {
+      create: async () => ({ id: 'in_new' }),
+      finalizeInvoice: async (id, params) => {
+        calls.push(['finalizeInvoice', id, params]);
+        return { id };
+      },
+      pay: async (id, params) => {
+        calls.push(['pay', id, params]);
+        return { id, status: 'paid' };
+      },
+      sendInvoice: async (id) => {
+        calls.push(['sendInvoice', id]);
+        return { id };
+      }
+    },
+    invoiceItems: {
+      create: async () => ({})
+    }
+  };
+  const stored = [];
+  const result = await sendItemizedInvoice({
+    stripe,
+    repo: {
+      setPositionInvoiceId: async (positionId, invoiceId) => {
+        stored.push([positionId, invoiceId]);
+      }
+    },
+    position: { id: 'pos_2', amount_cents: 25000, currency: 'usd', tier: 'standard' },
+    customerId: 'cus_1',
+    amountCents: 25000,
+    tier: 'standard'
+  });
+
+  assert.equal(result.skipped, false);
+  assert.equal(result.invoiceId, 'in_new');
+  assert.equal(calls[0][0], 'finalizeInvoice');
+  assert.equal(calls[0][2], undefined);
+  assert.deepEqual(calls[1], ['pay', 'in_new', { paid_out_of_band: true }]);
+  assert.deepEqual(calls[2], ['sendInvoice', 'in_new']);
+  assert.deepEqual(stored, [['pos_2', 'in_new']]);
+});
