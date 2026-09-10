@@ -24,6 +24,16 @@
   "rewrites": [
     {
       "source": "/((?!api/).*)",
+      "has": [{ "type": "host", "value": "invest.jdproductions.io" }],
+      "destination": "/invest.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "has": [{ "type": "host", "value": "www.invest.jdproductions.io" }],
+      "destination": "/invest.html"
+    },
+    {
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ],

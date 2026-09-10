@@ -20,6 +20,10 @@ import {
   EARLY_SUPPORT_AFTER_SIGN_OUT_PATH,
   earlySupportNavChrome,
 } from "@/utils/early-support-nav";
+import {
+  ACCOUNTS_DOCUMENT_TITLE,
+  EARLY_SUPPORT_DOCUMENT_TITLE,
+} from "@/utils/site-meta";
 
 export default function EarlySupportLayout({ children }) {
   const [scrolled, setScrolled] = useState(false);
@@ -43,6 +47,14 @@ export default function EarlySupportLayout({ children }) {
       setSigningOut(false);
     }
   };
+
+  useEffect(() => {
+    const previous = document.title;
+    document.title = EARLY_SUPPORT_DOCUMENT_TITLE;
+    return () => {
+      document.title = previous || ACCOUNTS_DOCUMENT_TITLE;
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
