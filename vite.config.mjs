@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
@@ -5,6 +6,24 @@ import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Vercel serves `dist/index.html` for `/` before host rewrites. Rename it so
+ * invest. vs accounts. rewrites can choose the HTML shell.
+ */
+function renameIndexHtmlForHostRewrites() {
+  return {
+    name: 'rename-index-html-for-host-rewrites',
+    apply: 'build',
+    closeBundle() {
+      const index = path.resolve(__dirname, 'dist/index.html');
+      const accounts = path.resolve(__dirname, 'dist/accounts.html');
+      if (fs.existsSync(index)) {
+        fs.renameSync(index, accounts);
+      }
+    }
+  };
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -24,7 +43,7 @@ export default defineConfig(({ mode }) => {
       global: 'window'
     },
     base: APP_BASE_URL,
-    plugins: [react(), jsconfigPaths()],
+    plugins: [react(), jsconfigPaths(), renameIndexHtmlForHostRewrites()],
     build: {
       minify: 'terser',
       chunkSizeWarningLimit: 1000,
