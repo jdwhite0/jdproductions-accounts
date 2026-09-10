@@ -31,6 +31,7 @@
     "@mui/x-charts": "8.27.0",
     "@tabler/icons-react": "3.37.1",
     "@tanstack/react-table": "8.21.3",
+    "@vercel/functions": "^3.9.7",
     "drizzle-orm": "^0.45.2",
     "lodash-es": "4.17.23",
     "notistack": "3.0.2",

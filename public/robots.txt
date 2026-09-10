@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Early Support landing
+Allow: /
+
+# Auth doors are not marketing destinations
+Disallow: /auth/
