@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 /** @type {import('next').NextConfig} */
 
 const cspHeader = `
@@ -14,6 +15,7 @@ const cspHeader = `
 `;
 
 const nextConfig = {
+  turbopack: { root: fileURLToPath(new URL('.', import.meta.url)) },
   modularizeImports: {
     '@mui/material': {
       transform: '@mui/material/{{member}}'
