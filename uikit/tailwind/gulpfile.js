@@ -8,15 +8,11 @@ const sass = require('gulp-sass')(main_sass);
 
 var del = require('del');
 var uglify = require('gulp-uglify');
-var cssmin = require('gulp-cssmin');
 var merge = require('merge-stream');
 var babel = require('gulp-babel');
 var npmlodash = require('lodash');
-var smushit = require('gulp-smushit');
-var autoprefixer = require('gulp-autoprefixer');
 var fileinclude = require('gulp-file-include');
 var browsersync = require('browser-sync');
-var htmlmin = require('gulp-htmlmin');
 const { parallel } = require('gulp');
 var postcss = require('gulp-postcss');
 tailwindcss = require('tailwindcss');
@@ -132,7 +128,7 @@ gulp.task('build-node-modules', function () {
       gulp.src(assets).pipe(gulp.dest('dist/assets/js/plugins'));
     }
   });
-  var cpyassets = gulp.src(['src/assets/**/*.*', '!src/assets/scss/**/*.*']).pipe(gulp.dest('dist/assets'));
+  var cpyassets = gulp.src(['src/assets/**/*.*', '!src/assets/scss/**/*.*'], { encoding: false }).pipe(gulp.dest('dist/assets'));
   return merge(cpyassets);
 });
 //  [ Copy assets ] end
@@ -221,35 +217,27 @@ gulp.task('min-html', function () {
 //  [ minify html ] end
 
 //  [ image optimizer ] start
-// Function to compress images with retry mechanism
-function compressImagesWithRetry(src, dest, retries = 40) {
-  return new Promise((resolve, reject) => {
-    const stream = gulp
-      .src(src)
-      .pipe(
-        smushit({
-          verbose: true // Enable verbose logging for debugging
-        })
-      )
-      .on('error', function (err) {
-        console.error('Error during image compression:', err.toString());
-        if (retries > 0) {
-          // Retry by recursively calling the function with reduced number of retries
-          compressImagesWithRetry(src, dest, retries - 1)
-            .then(resolve)
-            .catch(reject);
-        } else {
-          // No more retries left, reject the promise
-          reject(new Error('Max retries exceeded. Unable to compress image.'));
-        }
-      });
-
-    stream.on('end', () => resolve());
-    stream.pipe(gulp.dest(dest));
-  });
-}
-gulp.task('min-image', function () {
-  return compressImagesWithRetry(path.src.images, path.destination.images);
+// Local optimization preserves dimensions and alpha without uploading assets.
+gulp.task('min-image', async function () {
+  const sharp = require('sharp');
+  const fs = require('node:fs/promises');
+  const pathModule = require('node:path');
+  async function visit(directory) {
+    for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
+      const source = pathModule.join(directory, entry.name);
+      if (entry.isDirectory()) { await visit(source); continue; }
+      if (!/\.(jpg|png)$/i.test(entry.name)) continue;
+      const relative = pathModule.relative('src/assets/images', source);
+      const destination = pathModule.join(path.destination.images, relative);
+      await fs.mkdir(pathModule.dirname(destination), { recursive: true });
+      let image = sharp(source).keepMetadata();
+      image = /\.png$/i.test(entry.name)
+        ? image.png({ compressionLevel: 9 })
+        : image.jpeg({ quality: 95, mozjpeg: true });
+      await image.toFile(destination);
+    }
+  }
+  await visit('src/assets/images');
 });
 //  [ image optimizer ] end
 

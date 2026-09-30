@@ -1,0 +1,24 @@
+name: Inactive template security gates
+on:
+  pull_request:
+    paths: ['admin/**', 'uikit/**', '.github/workflows/template-security.yml']
+  push:
+    branches: [main]
+    paths: ['admin/**', 'uikit/**', '.github/workflows/template-security.yml']
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        root: [admin/nextjs, admin/vite, uikit/react, uikit/tailwind]
+    defaults:
+      run:
+        working-directory: ${{ matrix.root }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npm run build
