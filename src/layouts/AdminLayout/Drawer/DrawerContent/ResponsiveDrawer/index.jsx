@@ -10,8 +10,8 @@ import NavGroup from './NavGroup';
 /***************************  DRAWER CONTENT - RESPONSIVE DRAWER  ***************************/
 
 export default function ResponsiveDrawer() {
-  const { isAdmin } = useRole();
-  const menuItems = getMenuItems(isAdmin);
+  const { isAdmin, canRecruit } = useRole();
+  const menuItems = getMenuItems(isAdmin, canRecruit);
   const navGroups = menuItems.items.map((item, index) => {
     switch (item.type) {
       case 'group':

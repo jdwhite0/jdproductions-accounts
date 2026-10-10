@@ -7,6 +7,7 @@ import Loadable from "@/components/Loadable";
 import AdminLayout from "@/layouts/AdminLayout";
 import HostAwareHome from "@/routes/HostAwareHome";
 import RoleGuard from "@/routes/RoleGuard";
+import RecruitingGuard from "@/routes/RecruitingGuard";
 import { safeNextPath } from "@/utils/safe-next";
 import { isInvestHost } from "@/utils/invest-host";
 import { useInvestSessionRestore } from "@/views/auth/InvestSessionRestore";
@@ -41,6 +42,9 @@ const FounderSubscriptions = Loadable(
   lazy(() => import("@/views/founder/subscriptions")),
 );
 const FounderSystem = Loadable(lazy(() => import("@/views/founder/system")));
+const RecruitingDashboard = Loadable(
+  lazy(() => import("@/views/recruiting/dashboard")),
+);
 
 // Auth gate — signed-out users go to Accounts /auth/login (click-only ACCESS
 // door). Do not start Clerk's hash SignIn on this origin — that fights the
@@ -82,6 +86,12 @@ const MainRoutes = {
         { path: "positions", element: <PositionsPage /> },
         { path: "support", element: <Support /> },
         { path: "changelog", element: <Changelog /> },
+
+        {
+          path: "recruiting",
+          element: <RecruitingGuard />,
+          children: [{ index: true, element: <RecruitingDashboard /> }],
+        },
 
         // Founder / admin (role-gated)
         {
