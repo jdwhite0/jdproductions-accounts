@@ -46,8 +46,9 @@ ACCESS, JYSON, website, or jdp-saas repos being present.
 | 3 | **ACCESS doors** | Optional click-only URLs to `https://getaccess.world/sign-in` (magic-link) and `https://getaccess.world/` (waitlist). **Never auto-redirect** `/auth/login` on page load (no shared session cookie → infinite loop). | this app → ACCESS | No (public URLs) |
 | 4 | **Early-support ledger** | Own Postgres + Stripe webhooks **in this project** (`api/` Vercel serverless). Not ACCESS Supabase. | this app only | Stripe secret + webhook secret + `DATABASE_URL` + `CLERK_SECRET_KEY` are server-only |
 | 5 | **Invest session restore** | `invest.` / `www.invest.` load a hidden iframe of **this app** at `https://accounts.jdproductions.io/auth/session-share`. That origin already has the dashboard ticket cookie (same site, Lax). It mints a short-lived Clerk ticket via `POST /api/auth/sign-in-token` and `postMessage`s `{ type: 'jdp_accounts_session', ticket }` to the invest parent only. Do **not** iframe ACCESS for this — `getaccess.world` is cross-site, so Lax Clerk cookies never arrive. | invest → accounts (same project) | Ticket is one-time; `CLERK_SECRET_KEY` stays server-only |
+| 6 | **Public careers** | Marketing site `https://jdproductions.io/careers` reads and submits to `https://accounts.jdproductions.io/api/recruiting`. CORS allows jdproductions.io, www, localhost:8765, localhost:5173, and `https://jdproductions-website*.vercel.app`. No shared database. Guest applications do not create Clerk users. Staff roles are read from existing Clerk `publicMetadata` (`role` admin/founder, or `recruitingRole`). Do not edit the Clerk application. Résumés stay in this project's Postgres. Mail is not sent; communications are recorded. | marketing site → this API | No new secret. `DATABASE_URL` and `CLERK_SECRET_KEY` stay server-only |
 
-Anything outside these five is **not** an approved connection. Do not add new
+Anything outside these six is **not** an approved connection. Do not add new
 coupling without updating this contract in the same commit.
 
 ### 2.1 Clerk — consume only, never configure
