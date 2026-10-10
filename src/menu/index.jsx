@@ -1,13 +1,15 @@
 // @project
-import memberGroups from './user';
-import adminGroup from './admin';
-import other from './other';
+import memberGroups from "./user";
+import adminGroup from "./admin";
+import recruitingGroup from "./recruiting";
+import other from "./other";
 
 /***************************  MENU ITEMS (role-aware)  ***************************/
 
-// Member sees workspace + account + support. Founder/admin additionally sees the Founder group.
-export function getMenuItems(isAdmin) {
+// Member sees workspace + account + support. Recruiting staff see Careers. Founder/admin also see the Founder group.
+export function getMenuItems(isAdmin, canRecruit) {
   const items = [...memberGroups];
+  if (canRecruit) items.push(recruitingGroup);
   if (isAdmin) items.push(adminGroup);
   items.push(other);
   return { items };
