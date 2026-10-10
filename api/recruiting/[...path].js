@@ -2,11 +2,17 @@ import { createClerkClient } from '@clerk/backend';
 import { requireClerkUserId } from '../../lib/clerk-auth.js';
 import { createRecruitingHttpHandler } from '../../lib/recruiting/http.js';
 import { actorFromMetadata } from '../../lib/recruiting/roles.js';
+import { getSql } from '../../db/client.js';
+import { ensureRecruitingSchema } from '../../lib/recruiting/ensure-schema.js';
 import { createPostgresRecruitingStore } from '../../lib/recruiting/postgres-store.js';
 import { createRecruitingService } from '../../lib/recruiting/service.js';
 
 const handle = createRecruitingHttpHandler({
-  getService: async () => createRecruitingService(createPostgresRecruitingStore()),
+  getService: async () => {
+    const sql = getSql();
+    await ensureRecruitingSchema(sql);
+    return createRecruitingService(createPostgresRecruitingStore(sql));
+  },
   loadActor: async (request) => {
     const clerkUserId = await requireClerkUserId(request);
     const secretKey = process.env.CLERK_SECRET_KEY;

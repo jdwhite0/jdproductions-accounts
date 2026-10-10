@@ -100,5 +100,10 @@
       "permanent": true
     }
   ],
-  "installCommand": "npm ci"
+  "installCommand": "npm ci",
+  "functions": {
+    "api/recruiting/[...path].js": {
+      "includeFiles": "db/migrations/0003_recruiting.sql"
+    }
+  }
 }
