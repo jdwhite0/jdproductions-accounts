@@ -3,6 +3,7 @@ import { index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid, integer } fr
 
 /**
  * Early Support schema (this project only).
+ * Recruiting tables live in db/migrations/0003_recruiting.sql, not this file.
  * instrument_type is early_support — not equity / shares / securities.
  * clerk_user_id is nullable until a supporter claims with a Clerk account.
  */
