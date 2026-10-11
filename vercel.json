@@ -22,6 +22,10 @@
     }
   ],
   "rewrites": [
+    { "source": "/api/recruiting/:a/:b/:c/:d/:e", "destination": "/api/recruiting/:a?tail=:b&tail=:c&tail=:d&tail=:e" },
+    { "source": "/api/recruiting/:a/:b/:c/:d", "destination": "/api/recruiting/:a?tail=:b&tail=:c&tail=:d" },
+    { "source": "/api/recruiting/:a/:b/:c", "destination": "/api/recruiting/:a?tail=:b&tail=:c" },
+    { "source": "/api/recruiting/:a/:b", "destination": "/api/recruiting/:a?tail=:b" },
     {
       "source": "/",
       "has": [
@@ -103,6 +107,9 @@
   "installCommand": "npm ci",
   "functions": {
     "api/recruiting/[...path].js": {
+      "includeFiles": "db/migrations/0003_recruiting.sql"
+    },
+    "api/recruiting/**/*.js": {
       "includeFiles": "db/migrations/0003_recruiting.sql"
     }
   }
