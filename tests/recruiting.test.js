@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { createRecruitingHttpHandler } from '../lib/recruiting/http.js';
 import { createMemoryRecruitingStore } from '../lib/recruiting/memory-store.js';
+import { JD_ORG_ID } from '../lib/recruiting/constants.js';
 import { createRecruitingService } from '../lib/recruiting/service.js';
 
 const founder = { clerkUserId: 'user_founder', role: 'platform_admin' };
@@ -22,16 +23,16 @@ async function publishedInternship(svc) {
   return jobs.find((job) => job.slug === 'software-engineering-ai-systems-intern');
 }
 
-test('catalog publishes internships, upcoming roles, and the general application without compensation', async () => {
+test('catalog publishes 15 approved opportunities and the separate general application without invented compensation', async () => {
   const svc = service();
   const { jobs } = await svc.listPublished();
-  assert.equal(jobs.filter((job) => job.opportunityType === 'internship').length, 4);
-  assert.equal(jobs.filter((job) => job.opportunityType === 'upcoming').length, 6);
+  assert.equal(jobs.filter((job) => job.opportunityType === 'internship').length, 8);
+  assert.equal(jobs.filter((job) => job.opportunityType === 'upcoming').length, 1);
   assert.equal(jobs.filter((job) => job.opportunityType === 'talent_community').length, 1);
-  assert.equal(jobs.filter((job) => job.opportunityType === 'active').length, 0);
+  assert.equal(jobs.filter((job) => job.opportunityType === 'active').length, 6);
   assert.equal(jobs.every((job) => job.compensation == null), true);
-  const upcoming = jobs.find((job) => job.slug === 'founding-software-engineer');
-  assert.match(upcoming.timingNote, /Hiring timelines have not yet been established/);
+  const upcoming = jobs.find((job) => job.slug === 'research-testing-lead');
+  assert.match(upcoming.timingNote, /hiring timetable.*not been confirmed/);
   assert.equal(jobs.some((job) => /\$\d/.test(JSON.stringify(job))), false);
 });
 
@@ -269,4 +270,61 @@ test('migration does not alter the early-support ledger', () => {
   assert.match(sql, /recruiting_applications/);
   assert.doesNotMatch(sql, /ALTER TABLE (instruments|positions|ledger_entries)/);
   assert.doesNotMatch(sql, /funding_status/);
+});
+
+test('catalog expansion preserves role identities, question IDs, application history and later editor changes', async () => {
+  const store = createMemoryRecruitingStore();
+  const svc = createRecruitingService(store);
+  const role = await svc.getPublished('operations-venture-development-intern');
+  const row = (await svc.listOpportunities(founder)).opportunities.find(item => item.slug === role.slug);
+  assert.equal(row.id, '00000000-0000-4000-8000-000000000203');
+  const questionIds = role.questions.map(item => item.id);
+  const application = await svc.submitApplication({ slug: role.slug, fullName: 'Historic Candidate', email: 'history@example.com', consent: true });
+  await svc.updateOpportunity(founder, row.id, { summary: 'A later approved editor change.' });
+  await svc.ensureCatalog();
+  const retained = await svc.getPublished(role.slug);
+  assert.equal(retained.summary, 'A later approved editor change.');
+  assert.deepEqual(retained.questions.map(item => item.id), questionIds);
+  assert.equal((await svc.listApplications(founder)).applications[0].referenceCode, application.referenceCode);
+  assert.equal((await svc.listPublished()).jobs.length, 16);
+  const revisions = (await store.listAudit(JD_ORG_ID, 100)).filter(item => item.action === 'careers_scope_2026_10_12');
+  assert.equal(revisions.length, 3);
+});
+
+test('public application endpoint accepts the actual general application form payload and never exposes collections', async () => {
+  const svc = service();
+  const job = await svc.getPublished('general-application');
+  const interest = job.questions.find(item => item.prompt === 'Areas of interest');
+  const handler = createRecruitingHttpHandler({ getService: async () => svc, loadActor: async () => { throw Object.assign(new Error('Unauthorized'), { status: 401 }); } });
+  const payload = { slug: job.slug, fullName: 'Jerry White — WEBSITE QA TEST', email: 'fixture@example.com',
+    phone: null, location: null, portfolioUrl: null, links: [], consent: true, source: 'jdproductions.io',
+    idempotencyKey: 'web-general-application-fixture-20261012',
+    answers: [{ questionId: interest.id, value: ['Other'] }] };
+  const request = () => new Request('https://accounts.jdproductions.io/api/recruiting/applications', {
+    method: 'POST', headers: { origin: 'https://jdproductions.io', 'content-type': 'application/json' }, body: JSON.stringify(payload)
+  });
+  const response = await handler(request());
+  assert.equal(response.status, 201);
+  const saved = await response.json();
+  assert.match(saved.referenceCode, /^JDP-/);
+  assert.equal(saved.delivery, 'not_configured');
+  assert.equal((await (await handler(request())).json()).referenceCode, saved.referenceCode);
+  assert.equal((await svc.listApplications(founder)).applications.length, 1);
+  const collection = await handler(new Request('https://accounts.jdproductions.io/api/recruiting/applications'));
+  assert.equal(collection.status, 404);
+});
+
+test('every public route has an explicit Vercel function entry', () => {
+  for (const route of ['applications', 'jobs', 'health', 'privacy']) {
+    const source = readFileSync(new URL(`../api/recruiting/${route}.js`, import.meta.url), 'utf8');
+    assert.match(source, /export \{ GET, POST, OPTIONS \} from '\.\/\[\.\.\.path\]\.js'/);
+  }
+});
+
+test('deployment includes approved role data and recruiting migration for every recruiting function', () => {
+  const config = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+  for (const pattern of ['api/recruiting/[...path].js', 'api/recruiting/**/*.js']) {
+    assert.equal(config.functions[pattern].includeFiles, '{db/migrations/0003_recruiting.sql,lib/recruiting/scope-roles.json}');
+  }
+  assert.equal(JSON.parse(readFileSync(new URL('../lib/recruiting/scope-roles.json', import.meta.url), 'utf8')).length, 8);
 });

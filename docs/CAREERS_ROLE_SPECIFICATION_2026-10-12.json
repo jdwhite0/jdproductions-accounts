@@ -1,0 +1,474 @@
+{
+  "version": "2026-10-12",
+  "status": "Approved scope; copy specification for parent review and implementation",
+  "source": "User-supplied careers directive, 2026-10-12",
+  "preservation": {
+    "existingProfessionalPositions": 6,
+    "existingInternships": 4,
+    "newProfessionalPositions": 1,
+    "newInternships": 4,
+    "totalRoleOpportunities": 15,
+    "generalApplicationSeparate": true,
+    "preserveAllExistingIdsSlugsApplicationsAndQuestionIds": true,
+    "unchangedRoleSlugs": [
+      "ai-systems-automation-engineer",
+      "founding-software-engineer",
+      "business-development-partnerships-associate",
+      "communications-brand-production-specialist",
+      "finance-business-operations-associate",
+      "communications-digital-media-intern",
+      "software-engineering-ai-systems-intern",
+      "general-application"
+    ]
+  },
+  "hiringTruth": [
+    "A published role accepts applications; it is not evidence of an employed person or a funded start date.",
+    "Research & Testing Lead is explicitly upcoming. The existing six professionals retain their current active classification unless the founder directs otherwise.",
+    "Founder retains responsibility or arranges qualified oversight until an accountable professional is engaged.",
+    "No intern begins client testing without an assigned qualified reviewer and written client authorization.",
+    "No compensation, location, schedule, duration, start date, employment classification, or named supervisor has been invented."
+  ],
+  "unresolvedScope": [
+    "Confirm compensation and employment terms before an offer; do not label internships unpaid or guarantee academic credit.",
+    "Confirm location, work arrangement, schedule, duration, start date, and named supervisors.",
+    "Existing application questions must remain associated with prior applications; do not replace their persistent IDs.",
+    "Public recruiting API question IDs must be synchronized to the marketing form, never guessed."
+  ],
+  "roles": [
+    {
+      "action": "revise",
+      "id": "00000000-0000-4000-8000-000000000214",
+      "slug": "operations-project-coordinator",
+      "title": "Operations & Project Coordinator",
+      "departmentName": "Operations & Corporate Development",
+      "status": "published",
+      "opportunityType": "active",
+      "employmentType": "to_be_confirmed",
+      "summary": "Coordinate founder priorities, scheduling, follow-ups, and project delivery across JD Productions.",
+      "description": "JD Productions is building its technology, production, and commercial operations. The Operations & Project Coordinator will help the founder keep priorities, schedules, and commitments organized as work moves across products and services.\n\nThe role combines practical founder support with project coordination: prepare meetings, maintain a clear record of decisions, track owners and deadlines, and follow up when a deliverable or approval is missing. Research & Testing engagements are an initial area of focus. The aim is to reduce day-to-day administrative work for the founder and make progress visible across the company.\n\nYou will coordinate with the people assigned to each project, including contractors where engaged. Financial commitments, hiring decisions, contracts, and client scope changes remain with the person authorized to approve them. This description defines the work the company needs; it does not imply that a fully staffed operations team is already in place.",
+      "responsibilities": "Maintain the founder’s agreed priorities, calendar, scheduling requests, and follow-up list.\nPrepare meeting agendas, briefing materials, notes, and action items; route decisions for approval.\nMaintain project plans with owners, deadlines, dependencies, and accurate status.\nCoordinate Research & Testing intake handoffs, scope review meetings, deliverables, and client follow-ups.\nFollow up with project owners and contractors and surface blockers before commitments are missed.\nOrganize contracts, project documents, and approved procedures with appropriate access controls.\nImprove recurring administrative tasks and prepare concise operational reports for the founder.",
+      "qualifications": "Experience coordinating projects, schedules, or operations with multiple stakeholders.\nClear written communication and reliable follow-through on action items.\nAbility to prioritize competing requests and identify when an approval is required.\nComfort with spreadsheets, calendars, documents, and project-management tools.\nDiscretion with confidential company, candidate, and client information.",
+      "learningOutcomes": "",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "employment_classification",
+        "schedule"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Preserve existing question IDs, prompts, required flags, and stored answers; proposed screening questions are optional additions only.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe a project where you coordinated schedules, owners, and follow-ups. How did you handle a missed deadline?",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "How would you organize a founder’s competing priorities without making decisions outside your authority?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "revise",
+      "id": "00000000-0000-4000-8000-000000000201",
+      "slug": "business-development-partnerships-intern",
+      "title": "Business Development & Partnerships Intern",
+      "departmentName": "Business Development & Partnerships",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Support prospect research, outreach preparation, and the Research & Testing pipeline under supervision.",
+      "description": "Help JD Productions build a disciplined record of prospective customers and partners. The initial focus is Research & Testing: digital experience reviews, software QA, and market and product research.\n\nYou will research organizations, identify relevant needs and contacts, prepare outreach drafts, and keep the customer-relationship record current. You will also help assemble proposals and track the next step in a business conversation. Work will be reviewed by the founder or an assigned business-development supervisor.\n\nThis is a supervised internship. You will not independently negotiate prices, sign agreements, promise delivery dates, or represent an unapproved service capability. Research and careful preparation come before outreach.",
+      "responsibilities": "Research prospective clients and partners and record the source, relevance, and next step.\nIdentify where JD’s defined Research & Testing offers may address a prospect’s stated needs.\nPrepare outreach drafts and briefing notes for review before they are sent.\nMaintain CRM records, contact history, qualification notes, and follow-up dates.\nAssist with proposals using approved scopes, prices, and service descriptions.\nTrack responses and hand qualified opportunities to the founder or authorized lead.\nPrepare concise pipeline summaries that distinguish interest from an agreement.",
+      "qualifications": "Interest in business development, entrepreneurship, marketing, or commercial research.\nAbility to research an organization and summarize findings clearly.\nComfort maintaining spreadsheets or customer-relationship records.\nCareful handling of contact information and willingness to follow approved outreach processes.\nWillingness to receive feedback and revise work before external use.",
+      "learningOutcomes": "Practice prospect research and evidence-based qualification.\nLearn how a service pipeline is documented and reviewed.\nPrepare outreach and proposal materials within defined commercial boundaries.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Preserve existing question IDs, prompts, required flags, and stored answers; proposed screening questions are optional additions only.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "How would you determine whether a company is a suitable prospect for a website experience review? Use a nonconfidential example.",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Share an example of research or writing you prepared for another person to use. What did you verify?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "revise",
+      "id": "00000000-0000-4000-8000-000000000203",
+      "slug": "operations-venture-development-intern",
+      "title": "Operations & Venture Development Intern",
+      "departmentName": "Operations & Corporate Development",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Support meeting preparation, founder follow-ups, task tracking, and venture research under supervision.",
+      "description": "Support the day-to-day coordination that helps a founder-led company keep work moving. You will help prepare meetings, organize documents, maintain task trackers, and collect the information needed for founder follow-ups.\n\nThe role also supports venture research: summarize requirements, identify unanswered questions, and prepare material for review. Research & Testing operations provide an initial setting for learning how inquiries, scopes, project tasks, and deliverables are coordinated.\n\nYou will work under the founder or an assigned operations supervisor. The internship does not carry independent executive authority: you do not approve spending, make hiring decisions, sign agreements, or commit the company to a project. Executive coordination belongs within this role rather than a separate, overlapping internship.",
+      "responsibilities": "Prepare draft agendas, meeting materials, notes, and action lists for review.\nHelp organize scheduling requests and track approved founder follow-ups.\nMaintain task and project trackers with owners, dates, status, and dependencies.\nOrganize internal documentation and record decisions accurately.\nSupport Research & Testing inquiry and delivery coordination without independently accepting engagements.\nResearch venture requirements and summarize evidence, assumptions, and unresolved questions.\nHelp document repeatable procedures and flag missed or unclear handoffs.",
+      "qualifications": "Interest in operations, entrepreneurship, project coordination, or management.\nStrong organization and clear written communication.\nComfort with calendars, spreadsheets, documents, and task-management tools.\nAbility to distinguish a request from an approved decision.\nDiscretion with confidential records and willingness to work within a reviewed scope.",
+      "learningOutcomes": "Practice meeting preparation and reliable follow-up.\nLearn project tracking, document control, and operational handoffs.\nResearch venture requirements without treating an idea as an approved commitment.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Preserve existing question IDs, prompts, required flags, and stored answers; proposed screening questions are optional additions only.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe a time you organized tasks or meeting follow-ups. How did you keep the record current?",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "What would you do if a task required an approval you had not received?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "add",
+      "id": "00000000-0000-4000-8000-000000000217",
+      "slug": "research-testing-lead",
+      "title": "Research & Testing Lead",
+      "departmentName": "Advanced Industries & Research",
+      "status": "published",
+      "opportunityType": "upcoming",
+      "employmentType": "to_be_confirmed",
+      "summary": "Establish research and QA methods, review client scopes and evidence, and supervise delivery.",
+      "description": "JD Productions is accepting applications for an upcoming Research & Testing Lead opportunity. This experienced role will establish practical methods for digital experience reviews, software quality assurance, and market and product research.\n\nThe lead will translate client questions into a written scope, define an evaluation plan, review findings, and prepare reports that distinguish evidence from interpretation. Supervising junior contributors and setting clear limits on their access and responsibilities are central to the role.\n\nClient work requires written authorization identifying the systems, actions, data, and limits in scope. The lead must stop work that falls outside that authorization and route security, legal, or specialist questions to qualified oversight. This is not a claim that JD operates an accredited laboratory, provides penetration testing, or certifies regulatory compliance. Hiring timing and engagement terms remain to be confirmed.",
+      "responsibilities": "Develop repeatable methods for JD’s defined experience testing, QA, and research services.\nConfirm evaluation goals, deliverables, environments, access limits, and written client authorization before work begins.\nPrepare test and research plans with clear coverage, evidence requirements, and completion criteria.\nSupervise interns and other assigned contributors through bounded tasks and documented review.\nReview reproducible defects, usability observations, and research sources for accuracy and relevance.\nProduce prioritized findings and recommendations with limitations and unresolved questions.\nCoordinate delivery reviews, approved retests, and client handoffs.\nEscalate work requiring expertise or authority outside the agreed service scope.",
+      "qualifications": "Demonstrated experience planning and delivering software QA, digital experience evaluations, or product research.\nEvidence of writing clear test plans, findings, or client reports.\nExperience reviewing others’ work and mentoring junior contributors.\nAbility to distinguish confirmed defects, observations, assumptions, and unsupported conclusions.\nSound judgment about client authorization, least-privilege access, confidential information, and scope limits.\nAbility to coordinate relevant specialist review when a question exceeds your expertise.",
+      "learningOutcomes": "",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Upcoming opportunity. Applications are accepted for future consideration; the hiring timetable and engagement terms have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "employment_classification",
+        "schedule"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Create unique persistent question IDs through the recruiting backend; use these questions on the new listing.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe an evaluation you led: its scope, evidence, limitations, and what you delivered. Do not disclose confidential client material.",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "How do you review an intern’s findings and ensure testing stays within written client authorization?",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "What experience do you have across software QA, usability evaluation, and market or product research? Identify your strongest area and any limits.",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "add",
+      "id": "00000000-0000-4000-8000-000000000205",
+      "slug": "software-qa-product-testing-intern",
+      "title": "Software QA & Product Testing Intern",
+      "departmentName": "Product & Engineering",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Execute supervised test cases and document reproducible defects in websites, applications, and workflows.",
+      "description": "Support JD Productions’ Research & Testing work by checking websites, applications, and software workflows against an approved test plan. You will document steps, expected results, observed results, and evidence another person can reproduce.\n\nAn assigned qualified supervisor will define the scope and review your findings. Testing takes place only in approved environments with written authorization; you will not receive unrestricted production credentials or independently approve a release. Security probing, load testing, changes to live customer data, and activities outside the authorized plan are not part of an intern’s independent remit.",
+      "responsibilities": "Execute assigned functional and regression test cases in approved environments.\nRecord device, browser, version, steps, expected results, and actual results.\nCapture permitted screenshots or logs while excluding confidential data.\nReport reproducible defects with clear evidence and appropriate severity recommendations.\nRetest approved fixes and record whether the original issue remains.\nMaintain test records and ask for review when a result or scope limit is unclear.",
+      "qualifications": "Interest in software quality, product testing, or web and application development.\nAbility to follow a test plan and write clear reproduction steps.\nAttention to detail and willingness to distinguish an observation from a confirmed defect.\nBasic familiarity with browsers, applications, and digital productivity tools.\nWillingness to follow access restrictions, data-handling rules, and supervisor review.",
+      "learningOutcomes": "Practice test execution, defect documentation, and approved retesting.\nLearn to report coverage and limitations honestly.\nDevelop safe testing habits within a defined scope.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Create unique persistent question IDs through the recruiting backend; use these questions on the new listing.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe a software issue you found and how another person could reproduce it.",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "What would you do if an assigned test might affect live customer data?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "add",
+      "id": "00000000-0000-4000-8000-000000000206",
+      "slug": "ux-research-usability-intern",
+      "title": "UX Research & Usability Intern",
+      "departmentName": "Product & Engineering",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Support usability evaluations and research documentation under qualified supervision.",
+      "description": "Help evaluate how people navigate digital products and where they encounter friction. You will support structured interface reviews, prepare research materials, and organize observations for JD Productions’ Research & Testing work.\n\nAn assigned qualified supervisor will approve the research question, method, participant arrangements, and report. Studies involving people require an approved plan and appropriate consent before contact or recording. You will not independently recruit participants, collect sensitive information, or present a small sample as a conclusion about every user.",
+      "responsibilities": "Review assigned user journeys against agreed evaluation criteria.\nPrepare draft study guides, tasks, and note-taking templates for supervisor approval.\nAssist with approved study coordination and consent records.\nOrganize observations and supporting evidence without identifying participants unnecessarily.\nDistinguish observed behavior from interpretation and recommendations.\nPrepare research summaries with method, sample, limitations, and follow-up questions.",
+      "qualifications": "Interest in user experience, design, human behavior, or product research.\nClear writing and careful observation.\nAbility to organize notes and explain the evidence behind a finding.\nRespect for participant consent, privacy, and confidential product information.\nWillingness to use a reviewed method and accept feedback.",
+      "learningOutcomes": "Practice structured usability observation and research documentation.\nLearn consent, privacy, and limitations in user research.\nTranslate evidence into carefully qualified design recommendations.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Create unique persistent question IDs through the recruiting backend; use these questions on the new listing.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe a digital experience that was difficult to use. Separate what you observed from what you would change.",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "How would you protect participant privacy when organizing research notes?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "add",
+      "id": "00000000-0000-4000-8000-000000000207",
+      "slug": "market-competitive-research-intern",
+      "title": "Market & Competitive Research Intern",
+      "departmentName": "Advanced Industries & Research",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Research markets, competitors, products, and published pricing for client and internal projects.",
+      "description": "Support JD Productions’ client research and internal venture planning with careful, source-based investigation. You will study markets, compare products and competitors, and organize published pricing and customer-need evidence around a defined research question.\n\nAn assigned supervisor will review the research plan and conclusions. Use public information and client-authorized sources; do not misrepresent your identity, bypass access controls, or obtain confidential competitor material. Reports must distinguish sourced facts, dated observations, assumptions, and recommendations.",
+      "responsibilities": "Research assigned industries, competitors, products, and customer needs.\nMaintain source links, publication dates, and access dates for material used.\nCompare public product features and pricing on a consistent basis.\nRecord gaps, conflicting sources, and uncertainty rather than filling them with guesses.\nPrepare concise research briefs and comparison tables for review.\nSupport client engagements and internal venture questions within the approved research scope.",
+      "qualifications": "Interest in business research, economics, strategy, or product development.\nAbility to locate and evaluate relevant sources.\nClear writing and comfort with structured comparisons and spreadsheets.\nAttention to dates, definitions, and the difference between an estimate and a verified fact.\nWillingness to follow ethical research and confidentiality boundaries.",
+      "learningOutcomes": "Practice source evaluation, market mapping, and competitive comparisons.\nLearn to document assumptions and research limitations.\nPrepare briefs that support a decision without overstating the evidence.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Create unique persistent question IDs through the recruiting backend; use these questions on the new listing.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe a research question you investigated. How did you decide which sources to trust?",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "How would you compare competitor pricing when the packages cover different services?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    },
+    {
+      "action": "add",
+      "id": "00000000-0000-4000-8000-000000000208",
+      "slug": "finance-administrative-operations-intern",
+      "title": "Finance & Administrative Operations Intern",
+      "departmentName": "Finance & Economic Systems",
+      "status": "published",
+      "opportunityType": "internship",
+      "employmentType": "internship",
+      "summary": "Support expense records, draft invoices, document organization, and routine reports under oversight.",
+      "description": "Help keep JD Productions’ financial and administrative records organized and ready for review. You will assist with expense documentation, draft invoice preparation, filing, and routine reporting using approved processes.\n\nThe founder, an assigned finance supervisor, or a qualified professional retains approval and oversight. The internship does not authorize moving funds, approving payments, signing financial statements, providing accounting or legal advice, or independently accessing banking credentials. Figures must trace to source records, and questions must be escalated rather than resolved by guesswork.",
+      "responsibilities": "Organize expense documents and link records to their supporting invoices or receipts.\nPrepare draft invoices using approved scope and pricing for authorized review.\nMaintain administrative files, checklists, and document versions.\nAssist with routine spreadsheet updates and reports from approved source records.\nFlag missing documents, inconsistent figures, and questions for the supervisor.\nProtect confidential records and follow access and retention instructions.",
+      "qualifications": "Interest in finance, accounting, business administration, or operations.\nBasic spreadsheet skills and attention to numerical accuracy.\nAbility to organize documents and follow a reviewed process.\nDiscretion with financial, personal, and client information.\nUnderstanding that preparation, approval, and payment are separate responsibilities.",
+      "learningOutcomes": "Practice record organization and source-based reporting.\nLearn invoice preparation and basic administrative controls.\nDevelop confidentiality and escalation habits under professional oversight.",
+      "timingStatus": "to_be_determined",
+      "timingNote": "Applications are accepted. Compensation, location, work arrangement, schedule, and start date have not been confirmed.",
+      "supervisorLabel": null,
+      "location": null,
+      "workplace": "to_be_confirmed",
+      "durationText": null,
+      "scheduleText": null,
+      "compensationMinCents": null,
+      "compensationMaxCents": null,
+      "compensationCurrency": "usd",
+      "compensationPublic": false,
+      "resumeRequired": false,
+      "unresolvedTerms": [
+        "compensation",
+        "start_date",
+        "work_arrangement",
+        "schedule",
+        "duration",
+        "named_supervisor"
+      ],
+      "instructions": "Submit this form to apply. An application is not an offer of employment, an interview, or a confirmed start date. Please do not include confidential employer or client information.",
+      "questionPolicy": "Create unique persistent question IDs through the recruiting backend; use these questions on the new listing.",
+      "questions": [
+        {
+          "prompt": "Relevant experience",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "Describe how you would check an expense spreadsheet against supporting receipts.",
+          "fieldType": "longtext",
+          "required": false
+        },
+        {
+          "prompt": "What would you do if someone asked you to approve a payment outside your assigned authority?",
+          "fieldType": "longtext",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

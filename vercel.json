@@ -107,10 +107,10 @@
   "installCommand": "npm ci",
   "functions": {
     "api/recruiting/[...path].js": {
-      "includeFiles": "db/migrations/0003_recruiting.sql"
+      "includeFiles": "{db/migrations/0003_recruiting.sql,lib/recruiting/scope-roles.json}"
     },
     "api/recruiting/**/*.js": {
-      "includeFiles": "db/migrations/0003_recruiting.sql"
+      "includeFiles": "{db/migrations/0003_recruiting.sql,lib/recruiting/scope-roles.json}"
     }
   }
 }
